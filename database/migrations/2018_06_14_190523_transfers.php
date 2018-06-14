@@ -14,7 +14,7 @@ class Transfers extends Migration
     public function up()
     {
         Schema::create('transfers', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('tansfers_id');
             $table->date('start_date');
             $table->integer('number_people');
             $table->money('price');

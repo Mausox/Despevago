@@ -14,7 +14,7 @@ class TransferCars extends Migration
     public function up()
     {
         Schema::create('transfer_cars', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('transfer_cars_id');
             $table->string('vehicle_registration_number');
             $table->integer('capacity');
             $table->integer('category');
