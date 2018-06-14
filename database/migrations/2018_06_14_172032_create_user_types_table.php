@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Aejnsn\Postgresify\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UsersType extends Migration
+class CreateUserTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class UsersType extends Migration
      */
     public function up()
     {
-        Schema::create('users_type', function (Blueprint $table) {
-            $table->increments('users_type_id');
+        Schema::create('user_types', function (Blueprint $table) {
+            $table->increments('user_type_id');
             $table->string('name');
             $table->timestamps();
         });
@@ -27,6 +27,6 @@ class UsersType extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_type');
+        Schema::dropIfExists('user_types');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Aejnsn\Postgresify\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Reservations extends Migration
+class CreateReservationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class Reservations extends Migration
     public function up()
     {
         Schema::create('reservations', function (Blueprint $table) {
-            $table->increments('reservations_id');
+            $table->increments('reservation_id');
             $table->date('date');
             $table->time('hour');
             $table->money('current_balance');

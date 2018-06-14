@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Aejnsn\Postgresify\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Users extends Migration
+class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class Users extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('users_id');
+            $table->increments('user_id');
             $table->string('email');
             $table->string('password');
             $table->string('first_name');

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Aejnsn\Postgresify\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Cities extends Migration
+class CreateCitiesTable extends Migration
 {
     /**
      * Run the migrations.

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Aejnsn\Postgresify\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class TransferCars extends Migration
+class CreateTransferCarsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class TransferCars extends Migration
     public function up()
     {
         Schema::create('transfer_cars', function (Blueprint $table) {
-            $table->increments('transfer_cars_id');
+            $table->increments('transfer_car_id');
             $table->string('vehicle_registration_number');
             $table->integer('capacity');
             $table->integer('category');

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Aejnsn\Postgresify\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UsersHistory extends Migration
+class CreateUsersHistoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class UsersHistory extends Migration
      */
     public function up()
     {
-        Schema::create('users_history', function (Blueprint $table) {
-            $table->increments('users_history_id');
+        Schema::create('user_histories', function (Blueprint $table) {
+            $table->increments('user_history_id');
             $table->date('date');
             $table->time('hour');
             $table->string('action');
@@ -29,6 +29,6 @@ class UsersHistory extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_history');
+        Schema::dropIfExists('user_histories');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Aejnsn\Postgresify\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFinancialInformationsTable extends Migration
+class CreateFinancialInformationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateFinancialInformationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('financial_informations', function (Blueprint $table) {
+        Schema::create('financial_information', function (Blueprint $table) {
             $table->increments('financial_information_id');
             $table->string('bank_name');
             $table->string('number_account');
