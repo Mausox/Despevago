@@ -4,8 +4,56 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d5bca48e56bbf3a25645858fcab9c285",
+    "content-hash": "1542e6e56b86ee3d9c903354d44076c3",
     "packages": [
+        {
+            "name": "aejnsn/postgresify",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aejnsn/postgresify.git",
+                "reference": "4d3a5ff93f6daaa2e197673f5a38dfff095b301c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aejnsn/postgresify/zipball/4d3a5ff93f6daaa2e197673f5a38dfff095b301c",
+                "reference": "4d3a5ff93f6daaa2e197673f5a38dfff095b301c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "~5.1",
+                "illuminate/support": "~5.1",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Aejnsn\\Postgresify\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aaron Johnson",
+                    "email": "aaron@aejnsn.com"
+                }
+            ],
+            "description": "Extended PostgreSQL Functionality for Laravel",
+            "keywords": [
+                "laravel",
+                "lumen",
+                "pgsql",
+                "postgresql",
+                "types"
+            ],
+            "time": "2016-10-24T21:20:12+00:00"
+        },
         {
             "name": "dnoegel/php-xdg-base-dir",
             "version": "0.1",
@@ -3984,7 +4032,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "aejnsn/postgresify": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
