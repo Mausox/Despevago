@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Migrations\Migration;
 
 
-class CreateTableActivities extends Migration
+class CreateActivitiesTable extends Migration
 {
     /**
      * Run the migrations.
