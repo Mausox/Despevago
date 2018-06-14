@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Schema;
-//use Illuminate\Database\Schema\Blueprint;
 use Aejnsn\Postgresify\Database\Schema\Blueprint;
+//use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateSeatsTable extends Migration

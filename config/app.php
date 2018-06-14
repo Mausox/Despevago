@@ -150,7 +150,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Aejnsn\Postgresify\DatabaseServiceProvider::class,
         /*
          * Application Service Providers...
          */
