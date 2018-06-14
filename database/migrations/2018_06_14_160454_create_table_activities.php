@@ -19,7 +19,8 @@ class CreateTableActivities extends Migration
             $table->increments('activity_id');
             $table->string('address');
             $table->date('date');
-            $table->money('money');
+            $table->money('price');
+            $table->time('hour');
             $table->string('description');
             $table->timestamps();
         });
