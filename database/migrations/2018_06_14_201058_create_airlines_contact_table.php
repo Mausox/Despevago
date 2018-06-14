@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Schema;
 use Aejnsn\Postgresify\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMigrationAirportsTable extends Migration
+class CreateAirlinesContactTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,9 @@ class CreateMigrationAirportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('airports', function (Blueprint $table) {
-            $table->increments('airport_id');
-            $table->string('name');
-            $table->string('address');
+        Schema::create('airlines_contact', function (Blueprint $table) {
+            $table->increments('airline_contact_id');
+            $table->string('telephone');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateMigrationAirportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('airports');
+        Schema::dropIfExists('airlines_contact');
     }
 }

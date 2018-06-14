@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Schema;
 use Aejnsn\Postgresify\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMigrationClassTypeTable extends Migration
+class CreateClassTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreateMigrationClassTypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('class_type', function (Blueprint $table) {
+        Schema::create('class_types', function (Blueprint $table) {
             $table->increments('class_type_id');
             $table->string('name');
             $table->timestamps();
@@ -28,6 +28,6 @@ class CreateMigrationClassTypeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('class_type');
+        Schema::dropIfExists('class_types');
     }
 }
