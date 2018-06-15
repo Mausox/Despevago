@@ -24,6 +24,7 @@ class CreateCarsTable extends Migration
             $table->date('return_date');
             $table->time('return_time');
             $table->timestamps();
+            $table->integer('company_id')->unsigned();
         });
     }
 

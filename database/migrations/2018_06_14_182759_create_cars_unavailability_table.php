@@ -17,6 +17,8 @@ class CreateCarsUnavailabilityTable extends Migration
             $table->increments('car_unavailability_id');
             $table->date('date');
             $table->timestamps();
+            $table->integer('reservation_id')->unsigned();
+            $table->integer('car_id')->unsigned();
         });
     }
 
