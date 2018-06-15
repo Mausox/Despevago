@@ -17,6 +17,8 @@ class CreateRoomsUnavaibilityTable extends Migration
             $table->increments('room_unavaibility_id');
             $table->date('date');
             $table->timestamps();
+            $table->unsignedInteger('reservation_id');
+            $table->unsignedInteger('room_id');
         });
     }
 

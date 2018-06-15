@@ -17,6 +17,7 @@ class CreateHotelContactsTable extends Migration
             $table->increments('hotel_contact_id');
             $table->string('telephone');
             $table->timestamps();
+            $table->unsignedInteger('hotel_id');
         });
     }
 
