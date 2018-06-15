@@ -20,6 +20,7 @@ class CreateReservationsTable extends Migration
             $table->money('current_balance');
             $table->money('new_balance');
             $table->timestamps();
+            $table->unsignedInteger('user_id');
         });
     }
 
