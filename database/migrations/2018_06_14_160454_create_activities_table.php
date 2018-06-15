@@ -23,6 +23,7 @@ class CreateActivitiesTable extends Migration
             $table->time('hour');
             $table->string('description');
             $table->timestamps();
+            $table->integer('city_id');
         });
     }
 
