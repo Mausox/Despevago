@@ -17,6 +17,8 @@ class CreateBranchOfficesContactTable extends Migration
             $table->increments('branch_office_contact_id');
             $table->string('telephone');
             $table->timestamps();
+            $table->integer('branch_office_id');
+            
         });
     }
 
