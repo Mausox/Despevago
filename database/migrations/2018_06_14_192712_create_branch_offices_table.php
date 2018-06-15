@@ -18,6 +18,7 @@ class CreateBranchOfficesTable extends Migration
             $table->string('address');
             $table->timestamps();
             $table->integer('company_id');
+            $table->integer('city_id');
         });
     }
 
