@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->unsignedInteger('user_type_id');
             $table->unsignedInteger('user_history_id');
-            $table->unsignedInteger('financial_information');
+            $table->unsignedInteger('financial_information_id');
         });
     }
 
@@ -36,6 +36,7 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+
         Schema::dropIfExists('users');
     }
 }
