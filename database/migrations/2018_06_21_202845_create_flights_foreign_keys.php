@@ -43,7 +43,7 @@ class CreateFlightsForeignKeys extends Migration
          */
         Schema::table('airports', function (Blueprint $table)
         {
-            $table->foreign('city_id')->refences('city_id')->on('cities')->onDelete('cascade');
+            $table->foreign('city_id')->references('city_id')->on('cities')->onDelete('cascade');
         });
 
     }
