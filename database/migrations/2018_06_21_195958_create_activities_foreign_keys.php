@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCompaniesTable extends Migration
+class CreateActivitiesForeignKeys extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateCompaniesTable extends Migration
      */
     public function up()
     {
-        Schema::create('companies', function (Blueprint $table) {
-            $table->increments('company_id');
-            $table->string('address');
-            $table->string('email')->unique();
-            $table->timestamps();
+        Schema::table('activities', function (Blueprint $table) {
+           $table->foreign('city_id')->references('city_id')->on('cities')->onDelete('cascade');
         });
     }
 
@@ -26,9 +23,12 @@ class CreateCompaniesTable extends Migration
      *
      * @return void
      */
+
     public function down()
     {
-
-        Schema::dropIfExists('companies');
+        Schema::table('activities', function (Blueprint $table) {
+            $table->dropForeign('activities_city_id_foreign');
+        });
     }
+
 }

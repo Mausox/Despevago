@@ -13,8 +13,8 @@ class CreateRoomsUnavaibilityTable extends Migration
      */
     public function up()
     {
-        Schema::create('rooms_unavaibility', function (Blueprint $table) {
-            $table->increments('room_unavaibility_id');
+        Schema::create('rooms_unavailability', function (Blueprint $table) {
+            $table->increments('room_unavailability_id');
             $table->date('date');
             $table->timestamps();
             $table->unsignedInteger('reservation_id');
