@@ -35,7 +35,7 @@ class CreateFlightsForeignKeys extends Migration
          * Add a foreign key in airlines
          */
         Schema::table('airlines', function (Blueprint $table) {
-            $table->foreign('airline_contact_id')->references('airline_contact_id')->on('airlines_contact');
+            $table->foreign('airline_contact_id')->references('airline_contact_id')->on('airlines_contact')->onDelete('cascade');
         });
 
         /**
@@ -43,7 +43,7 @@ class CreateFlightsForeignKeys extends Migration
          */
         Schema::table('airports', function (Blueprint $table)
         {
-            $table->foreign('city_id')->refences('city_id')->on('cities');
+            $table->foreign('city_id')->refences('city_id')->on('cities')->onDelete('cascade');
         });
 
     }
