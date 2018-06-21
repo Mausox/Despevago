@@ -18,7 +18,7 @@ class CreateFlightsForeignKeys extends Migration
          */
         Schema::table('seats', function (Blueprint $table) {
             $table->foreign('passenger_id')->references('passenger_id')->on('passengers')->onDelete('cascade');
-            $table->foreign('class_type_id')->references('class_type_id')->on('class_types');
+            $table->foreign('class_type_id')->references('class_type_id')->on('class_types')->onDelete('cascade');
             $table->foreign('flight_id')->references('flight_id')->on('flights')->onDelete('cascade');
 
         });
