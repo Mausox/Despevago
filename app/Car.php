@@ -16,8 +16,8 @@ class Car extends Model
     protected $classification;
     protected $price;
 
-    public function car_unavailabilities(){
-        return $this->hasMany('App\CarUnavailability');
+    public function unavailable_cars(){
+        return $this->hasMany('App\UnavailableCar');
     }
 
     public function car_options(){
