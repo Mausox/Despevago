@@ -13,4 +13,9 @@ class Seat extends Model
     {
         return $this->hasOne('App\Passenger');
     }
+
+    public function class_type()
+    {
+        return $this->belongsTo('App\ClassType');
+    }
 }
