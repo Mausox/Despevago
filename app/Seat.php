@@ -18,4 +18,9 @@ class Seat extends Model
     {
         return $this->belongsTo('App\ClassType');
     }
+
+    public function flight()
+    {
+        return $this->belongsTo('App\Flight');
+    }
 }
