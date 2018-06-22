@@ -14,4 +14,8 @@ class BranchOffice extends Model
     public function company(){
         return $this->belongsTo('App\Company');
     }
+
+    public function branch_offices_contact(){
+        return $this->hasMany('App\BranchOfficeContact');
+    }
 }
