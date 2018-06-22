@@ -23,4 +23,8 @@ class Car extends Model
     public function car_options(){
         return $this->belongsToMany('App\CarOption');
     }
+
+    public function company(){
+        return $this->belongsTo('App\Company');
+    }
 }
