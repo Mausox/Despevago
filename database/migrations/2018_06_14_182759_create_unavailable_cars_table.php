@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRoomsUnavaibilityTable extends Migration
+class CreateUnavailableCarsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateRoomsUnavaibilityTable extends Migration
      */
     public function up()
     {
-        Schema::create('rooms_unavailability', function (Blueprint $table) {
-            $table->increments('room_unavailability_id');
+        Schema::create('unavailable_cars', function (Blueprint $table) {
+            $table->increments('unavailable_cars_id');
             $table->date('date');
             $table->timestamps();
-            $table->unsignedInteger('reservation_id');
-            $table->unsignedInteger('room_id');
+            $table->integer('reservation_id')->unsigned();
+            $table->integer('car_id')->unsigned();
         });
     }
 
@@ -29,6 +29,7 @@ class CreateRoomsUnavaibilityTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rooms_unavaibility');
+
+        Schema::dropIfExists('unavailable_cars');
     }
 }
