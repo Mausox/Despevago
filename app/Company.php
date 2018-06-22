@@ -16,4 +16,8 @@ class Company extends Model
         return $this->hasMany('App\Car');
     }
 
+    public function branch_offices(){
+        return $this->hasMany('App\BranchOffice');
+    }
+
 }
