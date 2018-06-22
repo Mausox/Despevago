@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CarUnavailability extends Model
+class UnavailableCar extends Model
 {
-    protected $primaryKey = 'car_unavailability_id';
-    protected $table = 'cars_unavailability';
+    protected $primaryKey = 'unavailable_cars_id';
+    protected $table = 'unavailable_cars';
 
     protected $date;
 
