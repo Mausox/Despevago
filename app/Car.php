@@ -19,4 +19,8 @@ class Car extends Model
     public function car_unavailabilities(){
         return $this->hasMany('App\CarUnavailability');
     }
+
+    public function car_options(){
+        return $this->belongsToMany('App\CarOption');
+    }
 }
