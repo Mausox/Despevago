@@ -24,4 +24,11 @@ class CreateActivitiesForeignKeys extends Migration
      * @return void
      */
 
+    public function down()
+    {
+        Schema::table('activities', function (Blueprint $table) {
+            $table->dropForeign('activities_city_id_foreign');
+        });
+    }
+
 }
