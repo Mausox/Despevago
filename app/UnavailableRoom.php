@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UnavailableRoom extends Model
 {
-    protected $primaryKey = 'unavailable_room';
+    protected $primaryKey = 'unavailable_room_id';
     protected $table = 'unavailable_rooms';
 
     protected $date;
@@ -15,5 +15,7 @@ class UnavailableRoom extends Model
     {
         $this->belongsTo('App\Reservation');
     }
+
+
 
 }
