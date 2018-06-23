@@ -29,4 +29,9 @@ class Hotel extends Model
         $this->hasMany('App\Transfer');
     }
 
+    public function city()
+    {
+        $this->belongsTo('App\City');
+    }
+
 }
