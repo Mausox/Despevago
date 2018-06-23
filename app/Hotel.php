@@ -24,7 +24,7 @@ class Hotel extends Model
         $this->hasMany('App\HotelContact');
     }
 
-    public function tranfers()
+    public function transfers()
     {
         $this->hasMany('App\Transfer');
     }
