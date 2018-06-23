@@ -14,7 +14,7 @@ class Reservation extends Model
         return $this->hasMany('App/User');
     }
     public function activities(){
-        return $this->belongsToMany('App/class');
+        return $this->belongsToMany('App/Activity');
     }
     public function seats(){
         return $this->belongsToMany('App/Seat');
@@ -26,6 +26,6 @@ class Reservation extends Model
         return $this->hasMany('App/UnavailableRoom');
     }
     public function unavailable_cars(){
-        return $this->hasMany('App/UnavailableCars');
+        return $this->hasMany('App/UnavailableCar');
     }
 }
