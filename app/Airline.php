@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Airline extends Model
 {
     /**
-     * @var string
+     * @var string .
      */
     protected $primaryKey = 'airline_id';
 
