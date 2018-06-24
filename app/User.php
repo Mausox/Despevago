@@ -9,6 +9,9 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    protected $primaryKey = 'user_id';
+
+    protected $table = 'users';
     /**
      * The attributes that are mass assignable.
      *
@@ -26,4 +29,18 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function reservations(){
+        return $this->hasMany('App/Reservation');
+    }
+    public function user_type(){
+        return $this->belongsTo('App/UserType');
+    }
+    public function financial_information(){
+        return $this->hasOne('App/FinancialInformation');
+    }
+    public function user_history(){
+        return $this->belongsTo('App/UserHistory');
+    }
+
 }
