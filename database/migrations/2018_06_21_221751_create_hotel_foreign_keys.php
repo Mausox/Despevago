@@ -13,7 +13,7 @@ class CreateHotelForeignKeys extends Migration
      */
     public function up()
     {
-        Schema::table('rooms_unavailability', function (Blueprint $table) {
+        Schema::table('unavailable_rooms', function (Blueprint $table) {
             $table->foreign('reservation_id')->references('reservation_id')->on('reservations')->onDelete('cascade');
             $table->foreign('room_id')->references('room_id')->on('rooms')->onDelete('cascade');
 
