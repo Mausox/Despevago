@@ -17,7 +17,7 @@ class CreateCarsForeignKeys extends Migration
             $table->foreign('company_id')->references('company_id')->on('companies')->onDelete('cascade');
         });
 
-        Schema::table('cars_unavailability', function (Blueprint $table) {
+        Schema::table('unavailable_cars', function (Blueprint $table) {
             $table->foreign('reservation_id')->references('reservation_id')->on('reservations')->onDelete('cascade');
             $table->foreign('car_id')->references('car_id')->on('cars')->onDelete('cascade');
         });
