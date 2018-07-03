@@ -40,27 +40,21 @@ class CreateCarsForeignKeys extends Migration
     public function down(){
 
         Schema::table('cars', function (Blueprint $table) {
-            $table->dropForeign('cars_company_id_foreign');
+            $table->dropForeign(['company_id']);
         });
 
-        Schema::table('cars_unavailable', function (Blueprint $table) {
-            $table->dropForeign('cars_unavailable_reservation_id_foreign');
-        });
-
-        Schema::table('cars_unavailability', function (Blueprint $table) {
-            $table->dropForeign('cars_unavailable_car_id_foreign');
+        Schema::table('unavailable_cars', function (Blueprint $table) {
+            $table->dropForeign(['reservation_id']);
+            $table->dropForeign(['car_id']);
         });
 
         Schema::table('branch_offices', function (Blueprint $table) {
-            $table->dropForeign('branch_offices_company_id_foreign');
-        });
-
-        Schema::table('branch_offices', function (Blueprint $table) {
-            $table->dropForeign('branch_offices_city_id_foreign');
+            $table->dropForeign(['city_id']);
+            $table->dropForeign(['company_id']);
         });
 
         Schema::table('branch_offices_contact', function (Blueprint $table) {
-            $table->dropForeign('branch_offices_contact_branch_office_id_foreign');
+            $table->dropForeign(['branch_office_id']);
         });
     }
 
