@@ -40,9 +40,9 @@ class CreateHotelForeignKeys extends Migration
      */
     public function down()
     {
-        Schema::table('rooms_unavailability', function (Blueprint $table) {
-            $table->dropForeign('rooms_unavailability_reservation_id_foreign');
-            $table->dropForeign('rooms_unavailability_room_id_foreign');
+        Schema::table('unavailable_rooms', function (Blueprint $table) {
+            $table->dropForeign('unavailable_rooms_reservation_id_foreign');
+            $table->dropForeign('unavailable_rooms_room_id_foreign');
 
         });
 

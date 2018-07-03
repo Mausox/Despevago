@@ -13,6 +13,11 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    @if(Auth::user()->has_user_type('admin'))
+                        <div>Admin</div>
+                    @else
+                        <div>User</div>
+                    @endif
 
                     You are logged in!
                 </div>
