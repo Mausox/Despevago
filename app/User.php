@@ -25,7 +25,7 @@ class User extends Authenticatable
     }
 
     public function user_types(){
-        return $this->belongsToMany('App\UserType')->withTimestamps();
+        return $this->belongsToMany('App\UserType');
     }
 
     public function authorize_user_types($user_types){

@@ -11,7 +11,7 @@ class UserType extends Model
     protected $table = 'user_types';
 
     public function users(){
-        return $this->belongsToMany('App/User')->withtimestamps();
+        return $this->belongsToMany('App\User')->withtimestamps();
     }
 
 }
