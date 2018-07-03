@@ -15,7 +15,6 @@ class CreateUserForeignKey extends Migration
     {
 
         Schema::table('users', function (Blueprint $table) {
-            $table->foreign('user_type_id')->references('user_type_id')->on('user_types')->onDelete('cascade');
             $table->foreign('user_history_id')->references('user_history_id')->on('user_histories')->onDelete('cascade');
             $table->foreign('financial_information_id')->references('financial_information_id')->on('financial_information')->onDelete('cascade');
         });

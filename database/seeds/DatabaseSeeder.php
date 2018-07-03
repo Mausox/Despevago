@@ -13,6 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         // Tipo de usuario es creado antes del usuario.
         $this->call(UserTypeTableSeeder::class);
-        $this->call(UsersTableSeeder::class);
+        $this->call(UserTableSeeder::class);
     }
 }
