@@ -11,6 +11,14 @@ class UserTypeTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $user_type = new \App\UserType();
+        $user_type->name = 'admin';
+        $user_type->description = 'Admin is a God';
+        $user_type->save();
+
+        $user_type = new \App\UserType();
+        $user_type->name = 'user';
+        $user_type->description = 'User is a Slave';
+        $user_type->save();
     }
 }
