@@ -11,8 +11,8 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        $user_type_user = UserType::where('name', 'user')->first();
-        $user_type_admin  = UserType::where('name', 'admin')->first();
+        $type_user = UserType::where('name', 'user')->first();
+        $ype_admin  = UserType::where('name', 'admin')->first();
 
         $user = new User();
         $user->first_name = 'User';
@@ -21,10 +21,10 @@ class UserTableSeeder extends Seeder
         $user->address = 'where users live #404';
         $user->email = 'user@example.com';
         $user->password = bcrypt('secret');
-        $user->user_history_id = 1;
         $user->financial_information_id = 1;
+        $user->user_history_id = 1;
         $user->save();
-        $user->user_types()->attach($user_type_user);
+        $user->user_types()->attach($type_user);
 
         $user = new User();
         $user->first_name = 'Manager';
@@ -33,9 +33,9 @@ class UserTableSeeder extends Seeder
         $user->address = 'where admins live #Mount Olympus';
         $user->email = 'admin@example.com';
         $user->password = bcrypt('secret');
-        $user->user_history_id = 2;
         $user->financial_information_id = 2;
+        $user->user_history_id = 2;
         $user->save();
-        $user->user_types()->attach($user_type_admin);
+        $user->user_types()->attach($ype_admin);
     }
 }
