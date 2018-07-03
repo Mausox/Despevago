@@ -33,7 +33,7 @@ class CreateUserForeignKey extends Migration
     {
         Schema::table('users', function(blueprint $table)
         {
-            $table->dropForeign(['history_id']);
+            $table->dropForeign(['user_history_id']);
             $table->dropForeign(['financial_information_id']);
         });
 
