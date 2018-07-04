@@ -6,9 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Hotel extends Model
 {
-    protected $primaryKey = 'hotel_id';
-    protected $table = 'hotels';
-
     protected $name;
     protected $email;
     protected $score;

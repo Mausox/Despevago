@@ -6,9 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class BranchOffice extends Model
 {
-    protected $primaryKey = 'branch_office_id';
-    protected $table = 'branch_offices';
-
     protected $address;
 
     public function company(){

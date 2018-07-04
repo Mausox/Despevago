@@ -6,10 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class City extends Model
 {
-    protected $primaryKey = 'city_id';
-
-    protected $table = 'cities;';
-
     public function activities(){
         return $this->hasMany('App/Activity');
     }
