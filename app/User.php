@@ -9,9 +9,6 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    protected $primaryKey = 'user_id';
-    protected $table = 'users';
-
     public function reservations(){
         return $this->hasMany('App/Reservation');
     }

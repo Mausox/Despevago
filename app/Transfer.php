@@ -5,10 +5,6 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Transfer extends Model
-{
-    protected $primaryKey = 'transfer_id';
-
-    protected $table = 'transfers';
 
     public function reservations(){
         return $this->belongsToMany('App/Reservation');

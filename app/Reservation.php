@@ -6,10 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reservation extends Model
 {
-    protected $primary_key = 'reservation_id';
-
-    protected $table = 'reservations';
-
     public function user(){
         return $this->hasMany('App/User');
     }

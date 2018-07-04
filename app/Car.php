@@ -6,9 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Car extends Model
 {
-    protected $primaryKey = 'car_id';
-    protected $table = 'cars';
-
     protected $pick_up_date;
     protected $pick_up_time;
     protected $return_date;
