@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class AuthAdminMiddleware
+class AuthAdmin
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class AuthAdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-    $request->user()->authorize_user_types(['admin']);
+        $request->user()->authorize_user_types(['admin']);
         return $next($request);
     }
 }
