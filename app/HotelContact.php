@@ -6,5 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class HotelContact extends Model
 {
-    //
+    protected $telephone;
+
+    public function hotel()
+    {
+        $this->belongsTo('App\Hotel');
+    }
+
 }
