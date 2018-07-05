@@ -22,7 +22,7 @@ class User extends Authenticatable
     }
 
     public function user_types(){
-        return $this->belongsToMany('App\UserType');
+        return $this->belongsToMany('App\UserType')->withTimestamps();
     }
 
     public function authorize_user_types($user_types){
