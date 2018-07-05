@@ -1,4 +1,4 @@
-@extends('layouts.userauth')
+@extends('despevago.auth')
 
 @section('title', 'Login')
 
