@@ -18,14 +18,14 @@
  
                         <div class="md-form">
                             <label for="email">Your email</label>
-                            <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                            <input id="email" type="email" class="form-control {{ $errors->has('email') ? 'invalid is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
                             @include('common.errors', ['name' => 'email'])
                             
                         </div>
 
                         <div class="md-form pb-3">
                             <label for="password">Your password</label>
-                            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                            <input id="password" type="password" class="form-control {{ $errors->has('password') ? 'invalid is-invalid' : '' }}" name="password" required>
                             @include('common.errors', ['name' => 'password'])
                             <p class="font-small blue-text d-flex justify-content-end"><a href="{{ route('password.request') }}" class="blue-text ml-1">{{ __('Forgot Your Password?') }}</a></p>
                         </div>
