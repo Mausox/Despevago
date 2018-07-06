@@ -52,10 +52,10 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'telephone' => 'required|string|max:13|unique:users',
-            'address' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'telephone' => 'required|string|max:13|unique:users',
+            'address' => 'required|string|max:255',
         ]);
     }
 
@@ -75,7 +75,6 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-
         $user->user_types()->attach(UserType::where('name', 'user')->first());
         $user->notify(new \App\Notifications\UserCreate);
 
