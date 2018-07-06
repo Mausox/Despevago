@@ -37,12 +37,14 @@
                         <div class="md-form">
                             <label for="password">Password</label>
                             <input id="password" type="password" class="form-control {{ $errors->has('password') ? 'invalid is-invalid' : '' }}" name="password" required>
+                            <label id="password_match"></label>
                             @include('common.errors', ['name' => 'password'])
+
                         </div>
 
                         <div class="md-form">
                             <label for="password_confirm">Confirm Password</label>
-                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                            <input id="password_confirm" type="password" class="form-control" name="password_confirmation" required>
                         </div>
                         
                         <div class="md-form">
@@ -66,4 +68,5 @@
         </div>
     </div>
 </div>
+@include('common.matchpass')
 @endsection
