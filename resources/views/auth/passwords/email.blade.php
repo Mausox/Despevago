@@ -4,9 +4,9 @@
 
 @section('content')
 <div class="container">
-    <div class="row mt-5 justify-content-center">
-        <div class="col-md-6 form-elegant">
-            <div class="card">
+    <div class="row justify-content-center">
+        <div class="col-md-5 form-elegant">
+            <div class="card mb-3">
                 <div class="card-body mx-4">
                     @include('common.success', ['name' => 'status'])
 
