@@ -68,5 +68,8 @@
         </div>
     </div>
 </div>
-@include('common.matchpass')
+@endsection
+
+@section('script')
+    @include('common.matchpass')
 @endsection
