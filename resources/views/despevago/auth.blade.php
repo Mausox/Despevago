@@ -17,7 +17,9 @@
 </head>
 
 <body>
-
+    <div class="container">
+        <img src={{ asset('img/logo_header.png') }} class="img-fluid mx-auto d-block mt-3 mb-3" width="200px" alt="Despevago">
+    </div>
     @yield('content')
 
     <!-- SCRIPTS -->
