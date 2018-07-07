@@ -7,31 +7,29 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Despevago - @yield('title')</title>
     <!-- Font Awesome -->
-    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link type="text/css" href={{ asset('css/font-awesome.min.css') }} rel="stylesheet">
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link type="text/css" href={{ asset('css/bootstrap.min.css') }} rel="stylesheet">
     <!-- Material Design Bootstrap -->
-    <link href="css/mdb.min.css" rel="stylesheet">
+    <link type="text/css" href={{ asset('css/mdb.min.css') }} rel="stylesheet">
     <!-- Your custom styles (optional) -->
-    <link href="css/style.css" rel="stylesheet">
+    <link type="text/css" href={{ asset('css/style.css') }} rel="stylesheet">
 </head>
 
 <body>
-    <!-- add a header -->
+    <!-- header -->
     @yield('content')
-    <!-- add a footer -->
-   
-
+    <!-- footer -->
     <!-- SCRIPTS -->
     <!-- JQuery -->
-    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src={{ asset('js/jquery-3.3.1.min.js') }}></script>
     <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="js/popper.min.js"></script>
+    <script type="text/javascript" src={{ asset('js/popper.min.js') }}></script>
     <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src={{ asset('js/bootstrap.min.js') }}></script>
     <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="js/mdb.min.js"></script>
+    <script type="text/javascript" src={{ asset('js/mdb.min.js') }}></script>
+
+    @yield('script')
 
 </body>
-
-</html>

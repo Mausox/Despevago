@@ -5,8 +5,8 @@
 @section('content')
 
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8 form-elegant">
+    <div class="row mt-5 justify-content-center">
+        <div class="col-md-6 form-elegant">
             <div class="card">
                 <div class="card-body mx-4">
                     <form method="POST" action="{{ route('register') }}">

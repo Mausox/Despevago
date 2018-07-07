@@ -6,14 +6,14 @@
 
 <div class="container">
     <div class="row mt-5 justify-content-center">
-        <div class="col-md-8 form-elegant">
+        <div class="col-md-6 form-elegant">
             <div class="card">
                 <div class="card-body mx-4">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf                    
 
                         <div class="text-center">
-                            <h3 class="dark-grey-text mb-5"><strong>Sign in</strong></h3>
+                            <h3 class="dark-grey-text mb-5"><strong>{{ __('Sign in') }}</strong></h3>
                         </div>
  
                         <div class="md-form">
