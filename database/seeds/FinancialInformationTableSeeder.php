@@ -16,12 +16,14 @@ class FinancialInformationTableSeeder extends Seeder
         $financial_information->bank_name = 'IA BANK';
         $financial_information->number_account = 'IA123';
         $financial_information->balance = 100000;
+        $financial_information->user_id = 1;
         $financial_information->save();
 
         $financial_information = new FinancialInformation();
         $financial_information->bank_name = 'IA Store';
         $financial_information->number_account = 'IA123';
         $financial_information->balance = 100000;
+        $financial_information->user_id = 2;
         $financial_information->save();
     }
 }

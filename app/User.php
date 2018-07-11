@@ -32,7 +32,7 @@ class User extends Authenticatable
     }
 
     public function financial_information(){
-        return $this->hasOne('App\FinancialInformation');
+        return $this->belongsTo('App\FinancialInformation');
     }
 
     public function user_histories(){

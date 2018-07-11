@@ -23,7 +23,6 @@ class CreateUsersTable extends Migration
             $table->string('address');
             $table->rememberToken();
             $table->timestamps();
-            $table->unsignedInteger('financial_information_id');
         });
     }
 

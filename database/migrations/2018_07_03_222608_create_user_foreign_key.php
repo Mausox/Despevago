@@ -13,8 +13,8 @@ class CreateUserForeignKey extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table){
-           $table->foreign('financial_information_id')->references('id')->on('financial_informations')->onDelete('cascade');
+        Schema::table('financial_informations', function (Blueprint $table){
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
         Schema::table('user_histories', function (Blueprint $table){
@@ -33,8 +33,8 @@ class CreateUserForeignKey extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table){
-            $table->dropForeign(['financial_information_id']);
+        Schema::table('financial_informations', function (Blueprint $table){
+            $table->dropForeign(['user_id']);
         });
 
         Schema::table('user_histories', function (Blueprint $table){
