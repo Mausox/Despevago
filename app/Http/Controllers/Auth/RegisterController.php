@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\FinancialInformation;
 use App\User;
 use App\Http\Controllers\Controller;
+use App\UserHistory;
 use App\UserType;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+
+use Carbon\Carbon;
 
 class RegisterController extends Controller
 {
@@ -67,6 +71,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $financialInformation = FinancialInformation::create([
+            'bank_name' => 'Not assigned',
+            'number_account' => 'Not assigned',
+            'balance' => 0,
+        ]);
+
+        $userHistory = UserHistory::create([
+            'date' => Carbon::now()->toDateString(),
+            'hour' => Carbon::now()->toTimeString(),
+            'action' => 'Register',
+        ]);
+
         $user = User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
@@ -75,9 +91,17 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
         $user->user_types()->attach(UserType::where('name', 'user')->first());
+        $user->user_history()->associate($userHistory);
+        $user->financial_information()->associate($financialInformation);
         $user->notify(new \App\Notifications\UserCreate);
 
         return $user;
+    }
+
+    protected function create_user_history()
+    {
+
     }
 }
