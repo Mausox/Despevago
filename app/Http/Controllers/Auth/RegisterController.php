@@ -76,7 +76,7 @@ class RegisterController extends Controller
         $this->create_user_history($user);
         $this->create_financial_information($user);
 
-        $user->notify(new \App\Notifications\UserCreate);
+        //$user->notify(new \App\Notifications\UserCreate);
 
         return $user;
     }
