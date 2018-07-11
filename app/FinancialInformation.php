@@ -12,7 +12,7 @@ class FinancialInformation extends Model
      * @var array
      */
     protected $fillable = [
-        'bank_name', 'number_account', 'balance',
+        'bank_name', 'number_account', 'balance', 'user_id',
     ];
 
     /**
@@ -25,7 +25,7 @@ class FinancialInformation extends Model
     ];
 
     public function user(){
-        return $this->hasOne('App\User');
+        return $this->belongsTo('App\User');
     }
 
 }

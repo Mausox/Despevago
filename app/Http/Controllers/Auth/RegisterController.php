@@ -71,18 +71,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $financialInformation = FinancialInformation::create([
-            'bank_name' => 'Not assigned',
-            'number_account' => 'Not assigned',
-            'balance' => 0,
-        ]);
+        $user = $this->create_user($data);
 
-        $userHistory = UserHistory::create([
-            'date' => Carbon::now()->toDateString(),
-            'hour' => Carbon::now()->toTimeString(),
-            'action' => 'Register',
-        ]);
+        $this->create_user_history($user);
+        $this->create_financial_information($user);
 
+        $user->notify(new \App\Notifications\UserCreate);
+
+        return $user;
+    }
+
+    protected function create_user(array $data)
+    {
         $user = User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
@@ -91,17 +91,28 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-
         $user->user_types()->attach(UserType::where('name', 'user')->first());
-        $user->user_history()->associate($userHistory);
-        $user->financial_information()->associate($financialInformation);
-        $user->notify(new \App\Notifications\UserCreate);
 
         return $user;
     }
-
-    protected function create_user_history()
+    protected function create_user_history($user) : void
     {
+        $userHistory = UserHistory::create([
+            'date' => Carbon::now()->toDateString(),
+            'hour' => Carbon::now()->toTimeString(),
+            'action' => 'Register',
+            'user_id' => $user->id,
+        ]);
+        // $userHistory->user()->associate($user)->save();
+    }
 
+    protected function create_financial_information($user) : void
+    {
+        $financialInformation = FinancialInformation::create([
+            'bank_name' => 'Not assigned',
+            'number_account' => 'Not assigned',
+            'balance' => 0,
+            'user_id' => $user->id,
+        ]);
     }
 }
