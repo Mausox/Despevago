@@ -28,15 +28,15 @@ class User extends Authenticatable
     ];
 
     public function reservations(){
-        return $this->hasMany('App/Reservation');
+        return $this->hasMany('App\Reservation');
     }
 
     public function financial_information(){
-        return $this->hasOne('App/FinancialInformation');
+        return $this->hasOne('App\FinancialInformation');
     }
 
-    public function user_history(){
-        return $this->belongsTo('App/UserHistory');
+    public function user_histories(){
+        return $this->hasMany('App\UserHistory');
     }
 
     public function user_types(){
