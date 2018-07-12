@@ -31,7 +31,7 @@
                         </div>
             
                         <div class="text-center mb-3">
-                            <button type="submit" class="btn blue-gradient btn-rounded btn-block">{{ __('Sign in') }}</button>
+                            <button type="submit" class="btn blue darken-4 btn-rounded btn-block">{{ __('Sign in') }}</button>
                         </div>
 
                         <div class="modal-footer pt-3 mb-1">
