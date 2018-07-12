@@ -19,6 +19,7 @@ class CreateFinancialInformationsTable extends Migration
             $table->string('number_account');
             $table->money('balance');
             $table->timestamps();
+            $table->unsignedInteger('user_id');
         });
     }
 

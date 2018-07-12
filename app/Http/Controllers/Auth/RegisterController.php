@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\FinancialInformation;
 use App\User;
 use App\Http\Controllers\Controller;
+use App\UserHistory;
 use App\UserType;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+
+use Carbon\Carbon;
 
 class RegisterController extends Controller
 {
@@ -67,6 +71,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $user = $this->create_user($data);
+
+        $this->create_user_history($user);
+        $this->create_financial_information($user);
+
+        //$user->notify(new \App\Notifications\UserCreate);
+
+        return $user;
+    }
+
+    protected function create_user(array $data)
+    {
         $user = User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
@@ -76,8 +92,27 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
         $user->user_types()->attach(UserType::where('name', 'user')->first());
-        $user->notify(new \App\Notifications\UserCreate);
 
         return $user;
+    }
+    protected function create_user_history($user) : void
+    {
+        $userHistory = UserHistory::create([
+            'date' => Carbon::now()->toDateString(),
+            'hour' => Carbon::now()->toTimeString(),
+            'action' => 'Register',
+            'user_id' => $user->id,
+        ]);
+        // $userHistory->user()->associate($user)->save();
+    }
+
+    protected function create_financial_information($user) : void
+    {
+        $financialInformation = FinancialInformation::create([
+            'bank_name' => 'Not assigned',
+            'number_account' => 'Not assigned',
+            'balance' => 0,
+            'user_id' => $user->id,
+        ]);
     }
 }

@@ -21,8 +21,6 @@ class UserTableSeeder extends Seeder
         $user->address = 'where users live #404';
         $user->email = 'user@example.com';
         $user->password = bcrypt('secret');
-        $user->financial_information_id = 1;
-        $user->user_history_id = 1;
         $user->save();
         $user->user_types()->attach($user_type_user);
 
@@ -35,8 +33,6 @@ class UserTableSeeder extends Seeder
         $user->address = 'where admins live #Mount Olympus';
         $user->email = 'admin@example.com';
         $user->password = bcrypt('secret');
-        $user->financial_information_id = 2;
-        $user->user_history_id = 2;
         $user->save();
         $user->user_types()->attach($user_type_admin);
     }

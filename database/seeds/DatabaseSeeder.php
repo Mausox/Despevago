@@ -11,10 +11,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(FinancialInformationTableSeeder::class);
-        $this->call(UserHistoryTableSeeder::class);
         // Tipo de usuario es creado antes del usuario.
         $this->call(UserTypeTableSeeder::class);
         $this->call(UserTableSeeder::class);
+        $this->call(UserHistoryTableSeeder::class);
+        $this->call(FinancialInformationTableSeeder::class);
     }
 }
