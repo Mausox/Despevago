@@ -1,6 +1,10 @@
-@extends('layouts.app')
+@extends('despevago.app')
 
 @section('title', 'Despevago')
+
+@section('header')
+    @include('despevago.header')
+@endsection
 
 @section('content')
     <div class="container">

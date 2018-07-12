@@ -60,7 +60,7 @@
                         </div>
 
                         <div class="text-center mb-3">
-                            <button type="submit" class="btn blue-gradient btn-rounded btn-block">{{ __('Sign up') }}</button>
+                            <button type="submit" class="btn blue darken-4 btn-rounded btn-block">{{ __('Sign up') }}</button>
                         </div>
                     </form>
                 </div>
