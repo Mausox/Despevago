@@ -1,42 +1,30 @@
-@extends('layouts.app')
+@extends('despevago.auth')
+
+@section('title', 'Reset password')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+        <div class="col-md-5 form-elegant">
+            <div class="card mb-3">
+                <div class="card-body mx-4">
+                    @include('common.success', ['name' => 'status'])
 
                     <form method="POST" action="{{ route('password.email') }}">
                         @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                        <div class="text-center">
+                            <h3 class="dark-grey-text mb-5"><strong>{{ __('Reset Password') }}</strong></h3>
                         </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
-                            </div>
+                        <div class="md-form">
+                            <label for="email">Your email</label>
+                            <input id="email" type="email" class="form-control {{ $errors->has('email') ? 'invalid is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                            @include('common.errors', ['name' => 'email'])
+
+                        </div>
+
+                        <div class="text-center mb-3">
+                            <button type="submit" class="btn blue darken-4 btn-rounded btn-block">{{ __('Send Password Reset Link') }}</button>
                         </div>
                     </form>
                 </div>

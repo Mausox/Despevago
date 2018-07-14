@@ -19,6 +19,7 @@ class CreateUserHistoriesTable extends Migration
             $table->time('hour');
             $table->string('action');
             $table->timestamps();
+            $table->unsignedInteger('user_id');
         });
     }
 

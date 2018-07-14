@@ -1,7 +1,13 @@
-@extends('layouts.app')
+@extends('despevago.app')
+
+@section('title', 'Despevago')
+
+@section('header')
+    @include('despevago.header')
+@endsection
 
 @section('content')
-<div class="container">
+<div class="container with-navbar-top-fixed">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">

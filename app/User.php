@@ -9,20 +9,38 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'email', 'password', 'first_name', 'last_name', 'telephone', 'address',
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
     public function reservations(){
-        return $this->hasMany('App/Reservation');
+        return $this->hasMany('App\Reservation');
     }
 
     public function financial_information(){
-        return $this->hasOne('App/FinancialInformation');
+        return $this->hasOne('App\FinancialInformation');
     }
 
-    public function user_history(){
-        return $this->belongsTo('App/UserHistory');
+    public function user_histories(){
+        return $this->hasMany('App\UserHistory');
     }
 
     public function user_types(){
-        return $this->belongsToMany('App\UserType');
+        return $this->belongsToMany('App\UserType')->withTimestamps();
     }
 
     public function authorize_user_types($user_types){
@@ -53,22 +71,4 @@ class User extends Authenticatable
         }
         return false;
     }
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'email', 'password', 'first_name', 'last_name', 'telephone', 'address',
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
 }
