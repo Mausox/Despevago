@@ -9,11 +9,11 @@
         <div class="col-md-5 form-elegant">
             <div class="card mb-3">
                 <div class="card-body mx-4">
-
-                    <input type="hidden" name="token" value="{{ $token }}">
-
                     <form method="POST" action="{{ route('password.request') }}">
                         @csrf
+
+                        <input type="hidden" name="token" value="{{ $token }}">
+
                         <div class="text-center">
                             <h3 class="dark-grey-text mb-5"><strong>{{ __('Reset Password') }}</strong></h3>
                         </div>
