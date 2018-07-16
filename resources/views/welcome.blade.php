@@ -1,14 +1,19 @@
 @extends('despevago.app')
 
-@section('title', 'Despevago')
+@section('title', 'Home')
 
-@section('header')
-    @include('despevago.header')
+@section('header-top')
+    @include('despevago.headers.headerAuth')
+@endsection
+
+@section('slideshow-top')
+    @include('despevago.headers.slideshow')
+@endsection
+
+@section('header-menu')
+    @include('despevago.headers.headerMV')
 @endsection
 
 @section('content')
-    <div class="container">
-        <img src="https://i.imgur.com/9Yw05Bc.png" class="img-fluid mx-auto d-block" alt="Despevago">
-    </div>
 @endsection
 
