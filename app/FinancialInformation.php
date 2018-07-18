@@ -12,7 +12,7 @@ class FinancialInformation extends Model
      * @var array
      */
     protected $fillable = [
-        'bank_name', 'number_account', 'balance', 'user_id',
+        'bank_name', 'number_account', 'balance',
     ];
 
     /**
