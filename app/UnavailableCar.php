@@ -11,4 +11,8 @@ class UnavailableCar extends Model
     public function car(){
         return $this->belongsTo('App\Car');
     }
+
+    public function reservations(){
+        return $this->belongsToMany('App\Reservation');
+    }
 }
