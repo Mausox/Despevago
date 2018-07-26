@@ -16,7 +16,6 @@ class CreateCarFlightPackagesForeignKey extends Migration
         Schema::table('car_flight_packages', function (Blueprint $table) {
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
             $table->foreign('unavailable_car_id')->references('id')->on('unavailable_cars')->onDelete('cascade');
-            $table->foreign('reservation_id')->references('id')->on('reservations')->onDelete('cascade');
         });
     }
 
@@ -30,7 +29,6 @@ class CreateCarFlightPackagesForeignKey extends Migration
         Schema::table('car_flight_packages', function (Blueprint $table) {
             $table->dropForeign(['city_id']);
             $table->dropForeign(['unavailable_car_id']);
-            $table->dropForeign(['reservation_id']);
         });
     }
 }

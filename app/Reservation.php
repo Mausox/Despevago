@@ -25,6 +25,6 @@ class Reservation extends Model
         return $this->hasMany('App\UnavailableCar');
     }
     public function car_flight_packages(){
-        return $this->hasMany('App\CarFlightPackage');
+        return $this->belongsToMany('App\CarFlightPackage');
     }
 }

@@ -15,7 +15,7 @@ class CarFlightPackage extends Model
     }
 
     public function reservations(){
-        return $this->belongsTo('App\Reservation');
+        return $this->belongsToMany('App\Reservation');
     }
 
     public function city(){
