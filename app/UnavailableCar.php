@@ -15,4 +15,8 @@ class UnavailableCar extends Model
     public function car_flight_packages(){
         return $this->belongsToMany('App\CarFlightPackage');
     }
+
+    public function reservations(){
+        return $this->belongsToMany('App\Reservation');
+    }
 }

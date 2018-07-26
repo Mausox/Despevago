@@ -25,4 +25,9 @@ class Seat extends Model
     {
         return $this->belongsToMany('App\CarFlightPackage');
     }
+
+    public function room_flight_packages()
+    {
+        return $this->belongsToMany('App\RoomFlightPackage');
+    }
 }
