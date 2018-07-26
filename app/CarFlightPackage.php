@@ -11,7 +11,7 @@ class CarFlightPackage extends Model
     }
 
     public function unavailable_car(){
-        return $this->hasOne('App\UnavailableCar');
+        return $this->belongsTo('App\UnavailableCar');
     }
 
     public function reservations(){
@@ -19,6 +19,6 @@ class CarFlightPackage extends Model
     }
 
     public function city(){
-        return $this->hasOne('App\City');
+        return $this->belongsTo('App\City');
     }
 }
