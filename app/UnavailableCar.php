@@ -13,6 +13,6 @@ class UnavailableCar extends Model
     }
 
     public function car_flight_packages(){
-        return $this->belongsToMany('App\CarFlightPackage');
+        return $this->hasMany('App\CarFlightPackage');
     }
 }
