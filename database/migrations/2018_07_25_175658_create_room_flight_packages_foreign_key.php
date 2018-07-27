@@ -27,8 +27,8 @@ class CreateRoomFlightPackagesForeignKey extends Migration
     public function down()
     {
         Schema::table('room_flight_packages', function (Blueprint $table) {
-            $table->dropForeign('unavailable_room_id');
-            $table->dropForeign('city_id');
+            $table->dropForeign(['unavailable_room_id']);
+            $table->dropForeign(['city_id']);
         });
     }
 }
