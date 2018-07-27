@@ -20,7 +20,7 @@ class CreateCarFlightPackagesTable extends Migration
             $table->time('start_hour');
             $table->date('end_date');
             $table->time('end_hour');
-            $table->int('discount');
+            $table->integer('discount');
             $table->timestamps();
             $table->unsignedInteger('city_id');
             $table->unsignedInteger('unavailable_car_id');
