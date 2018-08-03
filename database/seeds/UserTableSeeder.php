@@ -11,7 +11,7 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        $user_type_user = UserType::where('name', 'user')->first();
+        $user_type_user = UserType::where('name', 'consumer')->first();
         $user_type_admin  = UserType::where('name', 'admin')->first();
 
         $user = new User();
@@ -19,7 +19,7 @@ class UserTableSeeder extends Seeder
         $user->last_name = 'Novice';
         $user->telephone = '+123456789';
         $user->address = 'where users live #404';
-        $user->email = 'user@example.com';
+        $user->email = 'consumer@example.com';
         $user->password = bcrypt('secret');
         $user->save();
         $user->user_types()->attach($user_type_user);

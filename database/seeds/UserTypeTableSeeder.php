@@ -17,7 +17,7 @@ class UserTypeTableSeeder extends Seeder
         $user_type->save();
 
         $user_type = new \App\UserType();
-        $user_type->name = 'user';
+        $user_type->name = 'consumer';
         $user_type->description = 'User is a Slave';
         $user_type->save();
     }
