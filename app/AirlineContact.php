@@ -8,6 +8,6 @@ class AirlineContact extends Model
 {
     public function airline()
     {
-        return $this->belongsTo('App\Airline');
+        return $this->belongsTo(Airline::class);
     }
 }

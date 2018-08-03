@@ -8,11 +8,11 @@ class Airline extends Model
 {
     public function flights()
     {
-        return $this->hasMany('App\Flight');
+        return $this->hasMany(Flight::class);
     }
 
     public function airlines_contact()
     {
-        return $this->hasMany('App\Flight');
+        return $this->hasMany(Flight::class);
     }
 }

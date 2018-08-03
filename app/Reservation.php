@@ -7,27 +7,27 @@ use Illuminate\Database\Eloquent\Model;
 class Reservation extends Model
 {
     public function user(){
-        return $this->hasMany('App\User');
+        return $this->hasMany(User::class);
     }
     public function activities(){
-        return $this->belongsToMany('App\Activity');
+        return $this->belongsToMany(Activity::class);
     }
     public function seats(){
-        return $this->belongsToMany('App\Seat');
+        return $this->belongsToMany(Seat::class);
     }
     public function transfers(){
-        return $this->belongsToMany('App\Transfer');
+        return $this->belongsToMany(Transfer::class);
     }
     public function unavailable_rooms(){
-        return $this->hasMany('App\UnavailableRoom');
+        return $this->hasMany(UnavailableRoom::class);
     }
     public function unavailable_cars(){
-        return $this->hasMany('App\UnavailableCar');
+        return $this->hasMany(UnavailableCar::class);
     }
     public function car_flight_packages(){
-        return $this->belongsToMany('App\CarFlightPackage');
+        return $this->belongsToMany(CarFlightPackage::class);
     }
     public function room_flight_packages(){
-        return $this->belongsToMany('App\RoomFlightPackage');
+        return $this->belongsToMany(RoomFlightPackage::class);
     }
 }

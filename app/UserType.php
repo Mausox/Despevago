@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserType extends Model
 {
     public function users(){
-        return $this->belongsToMany('App\User')->withtimestamps();
+        return $this->belongsToMany(User::class)->withtimestamps();
     }
 
 }

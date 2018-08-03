@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class RoomFlightPackage extends Model
 {
     public function seats(){
-        return $this->belongsToMany('App\Seat');
+        return $this->belongsToMany(Seat::class);
     }
 
     public function reservations(){
-        return $this->belongsToMany('App\Reservation');
+        return $this->belongsToMany(Reservation::class);
     }
 
     public function room(){
-        return $this->belongsTo('App\Room');
+        return $this->belongsTo(Room::class);
     }
 }

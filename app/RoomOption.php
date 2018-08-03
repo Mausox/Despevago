@@ -11,6 +11,6 @@ class RoomOption extends Model
 
     public function rooms()
     {
-        $this->belongsToMany('App\Room');
+        $this->belongsToMany(Room::class);
     }
 }

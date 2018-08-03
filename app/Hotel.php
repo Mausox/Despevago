@@ -13,22 +13,22 @@ class Hotel extends Model
 
     public function rooms()
     {
-        $this->hasMany('App\Room');
+        $this->hasMany(Room::class);
     }
 
     public function hotelContacts()
     {
-        $this->hasMany('App\HotelContact');
+        $this->hasMany(HotelContact::class);
     }
 
     public function transfers()
     {
-        $this->hasMany('App\Transfer');
+        $this->hasMany(Transfer::class);
     }
 
     public function city()
     {
-        $this->belongsTo('App\City');
+        $this->belongsTo(City::class);
     }
 
 }

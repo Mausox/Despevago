@@ -8,16 +8,16 @@ class Flight extends Model
 {
     public function seats()
     {
-        return $this->hasMany('App\Seat');
+        return $this->hasMany(Seat::class);
     }
 
     public function airline()
     {
-        return $this->belongsTo('App\Airline');
+        return $this->belongsTo(Airline::class);
     }
 
     public function airport()
     {
-        return $this->belongsTo('App\Airport');
+        return $this->belongsTo(Airport::class);
     }
 }

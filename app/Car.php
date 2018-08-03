@@ -14,14 +14,14 @@ class Car extends Model
     protected $price;
 
     public function unavailable_cars(){
-        return $this->hasMany('App\UnavailableCar');
+        return $this->hasMany(UnavailableCar::class);
     }
 
     public function car_options(){
-        return $this->belongsToMany('App\CarOption');
+        return $this->belongsToMany(CarOption::class);
     }
 
     public function company(){
-        return $this->belongsTo('App\Company');
+        return $this->belongsTo(Company::class);
     }
 }

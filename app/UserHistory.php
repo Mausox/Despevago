@@ -19,6 +19,6 @@ class UserHistory extends Model
      * Relationship with users
      */
     public function user(){
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class);
     }
 }

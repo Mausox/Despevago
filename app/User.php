@@ -28,19 +28,19 @@ class User extends Authenticatable
     ];
 
     public function reservations(){
-        return $this->hasMany('App\Reservation');
+        return $this->hasMany(Reservation::class);
     }
 
     public function financial_information(){
-        return $this->hasOne('App\FinancialInformation');
+        return $this->hasOne(FinancialInformation::class);
     }
 
     public function user_histories(){
-        return $this->hasMany('App\UserHistory');
+        return $this->hasMany(UserHistory::class);
     }
 
     public function user_types(){
-        return $this->belongsToMany('App\UserType')->withTimestamps();
+        return $this->belongsToMany(UserType::class)->withTimestamps();
     }
 
     public function authorize_user_types($user_types){

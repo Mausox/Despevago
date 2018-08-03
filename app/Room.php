@@ -13,16 +13,16 @@ class Room extends Model
 
     public function roomOptions()
     {
-        return $this->belongsToMany('App\RoomOption');
+        return $this->belongsToMany(RoomOption::class);
     }
 
     public function hotel()
     {
-        return $this->belongsTo('App\Hotel');
+        return $this->belongsTo(Hotel::class);
     }
 
     public function room_flight_packages(){
 
-        return $this->hasMany('App\RoomFlightPackage');
+        return $this->hasMany(RoomFlightPackage::class);
     }
 }

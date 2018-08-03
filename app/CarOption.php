@@ -10,6 +10,6 @@ class CarOption extends Model
     protected $feature;
 
     public function cars(){
-        return $this->belongsToMany('App\Car');
+        return $this->belongsToMany(Car::class);
     }
 }
