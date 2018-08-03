@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Transfer extends Model
 
     public function reservations(){
-        return $this->belongsToMany('App\Reservation');
+        return $this->belongsToMany(Reservation::class);
     }
     public function airports(){
-        return $this->belongsToMany('App\Airport');
+        return $this->belongsToMany(Airport::class);
     }
     public function hotel(){
-        return $this->belongsTo('App\Hotel');
+        return $this->belongsTo(Hotel::class);
     }
     public function transfer_cars(){
-        return $this->hasMany('App\TransferCar');
+        return $this->hasMany(TransferCar::class);
     }
 }

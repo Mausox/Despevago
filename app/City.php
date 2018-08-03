@@ -7,21 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 class City extends Model
 {
     public function activities(){
-        return $this->hasMany('App\Activity');
+        return $this->hasMany(Activity::class);
     }
     public function airports(){
-        return $this->hasMany('App\Airport');
+        return $this->hasMany(Airport::class);
     }
     public function hotels(){
-        return $this->hasMany('App\Hotel');
+        return $this->hasMany(Hotel::class);
     }
     public function branch_offices(){
-        return $this->hasMany('App\BranchOffice');
+        return $this->hasMany(BranchOffice::class);
     }
     public function country(){
-        return $this->hasOne('App\Country');
+        return $this->hasOne(Country::class);
     }
     public function car_flight_packages(){
-        return $this->belongsToMany('App\CarFlightPackage');
+        return $this->belongsToMany(CarFlightPackage::class);
     }
 }

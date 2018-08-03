@@ -8,11 +8,11 @@ class Airport extends Model
 {
     public function flights()
     {
-        return $this->hasMany('App\Flight');
+        return $this->hasMany(Flight::class);
     }
 
     public function city()
     {
-        return $this->belongsTo('App\Flight');
+        return $this->belongsTo(Flight::class);
     }
 }

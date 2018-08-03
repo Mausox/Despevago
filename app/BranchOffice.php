@@ -9,10 +9,10 @@ class BranchOffice extends Model
     protected $address;
 
     public function company(){
-        return $this->belongsTo('App\Company');
+        return $this->belongsTo(Company::class);
     }
 
     public function branch_offices_contact(){
-        return $this->hasMany('App\BranchOfficeContact');
+        return $this->hasMany(BranchOfficeContact::class);
     }
 }

@@ -8,26 +8,26 @@ class Seat extends Model
 {
     public function passenger()
     {
-        return $this->hasOne('App\Passenger');
+        return $this->hasOne(Passenger::class);
     }
 
     public function class_type()
     {
-        return $this->belongsTo('App\ClassType');
+        return $this->belongsTo(ClassType::class);
     }
 
     public function flight()
     {
-        return $this->belongsTo('App\Flight');
+        return $this->belongsTo(Flight::class);
     }
 
     public function car_flight_packages()
     {
-        return $this->belongsToMany('App\CarFlightPackage');
+        return $this->belongsToMany(CarFlightPackage::class);
     }
 
     public function room_flight_packages()
     {
-        return $this->belongsToMany('App\RoomFlightPackage');
+        return $this->belongsToMany(RoomFlightPackage::class);
     }
 }

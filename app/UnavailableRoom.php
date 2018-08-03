@@ -10,7 +10,7 @@ class UnavailableRoom extends Model
 
     public function reservations ()
     {
-        $this->belongsTo('App\Reservation');
+        $this->belongsTo(Reservation::class);
     }
 
 

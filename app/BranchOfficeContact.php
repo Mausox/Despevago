@@ -9,6 +9,6 @@ class BranchOfficeContact extends Model
     protected $telephone;
 
     public function branch_office(){
-        return $this->belongsTo('App\BranchOffice');
+        return $this->belongsTo(BranchOffice::class);
     }
 }

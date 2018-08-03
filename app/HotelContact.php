@@ -10,7 +10,7 @@ class HotelContact extends Model
 
     public function hotel()
     {
-        $this->belongsTo('App\Hotel');
+        $this->belongsTo(Hotel::class);
     }
 
 }

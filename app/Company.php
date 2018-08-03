@@ -10,11 +10,11 @@ class Company extends Model
     protected $email;
 
     public function cars(){
-        return $this->hasMany('App\Car');
+        return $this->hasMany(Car::class);
     }
 
     public function branch_offices(){
-        return $this->hasMany('App\BranchOffice');
+        return $this->hasMany(BranchOffice::class);
     }
 
 }

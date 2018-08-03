@@ -8,6 +8,6 @@ class ClassType extends Model
 {
     public function seats()
     {
-        return $this->hasMany('App\Seat');
+        return $this->hasMany(Seat::class);
     }
 }
