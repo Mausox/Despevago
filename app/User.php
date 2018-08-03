@@ -71,4 +71,15 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    public function isAdmin()
+    {
+        return $this->user_types()->where('name', 'admin')->exists();
+    }
+
+    public function isConsumer()
+    {
+        return $this->user_types()->where('name', 'consumer')->exists();
+
+    }
 }

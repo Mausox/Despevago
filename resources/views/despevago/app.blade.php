@@ -19,9 +19,7 @@
 
 <body>
     <!-- header -->
-    @yield('header-top')
-    @yield('slideshow-top')
-    @yield('header-menu')
+    @yield('headers')
     
     <!-- body -->
     @yield('content')

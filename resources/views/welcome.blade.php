@@ -2,15 +2,9 @@
 
 @section('title', 'Home')
 
-@section('header-top')
+@section('headers')
     @include('despevago.headers.headerAuth')
-@endsection
-
-@section('slideshow-top')
     @include('despevago.headers.slideshow')
-@endsection
-
-@section('header-menu')
     @include('despevago.headers.headerMV')
 @endsection
 
