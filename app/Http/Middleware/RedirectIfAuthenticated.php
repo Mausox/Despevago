@@ -23,10 +23,13 @@ class RedirectIfAuthenticated
             {
                 return redirect()->route('dashboardAdmin');
             }
-
+            else if($request->user()->isConsumer())
+            {
+                return redirect()->route('dashboardConsumer');
+            }
             else
             {
-                return redirect()->route('dashboardAdmin');
+                return redirect()->route('home');
             }
         }
 
