@@ -17,7 +17,7 @@ class DashboardController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the application admin dashboard.
      *
      * @return \Illuminate\Http\Response
      */
@@ -26,9 +26,8 @@ class DashboardController extends Controller
         return view('despevago.dashboard.admin');
     }
 
-
     /**
-     * Show the application dashboard.
+     * Show the application consumer dashboard.
      *
      * @return \Illuminate\Http\Response
      */

@@ -11,16 +11,12 @@
 |
 */
 
-Route::get('/', function ()
-{
-    return view('welcome');
+Route::get('/', function () {
+    return redirect('/home');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/dashboard/admin', 'DashboardController@indexAdmin')->name('dashboardAdmin');
+Route::get('/dashboard/admin', 'DashboardController@indexAdmin')->name('dashboardAdmin')->middleware('AuthAdmin');
 Route::get('/dashboard/consumer', 'DashboardController@indexConsumer')->name('dashboardConsumer');
-
-
-Route::get('/admin-home', 'HomeController@index')->middleware('AuthAdmin');
