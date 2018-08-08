@@ -31,16 +31,22 @@ class User extends Authenticatable
         return $this->hasMany(Reservation::class);
     }
 
-    public function financial_information(){
-        return $this->hasOne(FinancialInformation::class);
-    }
-
     public function user_histories(){
         return $this->hasMany(UserHistory::class);
     }
 
     public function user_types(){
         return $this->belongsToMany(UserType::class)->withTimestamps();
+    }
+
+    public function payment_methods()
+    {
+        return $this->belongsToMany(PaymentMethod::class);
+    }
+
+    public function payment_histories()
+    {
+        return $this->hasMany(PaymentHistory::class);
     }
 
     public function authorize_user_types($user_types){

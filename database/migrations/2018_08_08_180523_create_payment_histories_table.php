@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Schema;
-use Aejnsn\Postgresify\Database\Schema\Blueprint;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFinancialInformationsTable extends Migration
+class CreatePaymentHistoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateFinancialInformationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('financial_informations', function (Blueprint $table) {
+        Schema::create('payment_histories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('bank_name');
-            $table->string('number_account');
-            $table->money('balance');
-            $table->timestamps();
+            $table->string('account_number');
+            $table->money('amount');
+            $table->date('date');
+            $table->time('hour');
             $table->unsignedInteger('user_id');
+            $table->timestamps();
         });
     }
 
@@ -30,6 +32,6 @@ class CreateFinancialInformationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('financial_informations');
+        Schema::dropIfExists('payment_histories');
     }
 }

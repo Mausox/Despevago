@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserForeignKey extends Migration
+class CreatePaymentsForeignKey extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,7 @@ class CreateUserForeignKey extends Migration
      */
     public function up()
     {
-        Schema::table('user_histories', function (Blueprint $table){
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        });
-
-        Schema::table('reservations', function (Blueprint $table){
+        Schema::table('payment_histories', function (Blueprint $table){
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
@@ -30,11 +26,7 @@ class CreateUserForeignKey extends Migration
      */
     public function down()
     {
-        Schema::table('user_histories', function (Blueprint $table){
-            $table->dropForeign(['user_id']);
-        });
-
-        Schema::table('reservations', function (Blueprint $table){
+        Schema::table('payment_histories', function (Blueprint $table){
             $table->dropForeign(['user_id']);
         });
     }

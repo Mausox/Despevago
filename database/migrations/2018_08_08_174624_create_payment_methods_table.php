@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTransfersTable extends Migration
+class CreatePaymentMethodsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateTransfersTable extends Migration
      */
     public function up()
     {
-        Schema::create('transfers', function (Blueprint $table) {
+        Schema::create('payment_methods', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('start_date');
-            $table->time('start_hour');
-            $table->unsignedInteger('number_people');
-            $table->money('price');
+            $table->string('card_name');
+            $table->string('account_number');
+            $table->date('expiration_date');
             $table->timestamps();
-            $table->unsignedInteger('hotel_id');
-            $table->unsignedInteger('airport_id');
         });
     }
 
@@ -32,6 +29,6 @@ class CreateTransfersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transfers');
+        Schema::dropIfExists('payment_methods');
     }
 }

@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('last_name');
             $table->string('telephone')->unique();
             $table->string('address');
+            $table->money('current_balance');
             $table->rememberToken();
             $table->timestamps();
         });
