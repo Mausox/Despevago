@@ -8,6 +8,10 @@ CREATE DATABASE despevago;
 
 \connect despevago;
 
+/*------------------- SET TIMEZONE -------------------*/
+
+set timezone to 'America/Santiago';
+
 /* ------------------ DROP TABLES -----------------*/
 DROP TABLE IF EXISTS seats;
 DROP TABLE IF EXISTS passengers;
@@ -212,7 +216,8 @@ CREATE TABLE users
     first_name                  varchar(50)     NOT NULL,
     last_name                   varchar(50)     NOT NULL,
     telephone                   varchar(50)     NULL,
-    address                     varchar(50)     NULL
+    address                     varchar(50)     NULL,
+    current_balance             money           NOT NULL
 );
 
 /* USER TYPES TABLE */
