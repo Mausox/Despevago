@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class BranchOffice extends Model
 {
-    protected $address;
+    protected $fillable = [
+        'address', 'company_id', 'city_id',
+    ];
 
     public function company(){
         return $this->belongsTo(Company::class);
