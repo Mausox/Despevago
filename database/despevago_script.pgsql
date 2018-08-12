@@ -716,3 +716,7 @@ ADD CONSTRAINT cars_car_options_car_options_id_foreign
 FOREIGN KEY (car_options_id)
 REFERENCES car_options (id)
 ON DELETE CASCADE;
+
+
+INSERT INTO user_types (name, description) VALUES ('admin', 'admin is a GOD');
+INSERT INTO user_types (name, description) VALUES ('user', 'user is SLAVE');
