@@ -20,3 +20,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin-home', 'HomeController@index')->middleware('AuthAdmin');
+Route::resource('countries', 'CountryController');
