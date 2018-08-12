@@ -20,7 +20,6 @@ class CreateAirlinesTable extends Migration
             $table->float('score');
             $table->string('description');
             $table->timestamps();
-            $table->unsignedInteger('airline_contact_id');
         });
     }
 
