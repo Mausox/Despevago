@@ -20,3 +20,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin-home', 'HomeController@index')->middleware('AuthAdmin');
+Route::resource('hotels', 'HotelController');
+Route::get('/hotels/create', function ()
+{
+   return view('despevago.createHotel');
+});
