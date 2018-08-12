@@ -8,6 +8,6 @@ class Passenger extends Model
 {
     public function seat()
     {
-        return $this->belongsTo(Seat::class);
+        return $this->hasOne(Seat::class);
     }
 }
