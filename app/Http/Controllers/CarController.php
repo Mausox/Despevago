@@ -72,8 +72,7 @@ class CarController extends Controller
     public function update(Request $request, $id)
     {
         Car::find($id)->update($request->all());
-        $car = Car::find($id);
-        return $car;
+        return "The car ID:{$id} was updated!";
     }
 
     /**
@@ -85,6 +84,6 @@ class CarController extends Controller
     public function destroy($id)
     {
         Car::destroy($id);
-        return "A car was removed -> ID:".$id;
+        return "The car ID:{$id} was removed!";
     }
 }
