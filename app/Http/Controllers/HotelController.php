@@ -35,7 +35,8 @@ class HotelController extends Controller
      */
     public function store(Request $request)
     {
-        Hotel::create($request->all());
+        $hotel = Hotel::create($request->all());
+        return $hotel;
     }
 
     /**
@@ -69,7 +70,9 @@ class HotelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $hotel = Hotel::find($id)->update($request->all());
+        Hotel::find($id)->update($request->all());
+        $hotel = Hotel::find($id);
+        return $hotel;
     }
 
     /**
@@ -81,5 +84,6 @@ class HotelController extends Controller
     public function destroy($id)
     {
         Hotel::destroy($id);
+        return "Se eliminó el hotel de id: ".$id;
     }
 }
