@@ -12,6 +12,8 @@ class UserHistoryTableSeeder extends Seeder
      */
     public function run()
     {
+        factory(UserHistory::class, 20)->create();
+        /*
         $user_history = new UserHistory();
         $user_history->date = \Carbon\Carbon::now()->toDateString();
         $user_history->hour = \Carbon\Carbon::now()->toTimeString();
@@ -25,5 +27,6 @@ class UserHistoryTableSeeder extends Seeder
         $user_history->action = 'Join';
         $user_history->user_id = 2;
         $user_history->save();
+        */
     }
 }

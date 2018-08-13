@@ -38,7 +38,7 @@ class UserTableSeeder extends Seeder
         $user->user_types()->attach($user_type_admin);
         */
 
-        factory(User::class, 100)->create();
+        factory(User::class, 10)->create();
 
     }
 }
