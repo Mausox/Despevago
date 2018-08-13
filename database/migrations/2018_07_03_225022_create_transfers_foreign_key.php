@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTranfersForeignKey extends Migration
+class CreateTransfersForeignKey extends Migration
 {
     /**
      * Run the migrations.
@@ -13,6 +13,9 @@ class CreateTranfersForeignKey extends Migration
      */
     public function up()
     {
+        Schema::table('transfers', function (Blueprint $table) {
+            $table->foreign('hotel_id')->references('id')->on('hotels')->onDelete('cascade');
+        });
         Schema::table('transfer_cars', function (Blueprint $table) {
             $table->foreign('transfer_id')->references('id')->on('transfers')->onDelete('cascade');
         });
@@ -25,6 +28,9 @@ class CreateTranfersForeignKey extends Migration
      */
     public function down()
     {
+        Schema::table('transfers', function (Blueprint $table) {
+            $table->dropForeign(['hotel_id']);
+        });
         Schema::table('transfer_cars', function (Blueprint $table) {
             $table->dropForeign(['transfer_id']);
         });
