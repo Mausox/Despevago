@@ -22,3 +22,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin-home', 'HomeController@index')->middleware('AuthAdmin');
 
 Route::resource('reservations','ReservationController');
+Route::post('/reservation/room', 'ReservationController@roomReservation')->name('roomReservation');
