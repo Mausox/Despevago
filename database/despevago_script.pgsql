@@ -13,44 +13,45 @@ CREATE DATABASE despevago;
 set timezone to 'America/Santiago';
 
 /* ------------------ DROP TABLES -----------------*/
-DROP TABLE IF EXISTS seats;
-DROP TABLE IF EXISTS passengers;
-DROP TABLE IF EXISTS class_types;
-DROP TABLE IF EXISTS flights;
-DROP TABLE IF EXISTS airlines;
-DROP TABLE IF EXISTS airlines_contacts;
-DROP TABLE IF EXISTS airports;
-DROP TABLE IF EXISTS cars;
-DROP TABLE IF EXISTS car_options;
-DROP TABLE IF EXISTS companies;
-DROP TABLE IF EXISTS branch_offices;
-DROP TABLE IF EXISTS branch_offices_contacts;
-DROP TABLE IF EXISTS unavailable_cars;
-DROP TABLE IF EXISTS car_flight_packages;
-DROP TABLE IF EXISTS room_flight_packages;
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS user_types;
-DROP TABLE IF EXISTS user_histories;
-DROP TABLE IF EXISTS payment_histories;
-DROP TABLE IF EXISTS payment_methods;
-DROP TABLE IF EXISTS reservations;
-DROP TABLE IF EXISTS cities;
-DROP TABLE IF EXISTS countries;
-DROP TABLE IF EXISTS transfers;
-DROP TABLE IF EXISTS transfer_cars;
-DROP TABLE IF EXISTS unavailable_rooms;
-DROP TABLE IF EXISTS rooms;
-DROP TABLE IF EXISTS room_options;
-DROP TABLE IF EXISTS hotels;
-DROP TABLE IF EXISTS hotel_contacts;
-DROP TABLE IF EXISTS activities;
-DROP TABLE IF EXISTS users_user_types;
-DROP TABLE IF EXISTS reservations_seats;
-DROP TABLE IF EXISTS reservations_transfers;
-DROP TABLE IF EXISTS airports_transfers;
-DROP TABLE IF EXISTS rooms_room_options;
-DROP TABLE IF EXISTS activity_reservations;
-DROP TABLE IF EXISTS cars_car_options;
+DROP TABLE IF EXISTS seats CASCADE;
+DROP TABLE IF EXISTS passengers CASCADE;
+DROP TABLE IF EXISTS class_types CASCADE;
+DROP TABLE IF EXISTS flights CASCADE;
+DROP TABLE IF EXISTS airlines CASCADE;
+DROP TABLE IF EXISTS airlines_contacts CASCADE;
+DROP TABLE IF EXISTS airports CASCADE;
+DROP TABLE IF EXISTS cars CASCADE;
+DROP TABLE IF EXISTS car_options CASCADE;
+DROP TABLE IF EXISTS companies CASCADE;
+DROP TABLE IF EXISTS branch_offices CASCADE;
+DROP TABLE IF EXISTS branch_offices_contacts CASCADE;
+DROP TABLE IF EXISTS unavailable_cars CASCADE;
+DROP TABLE IF EXISTS car_flight_packages CASCADE;
+DROP TABLE IF EXISTS room_flight_packages CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS user_types CASCADE;
+DROP TABLE IF EXISTS user_histories CASCADE;
+DROP TABLE IF EXISTS payment_histories CASCADE;
+DROP TABLE IF EXISTS payment_methods CASCADE;
+DROP TABLE IF EXISTS reservations CASCADE;
+DROP TABLE IF EXISTS cities CASCADE;
+DROP TABLE IF EXISTS countries CASCADE;
+DROP TABLE IF EXISTS transfers CASCADE;
+DROP TABLE IF EXISTS transfer_cars CASCADE;
+DROP TABLE IF EXISTS unavailable_rooms CASCADE;
+DROP TABLE IF EXISTS rooms CASCADE;
+DROP TABLE IF EXISTS room_options CASCADE;
+DROP TABLE IF EXISTS hotels CASCADE;
+DROP TABLE IF EXISTS hotel_contacts CASCADE;
+DROP TABLE IF EXISTS activities CASCADE;
+DROP TABLE IF EXISTS users_user_types CASCADE;
+DROP TABLE IF EXISTS reservations_seats CASCADE;
+DROP TABLE IF EXISTS reservations_transfers CASCADE;
+DROP TABLE IF EXISTS airports_transfers CASCADE;
+DROP TABLE IF EXISTS rooms_room_options CASCADE;
+DROP TABLE IF EXISTS activity_reservations CASCADE;
+DROP TABLE IF EXISTS cars_car_options CASCADE;
+DROP TABLE IF EXISTS airline_contacts CASCADE;
 
 /* ----------------------- TABLES ----------------------- */
 
@@ -131,7 +132,7 @@ CREATE TABLE cars
     pick_up_time                time            NOT NULL,
     return_date                 date            NOT NULL,
     return_time                 time            NOT NULL,
-    classification              integer         NOT NULL,
+    classification              varchar(20)     NOT NULL,
     price                       money           NOT NULL,
     company_id                  integer         NOT NULL
 );
