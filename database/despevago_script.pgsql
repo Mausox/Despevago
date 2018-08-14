@@ -128,7 +128,7 @@ CREATE TABLE cars
     pick_up_time                time            NOT NULL,
     return_date                 date            NOT NULL,
     return_time                 time            NOT NULL,
-    classification              integer         NOT NULL,
+    classification              varchar(20)     NOT NULL,
     price                       money           NOT NULL,
     company_id                  integer         NOT NULL
 );
