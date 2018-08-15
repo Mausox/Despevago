@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\City;
+use App\Hotel;
 use App\UnavailableRoom;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -89,22 +91,67 @@ class ReservationController extends Controller
         return "The reservation {$id} was removed!";
     }
 
+    //Función que entrega todas las reservas de un usuario, considerando toda la información necesaria para que el
+    //usuario sepa en caso del hotel por ejemplo, su habitación, hotel, ciudad, y días de la estadía.
+    //Entradas: $user_id
+
     public function userReservations($user_id)
     {
         $reservations = Reservation::where('user_id',$user_id)->where('closed',true)->get();
+        $rooms_array = array();
+
+
         foreach ($reservations as $reservation)
         {
-            $unavailable_rooms = $reservation->unavailable_rooms()->get();
-            return $unavailable_rooms;
+            $unavailable_rooms = $reservation->unavailable_rooms()->where('closed',true)->get();
+
+            foreach ($unavailable_rooms as $unavailable_room)
+            {
+                $room_id = $unavailable_room->room_id;
+                $room = Room::find($room_id);
+                $hotel = Hotel::find($room->hotel_id);
+                $city = City::find($hotel->city_id);
+                $room_dates = UnavailableRoom::Select('date')->where("room_id",$room_id)->where("reservation_id", $reservation->id)->get();
+
+                $room_data = array
+                                (
+                                    "room" => $room,
+                                    "hotel" => $hotel,
+                                    "city" => $city,
+                                    "dates" => $room_dates
+                                );
+
+                if(!(in_array($room_data, $rooms_array)))
+                {
+                    $rooms_array[] = $room_data;
+                }
+            }
         }
 
-        return $reservations;
+        return $rooms_array;
+    }
+
+    //Función que finaliza una reserva y "cierra" las reservas en unavailableRooms, cars,etc.
+    //Entradas: reservation_id
+    public function finishReservation(Request $request)
+    {
+        $reservation = Reservation::find($request->reservation_id);
+        $reservation->closed = true;
+        $reservation->save();
+
+        $unavailableRooms = UnavailableRoom::where("reservation_id", $request->reservation_id)->where("closed", false)->get();
+        foreach ($unavailableRooms as $unavailableRoom)
+        {
+            $unavailableRoom->closed = true;
+            $unavailableRoom->save();
+        }
+
+        return "The reservation was successfully done";
     }
 
 
     //Función que permite reservar una habitación
     //Entradas POST: room_id, adults_number, children_number, user_id, date (arreglo con fechas en las que será solicitada la habitación)
-
     public function roomReservation(Request $request)
     {
         $room_id = $request->room_id;
