@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class HotelContact extends Model
 {
-    protected $telephone;
+    protected $fillable =[
+        'telephone', 'hotel_id',
+    ];
 
     public function hotel()
     {
