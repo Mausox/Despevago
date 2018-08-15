@@ -16,6 +16,11 @@ class Room extends Model
         return $this->belongsToMany(RoomOption::class);
     }
 
+    public function unavailableRooms()
+    {
+        return $this->hasMany(UnavailableRoom::class);
+    }
+
     public function hotel()
     {
         return $this->belongsTo(Hotel::class);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\UnavailableRoom;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Reservation;
@@ -88,18 +89,51 @@ class ReservationController extends Controller
         return "The reservation {$id} was removed!";
     }
 
+    public function userReservations($user_id)
+    {
+        $reservations = Reservation::where('user_id',$user_id)->where('closed',true)->get();
+        foreach ($reservations as $reservation)
+        {
+            $unavailable_rooms = $reservation->unavailable_rooms()->get();
+            return $unavailable_rooms;
+        }
+
+        return $reservations;
+    }
+
+
+    //Función que permite reservar una habitación
+    //Entradas POST: room_id, adults_number, children_number, user_id, date (arreglo con fechas en las que será solicitada la habitación)
+
     public function roomReservation(Request $request)
     {
         $room_id = $request->room_id;
         $adults_number = $request->adults_number;
         $children_number = $request->children_number;
+        $user_id = $request->user_id;
+        $dates = $request->date;
+
         $room = Room::find($room_id);
+
+        $adult_price = floatval(preg_replace('/[^\d\.]/', '', $room->adult_price));
+        $child_price = floatval(preg_replace('/[^\d\.]/', '', $room->child_price));
 
         if($adults_number+$children_number <= $room->capacity)
         {
-            $reservation = Reservation::where('user_id' == Auth::id())->where('closed' == false);
-            return ($room->adult_price)*money_format('%i',2);
-            $reservation->current_balance += ($room->adult_price*$adults_number + $room->childs_number*$children_number);
+            $reservation = Reservation::where('user_id',$user_id)->where('closed',false)->first();
+
+            $current_balance = floatval(preg_replace('/[^\d\.]/', '', $reservation->current_balance));
+            $current_balance += ($adult_price*$adults_number + $child_price*$children_number);
+            $reservation->current_balance = money_format('%i',$current_balance);
+
+            foreach ($dates as $date)
+            {
+                UnavailableRoom::create(['date'=>$date,'closed' => false, 'reservation_id' => $reservation->id, 'room_id' => $room_id]);
+            }
+
+            $reservation->save();
+
+
             return "Your room was added to you reservation";
         }
 
@@ -108,4 +142,6 @@ class ReservationController extends Controller
             return "Capacity overflow: Room capacity = " . $room->capacity . " and adults_number + children_number = ".($adults_number + $children_number);
         }
     }
+
+
 }
