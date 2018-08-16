@@ -26,3 +26,4 @@ Route::resource('countries', 'CountryController');
 Route::resource('cities', 'CitiesController');
 Route::resource('/class-type', 'ClassTypeController');
 Route::resource('/airline', 'AirlineController');
+Route::resource('/airline-contact', 'AirlineContactController');
