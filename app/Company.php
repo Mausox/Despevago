@@ -6,8 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
-    protected $address;
-    protected $email;
+
+    protected $fillable = [
+        'address', 'email',
+    ];
+
 
     public function cars(){
         return $this->hasMany(Car::class);

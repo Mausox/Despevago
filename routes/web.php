@@ -28,3 +28,4 @@ Route::resource('/class-type', 'ClassTypeController');
 Route::resource('/airline', 'AirlineController');
 Route::resource('/airline-contact', 'AirlineContactController');
 Route::resource('/seats', 'SeatController');
+Route::resource('companies', 'CompanyController');
