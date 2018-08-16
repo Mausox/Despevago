@@ -20,6 +20,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin-home', 'HomeController@index')->middleware('AuthAdmin');
+Route::resource('hotels', 'HotelController');
+Route::get('/hotels/create', function ()
+{
+   return view('despevago.createHotel');
+});
 
 Route::resource('/passenger', 'PassengerController');
 Route::resource('countries', 'CountryController');
@@ -46,3 +51,5 @@ Route::resource('reservations','ReservationController');
 Route::post('/reservation/room', 'ReservationController@roomReservation')->name('roomReservation');
 Route::get('/user/reservations/{user_id}', 'ReservationController@userReservations')->name('userReservations');
 Route::post('/reservations/finish', "ReservationController@finishReservation")->name('finishReservations');
+
+Route::get('/hotels/byCity/{city_id}', "HotelController@searchHotelByCity")->name('hotelsByCity');
