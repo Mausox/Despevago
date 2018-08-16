@@ -17,10 +17,10 @@ class CreateTransferCarsTable extends Migration
             $table->increments('id');
             $table->string('vehicle_registration_number');
             $table->unsignedInteger('capacity');
-            $table->integer('category');
+            $table->string('classification');
             $table->string('company');
             $table->timestamps();
-            $table->unsignedInteger('transfer_id');
+            $table->unsignedInteger('transfer_id')->nullable();
         });
     }
 

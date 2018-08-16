@@ -1,8 +1,9 @@
 <?php
+
 use Illuminate\Database\Seeder;
-use App\User;
-use App\UserType;
-class UserTableSeeder extends Seeder
+use App\TransferCar;
+
+class TransferCarTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +12,6 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-
+        factory(TransferCar::class, 10)->create();
     }
 }
