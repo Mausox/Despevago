@@ -41,3 +41,4 @@ Route::resource('users','UserController');
 
 Route::resource('car_flight_packages', 'CarFlightPackageController');
 Route::resource('activities','ActivityController');
+Route::resource('hotel_contacts', 'HotelContactController');
