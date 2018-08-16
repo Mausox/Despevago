@@ -34,3 +34,4 @@ Route::resource('branch_offices', 'BranchOfficeController');
 Route::resource('branch_office_contacts', 'BranchOfficeContactController');
 
 Route::resource('user_types','UserTypeController');
+Route::resource('user_histories', 'UserHistoryController');
