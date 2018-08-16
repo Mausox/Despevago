@@ -32,3 +32,5 @@ Route::resource('companies', 'CompanyController');
 Route::resource('car_options', 'CarOptionController');
 Route::resource('branch_offices', 'BranchOfficeController');
 Route::resource('branch_office_contacts', 'BranchOfficeContactController');
+
+Route::resource('user_types','UserTypeController');
