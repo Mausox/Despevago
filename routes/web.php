@@ -24,3 +24,4 @@ Route::get('/admin-home', 'HomeController@index')->middleware('AuthAdmin');
 Route::resource('/passenger', 'PassengerController');
 Route::resource('countries', 'CountryController');
 Route::resource('cities', 'CitiesController');
+Route::resource('/class-type', 'ClassTypeController');
