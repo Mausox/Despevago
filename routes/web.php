@@ -26,29 +26,31 @@ Route::get('/hotels/create', function ()
    return view('despevago.createHotel');
 });
 
-Route::resource('/passenger', 'PassengerController');
-Route::resource('countries', 'CountryController');
-Route::resource('cities', 'CitiesController');
-Route::resource('/class-type', 'ClassTypeController');
+Route::resource('/activities','ActivityController');
 Route::resource('/airline', 'AirlineController');
 Route::resource('/airline-contact', 'AirlineContactController');
+Route::resource('/branch_office_contacts', 'BranchOfficeContactController');
+Route::resource('/branch_offices', 'BranchOfficeController');
+Route::resource('/car_flight_packages', 'CarFlightPackageController');
+Route::resource('/car_options', 'CarOptionController');
+Route::resource('/cars', 'CarController');
+Route::resource('/cities', 'CityController');
+Route::resource('/class-type', 'ClassTypeController');
+Route::resource('/companies', 'CompanyController');
+Route::resource('/countries', 'CountryController');
+Route::resource('/hotel_contacts', 'HotelContactController');
+Route::resource('/passenger', 'PassengerController');
+Route::resource('/reservations','ReservationController');
+Route::resource('/room', 'RoomController');
+Route::resource('/room_flight_packages','RoomFlightPackageController');
 Route::resource('/seats', 'SeatController');
-Route::resource('companies', 'CompanyController');
-Route::resource('car_options', 'CarOptionController');
-Route::resource('branch_offices', 'BranchOfficeController');
-Route::resource('branch_office_contacts', 'BranchOfficeContactController');
-Route::resource('user_types','UserTypeController');
-Route::resource('user_histories', 'UserHistoryController');
-Route::resource('transfer_cars', 'TransferCarController');
-Route::resource('transfers', 'TransferController');
-Route::resource('room_flight_packages','RoomFlightPackageController');
-Route::resource('users','UserController');
+Route::resource('/transfer_cars', 'TransferCarController');
+Route::resource('/transfers', 'TransferController');
+Route::resource('/user_histories', 'UserHistoryController');
+Route::resource('/user_types','UserTypeController');
+Route::resource('/users','UserController');
 
-Route::resource('car_flight_packages', 'CarFlightPackageController');
-Route::resource('activities','ActivityController');
-Route::resource('hotel_contacts', 'HotelContactController');
-Route::resource('reservations','ReservationController');
-Route::resource('room', 'RoomController');
+
 Route::get('/room/byHotel/{hotel_id}', 'RoomController@searchRoomsByHotel')->name('roomsByHotel');
 
 Route::post('/reservation/room', 'ReservationController@roomReservation')->name('roomReservation');
@@ -56,4 +58,3 @@ Route::get('/user/reservations/{user_id}', 'ReservationController@userReservatio
 Route::post('/reservations/finish', "ReservationController@finishReservation")->name('finishReservations');
 
 Route::get('/hotels/byCity/{city_id}', "HotelController@searchHotelByCity")->name('hotelsByCity');
-Route::resource('cars', 'CarController');

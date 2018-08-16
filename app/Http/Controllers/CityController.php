@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\City;
 use Illuminate\Http\Request;
 
-class CitiesController extends Controller
+class CityController extends Controller
 {
     /**
      * Display a listing of the resource.
