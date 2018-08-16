@@ -15,6 +15,8 @@ class CreateCarsTable extends Migration
     {
         Schema::create('cars', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('pick_up_location');
+            $table->string('drop_off_location');
             $table->date('pick_up_date');
             $table->time('pick_up_time');
             $table->date('return_date');
