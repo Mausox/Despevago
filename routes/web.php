@@ -21,6 +21,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin-home', 'HomeController@index')->middleware('AuthAdmin');
 
+<<<<<<< HEAD
 Route::resource('/passenger', 'PassengerController');
 Route::resource('countries', 'CountryController');
 Route::resource('cities', 'CitiesController');
@@ -31,3 +32,4 @@ Route::resource('/seats', 'SeatController');
 Route::resource('companies', 'CompanyController');
 Route::resource('car_options', 'CarOptionController');
 Route::resource('branch_offices', 'BranchOfficeController');
+Route::resource('branch_office_contacts', 'BranchOfficeContactController');
