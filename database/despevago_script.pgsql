@@ -170,8 +170,9 @@ CREATE TABLE unavailable_cars
 (
     id                          serial          PRIMARY KEY,
     date                        date            NOT NULL,
-    reservation_id               integer         NOT NULL,
-    car_id                      integer         NOT NULL
+    reservation_id              integer         NOT NULL,
+    car_id                      integer         NOT NULL,
+    closed                      boolean         NOT NULL,
 
 );
 
@@ -309,7 +310,8 @@ CREATE TABLE unavailable_rooms
     id                          serial          PRIMARY KEY,
     date                        date            NOT NULL,
     reservation_id              integer         NOT NULL,
-    room_id                     integer         NOT NULL
+    room_id                     integer         NOT NULL,
+    closed                      boolean         NOT NULL,
 );
 
 /* ROOMS TABLE*/
@@ -378,6 +380,7 @@ CREATE TABLE reservations_seats
     id                          serial          PRIMARY KEY,
     seat_id                     integer         NOT NULL,
     reservation_id              integer         NOT NULL,
+    closed                      boolean         NOT NULL,
     UNIQUE(seat_id, reservation_id)
 );
 
@@ -414,8 +417,8 @@ CREATE TABLE activity_reservations
     id                          serial          PRIMARY KEY,
     activity_id                 integer         NOT NULL,
     reservation_id              integer         NOT NULL,
-UNIQUE(activity_id , reservation_id)
-
+    closed                      boolean         NOT NULL,
+    UNIQUE(activity_id , reservation_id)
 );
 
 /* CARS_CAR_OPTIONS TABLE */
