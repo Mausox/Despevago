@@ -40,7 +40,14 @@ class UserTableSeeder extends Seeder
         $user->user_types()->attach($user_type_admin);
         */
 
-        factory(User::class, 10)->create();
-
+        factory(User::class, 10)->create()->each(function ($user)
+        {
+            DB::table('user_user_type')->insert(
+                [
+                    'user_id' => User::select('id')->inRandomOrder()->first()->id,
+                    'user_type_id' => UserType::select('id')->inRandomOrder()->first()->id,
+                ]
+            );
+        });
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http;
-
 use App\Http\Middleware\AuthAdminMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -34,11 +33,7 @@ class Kernel extends HttpKernel
             \Illuminate\Session\Middleware\StartSession::class,
             // \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-<<<<<<< HEAD
-            //\App\Http\Middleware\VerifyCsrfToken::class,
-=======
-            // \App\Http\Middleware\VerifyCsrfToken::class,
->>>>>>> BranchOfficeContact_CRUD
+            \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
