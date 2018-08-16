@@ -128,6 +128,8 @@ CREATE TABLE airports
 CREATE TABLE cars 
 (
     id                          serial          PRIMARY KEY,
+    pick_up_location            text            NOT NULL,
+    drop_off_location           text            NOT NULL,
     pick_up_date                date            NOT NULL,
     pick_up_time                time            NOT NULL,
     return_date                 date            NOT NULL,
