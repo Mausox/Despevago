@@ -32,8 +32,8 @@ Route::resource('companies', 'CompanyController');
 Route::resource('car_options', 'CarOptionController');
 Route::resource('branch_offices', 'BranchOfficeController');
 Route::resource('branch_office_contacts', 'BranchOfficeContactController');
-
 Route::resource('user_types','UserTypeController');
 Route::resource('user_histories', 'UserHistoryController');
 Route::resource('transfer_cars', 'TransferCarController');
 Route::resource('transfers', 'TransferController');
+Route::resource('room_flight_packages','RoomFlightPackageController');
