@@ -58,6 +58,8 @@
                             <input id="address" type="text" class="form-control{{ $errors->has('address') ? 'invalid is-invalid' : '' }}" name="address" value="{{ old('address') }}" required>                           
                             @include('common.errors', ['name' => 'address'])
                         </div>
+                        
+                        <input type="hidden" id="current_balance" name="current_balance" value="0">
 
                         <div class="text-center mb-3">
                             <button type="submit" class="btn blue darken-4 btn-rounded btn-block">{{ __('Sign up') }}</button>

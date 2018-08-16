@@ -21,6 +21,7 @@ class UserTableSeeder extends Seeder
         $user->telephone = '+123456789';
         $user->address = 'where users live #404';
         $user->email = 'user@example.com';
+        $user->current_balance = 0;
         $user->password = bcrypt('secret');
         $user->save();
         $user->user_types()->attach($user_type_user);
@@ -33,6 +34,7 @@ class UserTableSeeder extends Seeder
         $user->telephone = '+12345678910';
         $user->address = 'where admins live #Mount Olympus';
         $user->email = 'admin@example.com';
+        $user->current_balance = 0;
         $user->password = bcrypt('secret');
         $user->save();
         $user->user_types()->attach($user_type_admin);

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\FinancialInformation;
+use App\PaymentHistory;
 use App\User;
 use App\Http\Controllers\Controller;
 use App\UserHistory;
@@ -78,6 +78,7 @@ class RegisterController extends Controller
             'address' => $data['address'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'current_balance' =>$data['current_balance'],
         ]);
 
         $user->user_histories()->create([
@@ -86,10 +87,12 @@ class RegisterController extends Controller
             'action' => 'Register',
         ]);
 
-        $user->financial_information()->create([
+        $user->payment_histories()->create([
             'bank_name' => 'Not assigned',
-            'number_account' => 'Not assigned',
-            'balance' => 0,
+            'account_number' => 'Not assigned',
+            'amount' => 0,
+            'date' => Carbon::now()->toDateString(),
+            'hour' => Carbon::now()->toTimeString(),
         ]);
 
         $user->user_types()->attach(UserType::where('name', 'user')->first());
