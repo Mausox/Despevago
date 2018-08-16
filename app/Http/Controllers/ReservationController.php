@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\City;
 use App\Hotel;
+use App\HotelContact;
 use App\UnavailableRoom;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -103,8 +104,9 @@ class ReservationController extends Controller
 
         foreach ($reservations as $reservation)
         {
-            $unavailable_rooms = $reservation->unavailable_rooms()->where('closed',true)->get();
 
+            //rooms
+            $unavailable_rooms = $reservation->unavailable_rooms()->where('closed',true)->get();
             foreach ($unavailable_rooms as $unavailable_room)
             {
                 $room_id = $unavailable_room->room_id;
@@ -133,6 +135,7 @@ class ReservationController extends Controller
 
     //Función que finaliza una reserva y "cierra" las reservas en unavailableRooms, cars,etc.
     //Entradas: reservation_id
+    //Tipo: POST
     public function finishReservation(Request $request)
     {
         $reservation = Reservation::find($request->reservation_id);
@@ -151,7 +154,8 @@ class ReservationController extends Controller
 
 
     //Función que permite reservar una habitación
-    //Entradas POST: room_id, adults_number, children_number, user_id, date (arreglo con fechas en las que será solicitada la habitación)
+    //Entradas: room_id, adults_number, children_number, user_id, date (arreglo con fechas en las que será solicitada la habitación)
+    //Tipo: POST
     public function roomReservation(Request $request)
     {
         $room_id = $request->room_id;
