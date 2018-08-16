@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Hotel;
+use App\HotelContact;
 use Illuminate\Http\Request;
 
 class HotelController extends Controller
@@ -85,5 +86,24 @@ class HotelController extends Controller
     {
         Hotel::destroy($id);
         return "Se eliminó el hotel de id: ".$id;
+    }
+
+    //Función que permite la búsqueda de un hotel y su contacto en una ciudad en específico.
+    //Entradas: city_id
+    //Tipo: GET
+    public function searchHotelByCity($city_id)
+    {
+        $hotels = Hotel::where('city_id',$city_id)->get();
+        $data = array();
+        foreach ($hotels as $hotel)
+        {
+            $hotel_contact = HotelContact::where('hotel_id',$hotel->id)->get();
+            $data[] = array
+            (
+                "hotel" => $hotel,
+                "hotel_contact" => $hotel_contact
+            );
+        }
+        return $data;
     }
 }

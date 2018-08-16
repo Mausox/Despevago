@@ -25,3 +25,5 @@ Route::get('/hotels/create', function ()
 {
    return view('despevago.createHotel');
 });
+
+Route::get('/hotels/byCity/{city_id}', "HotelController@searchHotelByCity")->name('hotelsByCity');
