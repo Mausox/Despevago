@@ -19,6 +19,7 @@ class CreateUnavailableCarsTable extends Migration
             $table->timestamps();
             $table->unsignedInteger('reservation_id');
             $table->unsignedInteger('car_id');
+            $table->boolean('closed');
         });
     }
 
