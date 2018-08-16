@@ -37,3 +37,4 @@ Route::resource('user_histories', 'UserHistoryController');
 Route::resource('transfer_cars', 'TransferCarController');
 Route::resource('transfers', 'TransferController');
 Route::resource('room_flight_packages','RoomFlightPackageController');
+Route::resource('users','UserController');
