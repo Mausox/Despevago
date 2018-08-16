@@ -30,3 +30,4 @@ Route::resource('/airline-contact', 'AirlineContactController');
 Route::resource('/seats', 'SeatController');
 Route::resource('companies', 'CompanyController');
 Route::resource('car_options', 'CarOptionController');
+Route::resource('branch_offices', 'BranchOfficeController');
