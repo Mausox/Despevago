@@ -19,7 +19,7 @@ class CreateCarsTable extends Migration
             $table->time('pick_up_time');
             $table->date('return_date');
             $table->time('return_time');
-            $table->integer('classification');
+            $table->string('classification');
             $table->money('price');
             $table->timestamps();
             $table->integer('company_id');
