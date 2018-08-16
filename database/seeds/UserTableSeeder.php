@@ -11,6 +11,7 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
+        /*
         $user_type_user = UserType::where('name', 'user')->first();
         $user_type_admin  = UserType::where('name', 'admin')->first();
 
@@ -35,5 +36,9 @@ class UserTableSeeder extends Seeder
         $user->password = bcrypt('secret');
         $user->save();
         $user->user_types()->attach($user_type_admin);
+        */
+
+        factory(User::class, 10)->create();
+
     }
 }
