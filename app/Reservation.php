@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reservation extends Model
 {
+
+    protected $fillable = [
+        'date', 'hour', 'current_balance', 'new_balance', 'user_id',
+        ];
+
     public function user(){
         return $this->hasMany(User::class);
     }

@@ -42,3 +42,7 @@ Route::resource('users','UserController');
 Route::resource('car_flight_packages', 'CarFlightPackageController');
 Route::resource('activities','ActivityController');
 Route::resource('hotel_contacts', 'HotelContactController');
+Route::resource('reservations','ReservationController');
+Route::post('/reservation/room', 'ReservationController@roomReservation')->name('roomReservation');
+Route::get('/user/reservations/{user_id}', 'ReservationController@userReservations')->name('userReservations');
+Route::post('/reservations/finish', "ReservationController@finishReservation")->name('finishReservations');
