@@ -21,6 +21,7 @@ class CreateReservationsTable extends Migration
             $table->money('new_balance');
             $table->timestamps();
             $table->unsignedInteger('user_id');
+            $table->boolean('closed');
         });
     }
 
