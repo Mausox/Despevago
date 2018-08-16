@@ -177,7 +177,7 @@ CREATE TABLE unavailable_cars
     date                        date            NOT NULL,
     reservation_id              integer         NOT NULL,
     car_id                      integer         NOT NULL,
-    closed                      boolean         NOT NULL,
+    closed                      boolean         NOT NULL
 
 );
 
@@ -317,7 +317,7 @@ CREATE TABLE unavailable_rooms
     date                        date            NOT NULL,
     reservation_id              integer         NOT NULL,
     room_id                     integer         NOT NULL,
-    closed                      boolean         NOT NULL,
+    closed                      boolean         NOT NULL
 );
 
 /* ROOMS TABLE*/
