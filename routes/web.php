@@ -40,3 +40,4 @@ Route::resource('room_flight_packages','RoomFlightPackageController');
 Route::resource('users','UserController');
 
 Route::resource('car_flight_packages', 'CarFlightPackageController');
+Route::resource('activities','ActivityController');
