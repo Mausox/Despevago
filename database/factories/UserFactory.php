@@ -1,7 +1,8 @@
 <?php
 
 use Faker\Generator as Faker;
-
+use App\User;
+use App\UserType;
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -20,7 +21,7 @@ $factory->define(App\User::class, function (Faker $faker) {
         'last_name' => $faker->lastName,
         'email' => $faker->unique()->safeEmail,
         'telephone' => $faker->unique()->phoneNumber,
-        'password' => $faker->password, // secret
+        'password' => bcrypt('secret'), // secret
         'address' => $faker->address,
         'current_balance' => $faker->randomNumber(5),
         'remember_token' => str_random(10),

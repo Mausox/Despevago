@@ -2,7 +2,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class CountriesTableSeeder extends Seeder
+class CountryTableSeeder extends Seeder
 {
     /**
      * Run the seeder.
@@ -11,7 +11,7 @@ class CountriesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('countries')->truncate();
+        DB::table('countries');
         $countries = [
             ['name' => 'Afghanistan'],
             ['name' => 'Åland Islands'],
