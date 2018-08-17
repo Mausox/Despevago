@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
         $this->call(PaymentMethodTableSeeder::class);
         $this->call(PaymentHistoryTableSeeder::class);
         $this->call(TransferCarTableSeeder::class);
-        $this->call(ClassTypeSeeder::class);
+        $this->call(ClassTypeTableSeeder::class);
+        $this->call(TripTableSeeder::class);
     }
 }
+

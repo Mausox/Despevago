@@ -49,6 +49,7 @@ Route::resource('/transfers', 'TransferController');
 Route::resource('/user_histories', 'UserHistoryController');
 Route::resource('/user_types','UserTypeController');
 Route::resource('/users','UserController');
+Route::resource('/trips', 'TripController');
 
 
 Route::get('/room/byHotel/{hotel_id}', 'RoomController@searchRoomsByHotel')->name('roomsByHotel');
