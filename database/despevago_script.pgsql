@@ -401,6 +401,7 @@ CREATE TABLE reservations_transfers
     UNIQUE(transfer_id, reservation_id)
 );
 
+
 /* ROOMS_ROOM_OPTIONS TABLE */
 CREATE TABLE rooms_room_options
 (
@@ -673,19 +674,6 @@ ALTER TABLE reservations_transfers
 ADD CONSTRAINT reservations_transfers_transfer_id_foreign
 FOREIGN KEY (transfer_id)
 REFERENCES transfers (id)
-ON DELETE CASCADE;
-
-/* AIRPORT_TRANSFERS FOREIGN KEYS */
-ALTER TABLE airports_transfers
-ADD CONSTRAINT airports_transfers_transfer_id_foreign
-FOREIGN KEY (transfer_id)
-REFERENCES transfers (id)
-ON DELETE CASCADE;
-
-ALTER TABLE airports_transfers
-ADD CONSTRAINT airports_transfers_airport_id_foreign
-FOREIGN KEY (airport_id)
-REFERENCES airports (id)
 ON DELETE CASCADE;
 
 /* ROOMS_ROOM_OPTIONS FOREIGN KEYS */
