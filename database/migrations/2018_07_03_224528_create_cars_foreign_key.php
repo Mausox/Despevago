@@ -40,7 +40,7 @@ class CreateCarsForeignKey extends Migration
     public function down()
     {
         Schema::table('cars', function (Blueprint $table) {
-            $table->dropForeign(['company_id']);
+            $table->dropForeign(['branch_office_id']);
         });
 
         Schema::table('unavailable_cars', function (Blueprint $table) {

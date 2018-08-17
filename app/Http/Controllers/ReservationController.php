@@ -13,7 +13,6 @@ use App\Reservation;
 use App\Transfer;
 use App\Room;
 use App\ReservationTransfer;
-user App\
 use App\Car;
 use Illuminate\Support\Facades\Auth;
 
