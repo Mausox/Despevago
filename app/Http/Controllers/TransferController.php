@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Transfer;
-use Illuminate\Support\Facades\DB;
+use App\Airport;
+use App\Hotel;
+
 
 class TransferController extends Controller
 {
@@ -96,17 +98,18 @@ class TransferController extends Controller
         $date = $request->date;
         $hour = $request->hour;
 
-        $airport_id = DB::table('airports')->where('name',$airport)->value('id');
-        $hotel_id = DB:: table('hotels')->where('name',$hotel)->value('id');
+        $airport_id = Airport::where('name',$airport)->value('id');
+        $hotel_id = Hotel::where('name',$hotel)->value('id');
 
 
-        $resultTransfer = DB::table('transfers')->where([
+        $resultTransfer = Transfer::where([
             ['number_people', '>', $numberPeople],
             ['start_date', $date],
             ['start_hour','>',$hour],
             ['hotel_id',$hotel_id],
             ['airport_id',$airport_id],
         ])->get();
+
 
 
         if ($resultTransfer->isEmpty())

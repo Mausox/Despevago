@@ -11,7 +11,8 @@ use Illuminate\Http\Request;
 use App\Reservation;
 use App\Transfer;
 use App\Room;
-use Illuminate\Support\Facades\DB;
+use App\ReservationTransfer;
+user App\
 use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
@@ -215,16 +216,19 @@ class ReservationController extends Controller
         ])->first();
 
         //In case the transfer was already reserved by the user
-        if(DB::table('reservation_transfer')->where([['transfer_id',$transfer_id],['reservation_id',$reservation->id]])->exists())
+        if(ReservationTransfer::where([['transfer_id',$transfer_id],['reservation_id',$reservation->id]])->exists())
         {
             return "You have already reserved this transfer.";
         }
         else{
 
             //Adding the transfer reservation on the pivot table
-            DB::table('reservation_transfer')->insert([
-                ['reservation_id' => $reservation->id,'transfer_id' => $transfer_id],
-            ]);
+            $reservation_transfer = ReservationTransfer::create();
+
+            $reservation_transfer->reservation_id = $reservation->id;
+            $reservation_transfer->transfer_id = $transfer_id;
+
+            $reservation_transfer->save();
 
             //Updating balance on the reservation
             $transfer_price = floatval(preg_replace('/[^\d\.]/', '', $transfer_price));

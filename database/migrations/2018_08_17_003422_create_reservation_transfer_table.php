@@ -17,6 +17,7 @@ class CreateReservationTransferTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('transfer_id');
             $table->unsignedInteger('reservation_id');
+            $table->boolean('closed');
             $table->foreign('transfer_id')->references('id')->on('transfers')->onDelete('cascade');
             $table->foreign('reservation_id')->references('id')->on('reservations')->onDelete('cascade');
             $table->timestamps();

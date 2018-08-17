@@ -10,9 +10,9 @@ class Transfer extends Model
         'start_date', 'end_date', 'number_people', 'price', 'hotel_id', 'airport_id',
     ];
 
-    public function reservations()
+    public function ReservationTransfers()
     {
-        return $this->belongsToMany(Reservation::class);
+        return $this->hasMany(ReservationTransfer::class);
     }
     public function airports()
     {
