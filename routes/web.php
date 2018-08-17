@@ -58,3 +58,4 @@ Route::get('/user/reservations/{user_id}', 'ReservationController@userReservatio
 Route::post('/reservations/finish', "ReservationController@finishReservation")->name('finishReservations');
 
 Route::get('/hotels/byCity/{city_id}', "HotelController@searchHotelByCity")->name('hotelsByCity');
+Route::post('/reservation/car', 'ReservationController@carReservation')->name('carReservation');

@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\City;
 use App\Hotel;
 use App\HotelContact;
+use App\UnavailableCar;
 use App\UnavailableRoom;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Reservation;
 use App\Room;
+use App\Car;
 use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
@@ -192,6 +194,70 @@ class ReservationController extends Controller
         {
             return "Capacity overflow: Room capacity = " . $room->capacity . " and adults_number + children_number = ".($adults_number + $children_number);
         }
+    }
+
+
+
+    public function carReservation(Request $request)
+    {
+        $car_id = $request->car_id;
+        $user_id = $request->user_id;
+        $pick_up_date = $request->pick_up_date;
+        $return_date = $request->return_date;
+
+        $dates = array($pick_up_date, $return_date);
+
+        $car = Car::find($car_id);
+
+        $car_price = floatval(preg_replace('/[^\d\.]/', '', $car->price));
+
+
+        if ((strtotime($pick_up_date) - strtotime($return_date)) < 0)
+        {
+            $reservation = Reservation::where('user_id', $user_id)->where('closed',false)->first();
+
+            $current_balance = floatval(preg_replace('/[^\d\.]/', '', $reservation->current_balance));
+            $current_balance += $car_price;
+            $reservation->current_balance = money_format('%i', $current_balance);
+
+            foreach ($dates as $date)
+            {
+                UnavailableCar::create(['date'=>$date,'closed' => false, 'reservation_id' => $reservation->id, 'car_id' => $car_id]);
+            }
+
+            $reservation->save();
+
+            return "The car was added to your reservation";
+        }
+
+        else
+        {
+            return "Fechas inválidas";
+        }
+        /*
+        if($adults_number+$children_number <= $room->capacity)
+        {
+            $reservation = Reservation::where('user_id',$user_id)->where('closed',false)->first();
+
+            $current_balance = floatval(preg_replace('/[^\d\.]/', '', $reservation->current_balance));
+            $current_balance += ($adult_price*$adults_number + $child_price*$children_number);
+            $reservation->current_balance = money_format('%i',$current_balance);
+
+            foreach ($dates as $date)
+            {
+                UnavailableRoom::create(['date'=>$date,'closed' => false, 'reservation_id' => $reservation->id, 'room_id' => $room_id]);
+            }
+
+            $reservation->save();
+
+
+            return "Your room was added to you reservation";
+        }
+
+        else
+        {
+            return "Capacity overflow: Room capacity = " . $room->capacity . " and adults_number + children_number = ".($adults_number + $children_number);
+        }*/
     }
 
 

@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class UnavailableCar extends Model
 {
-    protected $date;
+    protected $fillable = [
+        'date', 'closed', 'reservation_id', 'car_id',
+    ];
 
     public function car(){
         return $this->belongsTo(Car::class);
