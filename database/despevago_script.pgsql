@@ -83,20 +83,6 @@ CREATE TABLE class_types
     name                        varchar(30)     NOT NULL
 );
 
-/* FLIGHTS TABLE */
-CREATE TABLE flights
-(
-    id                          serial          PRIMARY KEY,
-    departure_date              date            NOT NULL,
-    departure_time              time            NOT NULL,
-    arrival_date                time            NOT NULL,
-    arrival_time                time            NOT NULL,
-    capacity                    integer         NOT NULL,
-    airplane_model              varchar(30)     NOT NULL,
-    airline_id                  integer         NOT NULL,
-    airport_id                  integer         NOT NULL
-);
-
 /* AIRLINES TABLE */
 CREATE TABLE airlines
 (
@@ -370,6 +356,32 @@ CREATE TABLE activities
     description                 text            NOT NULL,
     capacity                    int             NOT NULL
 );
+
+/* FLIGHT TABLE */
+CREATE TABLE flight 
+(
+    id                          serial          PRIMARY KEY,
+    flight_number               text            NOT NULL,
+    departure_date              date            NOT NULL,
+    departure_hour              time            NOT NULL,
+    arrival_date                date           NOT NULL,
+    arrival_hour                time            NOT NULL,
+    cabin_baggage               int             NOT NULL,
+    capacity                    int             NOT NULL,
+    airplane_model              varchar(50)     NOT NULL
+);
+
+CREATE TABLE trip 
+(
+    id                          serial          PRIMARY KEY,
+    departure_city              varchar(50)     NOT NULL,
+    departure_date              date            NOT NULL,
+    departure_hour              time            NOT NULL,
+    arrival_city                varchar(50)     NOT NULL,
+    arrival_date                date           NOT NULL,
+    arrival_hour                time            NOT NULL,
+    direct                      int             NOT NULL
+);
   
 /* ----------  MANY-TO-MANY INTERMEDIATE TABLES ---------- */
 
@@ -445,7 +457,7 @@ CREATE TABLE reservations_transfers
     activity_id     integer NOT NULL,
     reservation_id  integer NOT NULL,
     UNIQUE(activity_id, reservation_id)
-};
+);
 /* ----------------------------- FOREIGN KEY --------------------------- */
 
 /* PAYMENT_HISTORIES FOREIGN KEYS */
