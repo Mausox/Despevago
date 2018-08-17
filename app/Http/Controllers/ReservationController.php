@@ -151,6 +151,14 @@ class ReservationController extends Controller
             $unavailableRoom->save();
         }
 
+        $unavailableCars = UnavailableCar::where("reservation_id", $request->reservation_id)->where("closed", false)->get();
+        foreach ($unavailableCars as $unavailableCar)
+        {
+            $unavailableCar->closed = true;
+            $unavailableCar->save();
+        }
+
+
         return "The reservation was successfully done";
     }
 
@@ -196,7 +204,12 @@ class ReservationController extends Controller
         }
     }
 
-
+    /**
+     * Allows to reserve a car
+     *
+     * @param  Request  $request
+     * @return \Illuminate\Http\Response
+     */
 
     public function carReservation(Request $request)
     {
@@ -232,32 +245,8 @@ class ReservationController extends Controller
 
         else
         {
-            return "Fechas inválidas";
+            return "The dates you have entered are incongruent";
         }
-        /*
-        if($adults_number+$children_number <= $room->capacity)
-        {
-            $reservation = Reservation::where('user_id',$user_id)->where('closed',false)->first();
-
-            $current_balance = floatval(preg_replace('/[^\d\.]/', '', $reservation->current_balance));
-            $current_balance += ($adult_price*$adults_number + $child_price*$children_number);
-            $reservation->current_balance = money_format('%i',$current_balance);
-
-            foreach ($dates as $date)
-            {
-                UnavailableRoom::create(['date'=>$date,'closed' => false, 'reservation_id' => $reservation->id, 'room_id' => $room_id]);
-            }
-
-            $reservation->save();
-
-
-            return "Your room was added to you reservation";
-        }
-
-        else
-        {
-            return "Capacity overflow: Room capacity = " . $room->capacity . " and adults_number + children_number = ".($adults_number + $children_number);
-        }*/
     }
 
 
