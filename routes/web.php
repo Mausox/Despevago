@@ -41,13 +41,14 @@ Route::resource('/airline', 'AirlineController');
 Route::resource('/airline-contact', 'AirlineContactController');
 //<-------------------   Airline Contact   --------------------->
 
+Route::resource('/airline_contact', 'AirlineContactController');
 Route::resource('/branch_office_contacts', 'BranchOfficeContactController');
 Route::resource('/branch_offices', 'BranchOfficeController');
 Route::resource('/car_flight_packages', 'CarFlightPackageController');
 Route::resource('/car_options', 'CarOptionController');
 Route::resource('/cars', 'CarController');
 Route::resource('/cities', 'CityController');
-Route::resource('/class-type', 'ClassTypeController');
+Route::resource('/class_types', 'ClassTypeController');
 Route::resource('/companies', 'CompanyController');
 Route::resource('/countries', 'CountryController');
 
@@ -76,6 +77,7 @@ Route::resource('/user_types','UserTypeController');
 Route::resource('/users','UserController');
 Route::get('/user/reservations/{user_id}', 'UserController@userReservations')->name('userReservations');
 //<-------------------         User       --------------------->
+Route::resource('/trips', 'TripController');
 
 //<-------------------     Reservation    --------------------->
 Route::post('/reservation/activity', 'ReservationController@activityReservation')->name('activityReservation');
