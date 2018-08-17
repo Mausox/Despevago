@@ -401,15 +401,6 @@ CREATE TABLE reservations_transfers
     UNIQUE(transfer_id, reservation_id)
 );
 
-/* AIRPORTS_TRANSFERS TABLE */
-CREATE TABLE airports_transfers
-(
-    id                          serial          PRIMARY KEY,
-    transfer_id                 integer         NOT NULL,
-    airport_id                  integer         NOT NULL,
-UNIQUE(transfer_id, airport_id)
-);
-
 /* ROOMS_ROOM_OPTIONS TABLE */
 CREATE TABLE rooms_room_options
 (
