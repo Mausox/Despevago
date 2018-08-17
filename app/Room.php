@@ -6,10 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Room extends Model
 {
-    protected $capacity;
-    protected $priceAdult;
-    protected $priceChild;
-    protected $description;
+    protected $fillable =[
+        'capacity', 'adult_price', 'child_price', 'description',
+    ];
 
     public function roomOptions()
     {
