@@ -28,14 +28,14 @@ Route::get('/hotels/create', function ()
 
 Route::resource('/activities','ActivityController');
 Route::resource('/airline', 'AirlineController');
-Route::resource('/airline-contact', 'AirlineContactController');
+Route::resource('/airline_contact', 'AirlineContactController');
 Route::resource('/branch_office_contacts', 'BranchOfficeContactController');
 Route::resource('/branch_offices', 'BranchOfficeController');
 Route::resource('/car_flight_packages', 'CarFlightPackageController');
 Route::resource('/car_options', 'CarOptionController');
 Route::resource('/cars', 'CarController');
 Route::resource('/cities', 'CityController');
-Route::resource('/class-type', 'ClassTypeController');
+Route::resource('/class_types', 'ClassTypeController');
 Route::resource('/companies', 'CompanyController');
 Route::resource('/countries', 'CountryController');
 Route::resource('/hotel_contacts', 'HotelContactController');
