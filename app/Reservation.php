@@ -26,8 +26,8 @@ class Reservation extends Model
     public function seats(){
         return $this->belongsToMany(Seat::class);
     }
-    public function transfers(){
-        return $this->belongsToMany(Transfer::class);
+    public function ReservationTransfers(){
+        return $this->hasMany(ReservationTransfer::class);
     }
     public function unavailable_rooms(){
         return $this->hasMany(UnavailableRoom::class);

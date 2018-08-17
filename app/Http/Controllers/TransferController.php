@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Transfer;
+use App\Airport;
+use App\Hotel;
+
 
 class TransferController extends Controller
 {
@@ -84,5 +87,37 @@ class TransferController extends Controller
     {
         Transfer::destroy($id);
         return "The transfer ID: {$id} was removed!";
+    }
+
+    public function searchTransfer(Request $request)
+    {
+
+        $airport = $request->airport;
+        $hotel = $request->hotel;
+        $numberPeople = $request->numberPeople;
+        $date = $request->date;
+        $hour = $request->hour;
+
+        $airport_id = Airport::where('name',$airport)->value('id');
+        $hotel_id = Hotel::where('name',$hotel)->value('id');
+
+
+        $resultTransfer = Transfer::where([
+            ['number_people', '>', $numberPeople],
+            ['start_date', $date],
+            ['start_hour','>',$hour],
+            ['hotel_id',$hotel_id],
+            ['airport_id',$airport_id],
+        ])->get();
+
+
+
+        if ($resultTransfer->isEmpty())
+        {
+            return "No result matched your search";
+        }
+        else {
+            return $resultTransfer;
+        }
     }
 }

@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Transfer extends Model
 {
     protected $fillable = [
-        'start_date', 'end_date', 'number_people', 'price', 'hotel_id',
+        'start_date', 'end_date', 'number_people', 'price', 'hotel_id', 'airport_id',
     ];
 
-    public function reservations()
+    public function ReservationTransfers()
     {
-        return $this->belongsToMany(Reservation::class);
+        return $this->hasMany(ReservationTransfer::class);
     }
     public function airports()
     {

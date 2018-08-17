@@ -21,6 +21,7 @@ class CreateTransfersTable extends Migration
             $table->money('price');
             $table->timestamps();
             $table->unsignedInteger('hotel_id');
+            $table->unsignedInteger('airport_id');
         });
     }
 
