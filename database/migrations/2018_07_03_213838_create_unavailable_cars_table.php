@@ -15,11 +15,12 @@ class CreateUnavailableCarsTable extends Migration
     {
         Schema::create('unavailable_cars', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('date');
+            $table->timestamp('pick_up_date');
+            $table->timestamp('return_date');
             $table->timestamps();
+            $table->boolean('closed');
             $table->unsignedInteger('reservation_id');
             $table->unsignedInteger('car_id');
-            $table->boolean('closed');
         });
     }
 

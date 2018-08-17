@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\City;
 use App\Hotel;
 use App\HotelContact;
+use App\UnavailableCar;
 use App\UnavailableRoom;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ use App\Transfer;
 use App\Room;
 use App\ReservationTransfer;
 user App\
+use App\Car;
 use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
@@ -121,6 +123,14 @@ class ReservationController extends Controller
 
 
 
+        $unavailableCars = UnavailableCar::where("reservation_id", $request->reservation_id)->where("closed", false)->get();
+        foreach ($unavailableCars as $unavailableCar)
+        {
+            $unavailableCar->closed = true;
+            $unavailableCar->save();
+        }
+
+
         return "The reservation was successfully done";
     }
 
@@ -179,6 +189,12 @@ class ReservationController extends Controller
     {
         $activity_id = $request->activity_id;
         $user_id = $request->user_id;
+    /**
+     * Allows to reserve a car
+     *
+     * @param  Request  $request
+     * @return \Illuminate\Http\Response
+     */
 
         $activity = Room::find($activity_id);
 
@@ -247,5 +263,44 @@ class ReservationController extends Controller
             return "Your transfer was added to your reservation";
         }
     }
+
+    public function carReservation(Request $request)
+    {
+        $car_id = $request->car_id;
+        $user_id = $request->user_id;
+        $pick_up_date = $request->pick_up_date;
+        $return_date = $request->return_date;
+
+        $dates = array($pick_up_date, $return_date);
+
+        $car = Car::find($car_id);
+
+        $car_price = floatval(preg_replace('/[^\d\.]/', '', $car->price));
+
+
+        if ((strtotime($pick_up_date) - strtotime($return_date)) < 0)
+        {
+            $reservation = Reservation::where('user_id', $user_id)->where('closed',false)->first();
+
+            $current_balance = floatval(preg_replace('/[^\d\.]/', '', $reservation->current_balance));
+            $current_balance += $car_price;
+            $reservation->current_balance = money_format('%i', $current_balance);
+
+            foreach ($dates as $date)
+            {
+                UnavailableCar::create(['date'=>$date,'closed' => false, 'reservation_id' => $reservation->id, 'car_id' => $car_id]);
+            }
+
+            $reservation->save();
+
+            return "The car was added to your reservation";
+        }
+
+        else
+        {
+            return "The dates you have entered are incongruent";
+        }
+    }
+
 
 }
