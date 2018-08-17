@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\BranchOffice;
+use App\BranchOfficeContact;
 use Illuminate\Http\Request;
 
 class BranchOfficeController extends Controller
@@ -84,5 +85,28 @@ class BranchOfficeController extends Controller
     {
         BranchOffice::destroy($id);
         return "The branch office ID: {$id} was removed!";
+    }
+
+    /**
+     * allows the search of a branch-office and her contact given a city.. - GET Type
+     *
+     * @param  int  $city_id
+     * @return array
+     */
+
+    public function searchBranchOfficeByCity($city_id)
+    {
+        $branch_offices = BranchOffice::where('city_id',$city_id)->get();
+        $data = array();
+        foreach ($branch_offices as $branch_office)
+        {
+            $branch_office_contact = BranchOfficeContact::where('branch_office_id',$branch_office->id)->get();
+            $data[] = array
+            (
+                "branch_office" => $branch_office,
+                "branch_office_contact" => $branch_office_contact
+            );
+        }
+        return $data;
     }
 }
