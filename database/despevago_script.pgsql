@@ -128,13 +128,10 @@ CREATE TABLE airports
 CREATE TABLE cars 
 (
     id                          serial          PRIMARY KEY,
-    pick_up_location            text            NOT NULL,
-    drop_off_location           text            NOT NULL,
-    pick_up_date                date            NOT NULL,
-    pick_up_time                time            NOT NULL,
-    return_date                 date            NOT NULL,
-    return_time                 time            NOT NULL,
+    ubication                   text            NOT NULL,
+    model                       text            NOT NULL,
     classification              varchar(20)     NOT NULL,
+    capacity                    integer         NOT NULL,
     price                       money           NOT NULL,
     company_id                  integer         NOT NULL
 );
@@ -176,10 +173,11 @@ CREATE TABLE branch_offices_contacts
 CREATE TABLE unavailable_cars
 (
     id                          serial          PRIMARY KEY,
-    date                        date            NOT NULL,
+    pick_up_date                timestamp       NOT NULL,
+    return_date                 timestamp       NOT NULL,
+    closed                      boolean         NOT NULL,
     reservation_id              integer         NOT NULL,
-    car_id                      integer         NOT NULL,
-    closed                      boolean         NOT NULL
+    car_id                      integer         NOT NULL
 
 );
 
@@ -482,7 +480,7 @@ FOREIGN KEY (city_id)
 REFERENCES cities (id)
 ON DELETE CASCADE;
 
-/* HOTEL_CONCACTS FOREIGN KEYS */
+/* HOTEL_CONTACTS FOREIGN KEYS */
 ALTER TABLE hotel_contacts
 ADD CONSTRAINT hotel_contacts_hotel_id_foreign
 FOREIGN KEY (hotel_id)
@@ -504,9 +502,9 @@ ON DELETE CASCADE;
 
 /*CARS FOREIGN KEYS*/
 ALTER TABLE cars
-ADD CONSTRAINT cars_company_id_foreign
-FOREIGN KEY (company_id)
-REFERENCES companies(id)
+ADD CONSTRAINT cars_branch_office_id_foreign
+FOREIGN KEY (branch_office_id)
+REFERENCES branch_offices(id)
 ON DELETE CASCADE;
 
 /* BRANCH_OFFICES FOREIGN KEYS*/
