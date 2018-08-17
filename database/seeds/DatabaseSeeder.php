@@ -27,5 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PaymentMethodTableSeeder::class);
         $this->call(PaymentHistoryTableSeeder::class);
         $this->call(TransferCarTableSeeder::class);
+        $this->call(HotelTableSeeder::class);
     }
 }
