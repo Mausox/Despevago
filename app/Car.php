@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Car extends Model
 {
     protected $fillable = [
-        'pick_up_location','drop_off_location','pick_up_date', 'pick_up_time', 'return_date', 'return_time', 'classification', 'price', 'company_id',
+        'ubication', 'model' ,'classification', 'capacity', 'price', 'company_id',
     ];
 
     public function unavailable_cars(){
@@ -18,7 +18,8 @@ class Car extends Model
         return $this->belongsToMany(CarOption::class);
     }
 
-    public function company(){
-        return $this->belongsTo(Company::class);
+    public function branch_office()
+    {
+        return $this->belongsTo(BranchOffice::class);
     }
 }

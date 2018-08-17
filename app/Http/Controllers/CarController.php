@@ -86,4 +86,17 @@ class CarController extends Controller
         Car::destroy($id);
         return "The car ID:{$id} was removed!";
     }
+
+    /**
+     * Search the company's car.
+     *
+     * @param  int  $company_id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function searchCarsByCompany($company_id)
+    {
+        $cars = Car::where("company_id",$company_id)->get();
+        return $cars;
+    }
 }
