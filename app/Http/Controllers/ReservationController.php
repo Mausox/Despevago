@@ -92,47 +92,6 @@ class ReservationController extends Controller
         return "The reservation {$id} was removed!";
     }
 
-    //Función que entrega todas las reservas de un usuario, considerando toda la información necesaria para que el
-    //usuario sepa en caso del hotel por ejemplo, su habitación, hotel, ciudad, y días de la estadía.
-    //Entradas: $user_id
-
-    public function userReservations($user_id)
-    {
-        $reservations = Reservation::where('user_id',$user_id)->where('closed',true)->get();
-        $rooms_array = array();
-
-
-        foreach ($reservations as $reservation)
-        {
-
-            //rooms
-            $unavailable_rooms = $reservation->unavailable_rooms()->where('closed',true)->get();
-            foreach ($unavailable_rooms as $unavailable_room)
-            {
-                $room_id = $unavailable_room->room_id;
-                $room = Room::find($room_id);
-                $hotel = Hotel::find($room->hotel_id);
-                $city = City::find($hotel->city_id);
-                $room_dates = UnavailableRoom::Select('date')->where("room_id",$room_id)->where("reservation_id", $reservation->id)->get();
-
-                $room_data = array
-                                (
-                                    "room" => $room,
-                                    "hotel" => $hotel,
-                                    "city" => $city,
-                                    "dates" => $room_dates
-                                );
-
-                if(!(in_array($room_data, $rooms_array)))
-                {
-                    $rooms_array[] = $room_data;
-                }
-            }
-        }
-
-        return $rooms_array;
-    }
-
     //Función que finaliza una reserva y "cierra" las reservas en unavailableRooms, cars,etc.
     //Entradas: reservation_id
     //Tipo: POST
@@ -142,12 +101,22 @@ class ReservationController extends Controller
         $reservation->closed = true;
         $reservation->save();
 
+        //<--------------------------------- Rooms --------------------------------->
         $unavailableRooms = UnavailableRoom::where("reservation_id", $request->reservation_id)->where("closed", false)->get();
         foreach ($unavailableRooms as $unavailableRoom)
         {
             $unavailableRoom->closed = true;
             $unavailableRoom->save();
         }
+        //<--------------------------------- Rooms --------------------------------->
+
+        //<------------------------------ Activities ------------------------------->
+        $activityReservation = ActivityReservation::where("reservation_id", $request->reservation_id)->where("closed", false)->get();
+        $activityReservation->closed = true;
+        $activityReservation->capacity -= 1;
+        //<------------------------------ Activities ------------------------------->
+
+
 
         return "The reservation was successfully done";
     }
@@ -191,6 +160,43 @@ class ReservationController extends Controller
         else
         {
             return "Capacity overflow: Room capacity = " . $room->capacity . " and adults_number + children_number = ".($adults_number + $children_number);
+        }
+    }
+
+    //Función que permite reservar una actividad
+    //Entradas: activity_id,user_id
+    //Tipo: POST
+    //Estado: NO PROBADA POR FALTA DEL MODELO ACTIVITYRESERVATION.
+    public function activityReservation(Request $request)
+    {
+        $activity_id = $request->activity_id;
+        $user_id = $request->user_id;
+
+        $activity = Room::find($activity_id);
+
+        $price = floatval(preg_replace('/[^\d\.]/', '', $activity->price));
+
+        if($activity->capacity > 0)
+        {
+            $reservation = Reservation::where('user_id',$user_id)->where('closed',false)->first();
+
+            $current_balance = floatval(preg_replace('/[^\d\.]/', '', $reservation->current_balance));
+            $current_balance += $price;
+            $reservation->current_balance = money_format('%i',$current_balance);
+
+
+            ActivityReservation::create(['closed' => false, 'reservation_id' => $reservation->id, 'activity' => $activity_id]);
+
+
+            $reservation->save();
+
+
+            return "Your activity was added to you reservation";
+        }
+
+        else
+        {
+            return "The event is full";
         }
     }
 

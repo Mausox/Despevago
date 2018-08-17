@@ -6,9 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reservation extends Model
 {
+    protected $date;
+    protected $hour;
+    protected $current_balance;
+    protected $new_balance;
+    protected $user_id;
+    protected $closed;
 
     protected $fillable = [
-        'date', 'hour', 'current_balance', 'new_balance', 'user_id',
+        'date', 'hour', 'current_balance', 'new_balance', 'user_id','closed'
         ];
 
     public function user(){

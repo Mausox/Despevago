@@ -85,4 +85,23 @@ class ActivityController extends Controller
         Activity::destroy($id);
         return "The activity ID: {$id} was removed!";
     }
+
+    //Función que entrega las actividades de una ciudad en particular
+    //Entradas: hotel_id
+    //Tipo: GET
+    public function searchActivitiesByCity($city_id)
+    {
+        $activity = Activity::where("city_id",$city_id)->get();
+        return $activity;
+    }
+
+    //Función que entrega las actividades de una fecha en particular
+    //Entradas: date
+    //Tipo: GET
+    public function searchActivitiesByDate($date)
+    {
+        $activity = Activity::where("date",$date)->get();
+        return $activity;
+    }
+
 }
