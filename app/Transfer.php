@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Transfer extends Model
 {
     protected $fillable = [
-        'start_date', 'end_date', 'number_people', 'price', 'hotel_id',
+        'start_date', 'end_date', 'number_people', 'price', 'hotel_id', 'airport_id',
     ];
 
     public function reservations()

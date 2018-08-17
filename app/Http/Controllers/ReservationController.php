@@ -9,7 +9,9 @@ use App\UnavailableRoom;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Reservation;
+use App\Transfer;
 use App\Room;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
@@ -194,5 +196,46 @@ class ReservationController extends Controller
         }
     }
 
+    //Function: Allows user to make a transfer reservation
+    //Parameters: transfer_id, user_id
+    //POST
+    public function transferReservation(Request $request)
+    {
+
+        $transfer_id = $request->transfer_id;
+        $user_id = $request->user_id;
+
+        //To obtain the price of the transfer
+        $transfer_price = Transfer::find($transfer_id)->value('price');
+
+        //To obtain the open reservation of the user
+        $reservation = Reservation::where([
+            ['user_id', $user_id],
+            ['closed', false],
+        ])->first();
+
+        //In case the transfer was already reserved by the user
+        if(DB::table('reservation_transfer')->where([['transfer_id',$transfer_id],['reservation_id',$reservation->id]])->exists())
+        {
+            return "You have already reserved this transfer.";
+        }
+        else{
+
+            //Adding the transfer reservation on the pivot table
+            DB::table('reservation_transfer')->insert([
+                ['reservation_id' => $reservation->id,'transfer_id' => $transfer_id],
+            ]);
+
+            //Updating balance on the reservation
+            $transfer_price = floatval(preg_replace('/[^\d\.]/', '', $transfer_price));
+            $current_balance = floatval(preg_replace('/[^\d\.]/', '', $reservation->current_balance));
+            $current_balance += $transfer_price;
+            $reservation->current_balance = money_format('%i',$current_balance);
+
+            $reservation->save();
+
+            return "Your transfer was added to your reservation";
+        }
+    }
 
 }

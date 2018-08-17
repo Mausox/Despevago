@@ -87,37 +87,34 @@ class TransferController extends Controller
         return "The transfer ID: {$id} was removed!";
     }
 
-    public function search(Request $request)
+    public function searchTransfer(Request $request)
     {
+
         $airport = $request->airport;
         $hotel = $request->hotel;
         $numberPeople = $request->numberPeople;
         $date = $request->date;
         $hour = $request->hour;
 
-        $airport_id = DB::table('cities')->where('name',$airport)->value('id');
+        $airport_id = DB::table('airports')->where('name',$airport)->value('id');
         $hotel_id = DB:: table('hotels')->where('name',$hotel)->value('id');
 
-        $resultTransfer = DB::table('transfer')->where([
+
+        $resultTransfer = DB::table('transfers')->where([
             ['number_people', '>', $numberPeople],
             ['start_date', $date],
-            ['start_hour', '>' ,$hour],
+            ['start_hour','>',$hour],
             ['hotel_id',$hotel_id],
             ['airport_id',$airport_id],
         ])->get();
 
-        if ($resultTransfer == null)
-        {
-            return "No result match your search";
 
+        if ($resultTransfer->isEmpty())
+        {
+            return "No result matched your search";
         }
         else {
             return $resultTransfer;
         }
-
-
-
-
-
     }
 }
