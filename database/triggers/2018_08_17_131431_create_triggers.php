@@ -21,7 +21,7 @@ class CreateTriggers extends Migration
         DB::unprepared('CREATE TRIGGER tr_add_update_user_balance AFTER INSERT ON payment_histories FOR EACH ROW EXECUTE PROCEDURE add_update_user_balance();');
 
         //User balance update after reservation closed
-        DB::unprepared('CREATE TRIGGER tr_reservation_user_balance_update AFTER UPDATE ON reservations FOR EACH ROW EXECUTE PROCEDURE ');
+        DB::unprepared('CREATE TRIGGER tr_reservation_user_balance_update AFTER UPDATE OF closed ON reservations FOR EACH ROW EXECUTE PROCEDURE reservation_user_balance_update();');
     }
 
     /**
