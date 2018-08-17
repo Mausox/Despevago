@@ -6,7 +6,7 @@ use App\City;
 
 $factory->define(Airport::class, function (Faker $faker) {
     return [
-        'name' => $faker->domainName,
+        'name' => $faker->company,
         'address' => $faker->address,
         'city_id' => City::all()->random()->id,
     ];

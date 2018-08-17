@@ -12,6 +12,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // Tipo de usuario es creado antes del usuario.
+        $this->call(CountryTableSeeder::class);
+        $this->call(CityTableSeeder::class);
         $this->call(UserTypeTableSeeder::class);
         $this->call(UserTableSeeder::class);
         $this->call(UserHistoryTableSeeder::class);
@@ -20,10 +22,8 @@ class DatabaseSeeder extends Seeder
         $this->call(BranchOfficeTableSeeder::class);
         $this->call(BranchOfficeContactTableSeeder::class);
         // $this->call(CarTableSeeder::class);
-        $this->call(CarTableSeeder::class);
         $this->call(CarOptionTableSeeder::class);
-        $this->call(CountryTableSeeder::class);
-        $this->call(CityTableSeeder::class);
+
         $this->call(PaymentMethodTableSeeder::class);
         $this->call(PaymentHistoryTableSeeder::class);
         $this->call(TransferCarTableSeeder::class);
