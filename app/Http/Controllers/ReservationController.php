@@ -197,7 +197,7 @@ class ReservationController extends Controller
             $reservation->current_balance = money_format('%i',$current_balance);
 
 
-            ActivityReservation::create(['closed' => false, 'reservation_id' => $reservation->id, 'activity' => $activity_id]);
+            //ActivityReservation::create(['closed' => false, 'reservation_id' => $reservation->id, 'activity' => $activity_id]);
 
 
             $reservation->save();
