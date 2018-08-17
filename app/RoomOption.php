@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class RoomOption extends Model
 {
-    protected $name;
-    protected $feature;
+    protected $fillable =[
+        'name', 'feature',
+    ];
 
     public function rooms()
     {
