@@ -15,3 +15,5 @@ yarn-error.log
 config/app\.php
 
 composer\.lock
+
+dgo\.pgsql

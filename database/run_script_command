@@ -1,0 +1,2 @@
+psql -U homestead -h localhost -f database/despevago_script.pgsql
+password = secret

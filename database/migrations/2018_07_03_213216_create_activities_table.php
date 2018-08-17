@@ -20,6 +20,7 @@ class CreateActivitiesTable extends Migration
             $table->money('price');
             $table->time('hour');
             $table->string('description');
+            $table->unsignedInteger('capacity');
             $table->timestamps();
             $table->unsignedInteger('city_id');
         });
