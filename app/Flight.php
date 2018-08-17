@@ -6,6 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Flight extends Model
 {
+    protected $fillable =[
+        'flight_number',
+        'departure_date',
+        'departure_hour',
+        'arrival_date',
+        'arrival_time',
+        'cabin_baggage',
+        'capacity',
+        'airplane_model',
+    ];
     public function seats()
     {
         return $this->hasMany(Seat::class);
