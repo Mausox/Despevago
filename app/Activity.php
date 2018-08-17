@@ -6,11 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Activity extends Model
 {
-    protected $address;
-    protected $date;
-    protected $hour;
-    protected $price;
-    protected $description;
+    protected $fillable = [
+      'address', 'date', 'hour', 'price', 'description', 'city_id',
+    ];
 
     public function reservations()
     {

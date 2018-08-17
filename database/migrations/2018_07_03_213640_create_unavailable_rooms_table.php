@@ -19,6 +19,7 @@ class CreateUnavailableRoomsTable extends Migration
             $table->timestamps();
             $table->unsignedInteger('reservation_id');
             $table->unsignedInteger('room_id');
+            $table->boolean('closed');
         });
     }
 

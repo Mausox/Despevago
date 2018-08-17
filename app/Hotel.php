@@ -10,6 +10,16 @@ class Hotel extends Model
     protected $email;
     protected $score;
     protected $description;
+    protected $city_id;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'email', 'score', 'description','city_id'
+    ];
 
     public function rooms()
     {

@@ -6,9 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Seat extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'number', 'status', 'price', 'passenger_id', 'class_type_id', 'flight_id',
+    ];
+
     public function passenger()
     {
-        return $this->hasOne(Passenger::class);
+        return $this->belongsTo(Passenger::class);
     }
 
     public function class_type()

@@ -17,6 +17,7 @@ class CreateAirlineContactsTable extends Migration
             $table->increments('id');
             $table->string('telephone');
             $table->timestamps();
+            $table->unsignedInteger('airline_id');
         });
     }
 

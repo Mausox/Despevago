@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Schema;
-use Aejnsn\Postgresify\Database\Schema\Blueprint;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateReservationsTable extends Migration
@@ -21,6 +21,7 @@ class CreateReservationsTable extends Migration
             $table->money('new_balance');
             $table->timestamps();
             $table->unsignedInteger('user_id');
+            $table->boolean('closed');
         });
     }
 

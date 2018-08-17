@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Schema;
-use Aejnsn\Postgresify\Database\Schema\Blueprint;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateCarsTable extends Migration
@@ -15,14 +15,13 @@ class CreateCarsTable extends Migration
     {
         Schema::create('cars', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('pick_up_date');
-            $table->time('pick_up_time');
-            $table->date('return_date');
-            $table->time('return_time');
-            $table->integer('classification');
+            $table->string('ubication');
+            $table->string('model');
+            $table->string('classification');
+            $table->unsignedInteger('capacity');
             $table->money('price');
             $table->timestamps();
-            $table->integer('company_id');
+            $table->unsignedInteger('branch_office_id');
         });
     }
 

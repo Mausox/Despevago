@@ -6,12 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Car extends Model
 {
-    protected $pick_up_date;
-    protected $pick_up_time;
-    protected $return_date;
-    protected $return_time;
-    protected $classification;
-    protected $price;
+    protected $fillable = [
+        'ubication', 'model' ,'classification', 'capacity', 'price', 'company_id',
+    ];
 
     public function unavailable_cars(){
         return $this->hasMany(UnavailableCar::class);
@@ -21,7 +18,8 @@ class Car extends Model
         return $this->belongsToMany(CarOption::class);
     }
 
-    public function company(){
-        return $this->belongsTo(Company::class);
+    public function branch_office()
+    {
+        return $this->belongsTo(BranchOffice::class);
     }
 }

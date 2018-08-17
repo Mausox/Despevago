@@ -14,7 +14,7 @@ class CreateCarsForeignKey extends Migration
     public function up()
     {
         Schema::table('cars', function (Blueprint $table) {
-            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->foreign('branch_office_id')->references('id')->on('branch_offices')->onDelete('cascade');
         });
 
         Schema::table('unavailable_cars', function (Blueprint $table) {
@@ -40,7 +40,7 @@ class CreateCarsForeignKey extends Migration
     public function down()
     {
         Schema::table('cars', function (Blueprint $table) {
-            $table->dropForeign(['company_id']);
+            $table->dropForeign(['branch_office_id']);
         });
 
         Schema::table('unavailable_cars', function (Blueprint $table) {

@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'password', 'first_name', 'last_name', 'telephone', 'address',
+        'email', 'password', 'first_name', 'last_name', 'telephone', 'address', 'current_balance',
     ];
 
     /**
@@ -24,15 +24,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'current_balance',
     ];
 
     public function reservations(){
         return $this->hasMany(Reservation::class);
-    }
-
-    public function financial_information(){
-        return $this->hasOne(FinancialInformation::class);
     }
 
     public function user_histories(){
@@ -41,6 +37,16 @@ class User extends Authenticatable
 
     public function user_types(){
         return $this->belongsToMany(UserType::class)->withTimestamps();
+    }
+
+    public function payment_methods()
+    {
+        return $this->belongsToMany(PaymentMethod::class);
+    }
+
+    public function payment_histories()
+    {
+        return $this->hasMany(PaymentHistory::class);
     }
 
     public function authorize_user_types($user_types){
