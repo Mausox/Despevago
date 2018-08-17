@@ -269,7 +269,8 @@ CREATE TABLE reservations
     hour                        time            NOT NULL,
     current_balance             money           NOT NULL,
     new_balance                 money           NOT NULL,
-    user_id                     integer         NOT NULL
+    user_id                     integer         NOT NULL,
+    closed                      boolean         NOT NULL
 );
 
 /* CITIES TABLE */
@@ -437,6 +438,14 @@ CREATE TABLE cars_car_options
     UNIQUE(car_id, car_options_id)
 );
 
+/* ACTIVITY_RESERVATIONS TABLE */
+CREATE TABLE reservations_transfers
+{
+    id              serial  PRIMARY KEY,
+    activity_id     integer NOT NULL,
+    reservation_id  integer NOT NULL,
+    UNIQUE(activity_id, reservation_id)
+};
 /* ----------------------------- FOREIGN KEY --------------------------- */
 
 /* PAYMENT_HISTORIES FOREIGN KEYS */
