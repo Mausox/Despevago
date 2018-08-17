@@ -368,7 +368,8 @@ CREATE TABLE activities
     date                        date            NOT NULL,
     hour                        time            NOT NULL,
     price                       money           NOT NULL,
-    description                 text            NOT NULL
+    description                 text            NOT NULL,
+    capacity                    int             NOT NULL
 );
   
 /* ----------  MANY-TO-MANY INTERMEDIATE TABLES ---------- */
