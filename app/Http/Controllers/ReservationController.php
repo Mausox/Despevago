@@ -175,11 +175,6 @@ class ReservationController extends Controller
         }
     }
 
-    //Function: Allows user to make a transfer reservation
-    //Parameters: transfer_id, user_id
-    //POST
-    public function transferReservation(Request $request)
-    {
     //Función que permite reservar una actividad
     //Entradas: activity_id,user_id
     //Tipo: POST
@@ -188,12 +183,6 @@ class ReservationController extends Controller
     {
         $activity_id = $request->activity_id;
         $user_id = $request->user_id;
-    /**
-     * Allows to reserve a car
-     *
-     * @param  Request  $request
-     * @return \Illuminate\Http\Response
-     */
 
         $activity = Room::find($activity_id);
 
@@ -224,6 +213,11 @@ class ReservationController extends Controller
     }
 
 
+    //Function: Allows user to make a transfer reservation
+    //Parameters: transfer_id, user_id
+    //POST
+    public function transferReservation(Request $request)
+    {
         $transfer_id = $request->transfer_id;
         $user_id = $request->user_id;
 
