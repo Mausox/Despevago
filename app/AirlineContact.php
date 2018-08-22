@@ -12,7 +12,7 @@ class AirlineContact extends Model
      * @var array
      */
     protected $fillable = [
-        'telephone', 'airline_id',
+        'telephone',
     ];
 
     public function airline()
