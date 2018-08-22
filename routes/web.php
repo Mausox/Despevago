@@ -33,13 +33,6 @@ Route::get('/activities/byCity/{city_id}', 'ActivityController@searchActivitiesB
 Route::get('/activities/byDate/{date}', 'ActivityController@searchActivitiesByDate')->name('activitiesByDate');
 //<-------------------      Activities     --------------------->
 
-//<-------------------       Airline       --------------------->
-Route::resource('/airline', 'AirlineController');
-//<-------------------       Airline       --------------------->
-
-//<-------------------   Airline Contact   --------------------->
-Route::resource('/airline-contact', 'AirlineContactController');
-//<-------------------   Airline Contact   --------------------->
 
 Route::resource('/airline_contact', 'AirlineContactController');
 Route::resource('/branch_office_contacts', 'BranchOfficeContactController');
@@ -93,3 +86,18 @@ Route::get('/hotels/byCity/{city_id}', "HotelController@searchHotelByCity")->nam
 Route::get('/branch_offices/byCity/{city_id}', 'BranchOfficeController@searchBranchOfficeByCity')->name('branchOfficesByCity');
 Route::post('/reservation/car', 'ReservationController@carReservation')->name('carReservation');
 
+// Flights ------------------------->
+// -- Airline
+Route::resource('/airline', 'AirlineController');
+
+// -- AirlineContact
+Route::resource('/airline-contact', 'AirlineContactController');
+
+// -- Airline by AirlineContact
+Route::get('/airline/by-airline-contact/{airline_contact_id}', 'AirlineController@searchAirlineByAirlineContact');
+
+// -- AirlineContact by Airline
+Route::get('/airline-contacts/by-airline/{airline_id}', 'AirlineController@searchAirlineContactByAirline');
+
+// -- Airport
+Route::resource('/airport', 'AirportController');
