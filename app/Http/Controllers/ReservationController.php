@@ -220,6 +220,7 @@ class ReservationController extends Controller
     {
         $transfer_id = $request->transfer_id;
         $user_id = $request->user_id;
+        $num_people = $request->num_people;
 
         //To obtain the price of the transfer
         $transfer_price = Transfer::find($transfer_id)->value('price');
@@ -231,19 +232,15 @@ class ReservationController extends Controller
         ])->first();
 
         //In case the transfer was already reserved by the user
-        if(ReservationTransfer::where([['transfer_id',$transfer_id],['reservation_id',$reservation->id]])->exists())
+        if($reservation->transfers()->where([['transfer_id',$transfer_id],['reservation_id',$reservation->id]])->exists())
         {
             return "You have already reserved this transfer.";
         }
         else{
 
             //Adding the transfer reservation on the pivot table
-            $reservation_transfer = ReservationTransfer::create();
 
-            $reservation_transfer->reservation_id = $reservation->id;
-            $reservation_transfer->transfer_id = $transfer_id;
-
-            $reservation_transfer->save();
+            $reservation->transfers()->attach($transfer_id,['closed' => false]);
 
             //Updating balance on the reservation
             $transfer_price = floatval(preg_replace('/[^\d\.]/', '', $transfer_price));

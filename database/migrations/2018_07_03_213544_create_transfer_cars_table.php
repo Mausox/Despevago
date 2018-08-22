@@ -20,7 +20,6 @@ class CreateTransferCarsTable extends Migration
             $table->string('classification');
             $table->string('company');
             $table->timestamps();
-            $table->unsignedInteger('transfer_id')->nullable();
         });
     }
 
