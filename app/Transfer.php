@@ -7,13 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Transfer extends Model
 {
     protected $fillable = [
-        'start_date', 'end_date', 'number_people', 'price', 'hotel_id', 'airport_id',
+        'start_date', 'end_date', 'number_people', 'price', 'route', 'hotel_id', 'airport_id', 'transfer_car_id',
     ];
 
-    public function ReservationTransfers()
+    //public function ReservationTransfers(){return $this->hasMany(ReservationTransfer::class);}
+
+    public function reservations()
     {
-        return $this->hasMany(ReservationTransfer::class);
+        return $this->belongsToMany(Reservation::class)->withTimestamps();
     }
+
     public function airports()
     {
         return $this->belongsToMany(Airport::class);
@@ -22,8 +25,8 @@ class Transfer extends Model
     {
         return $this->belongsTo(Hotel::class);
     }
-    public function transfer_cars()
+    public function transfer_car()
     {
-        return $this->hasMany(TransferCar::class);
+        return $this->belongsTo(TransferCar::class);
     }
 }

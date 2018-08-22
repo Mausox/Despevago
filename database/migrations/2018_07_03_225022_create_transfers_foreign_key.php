@@ -19,8 +19,8 @@ class CreateTransfersForeignKey extends Migration
         Schema::table('transfers', function (Blueprint $table) {
             $table->foreign('hotel_id')->references('id')->on('hotels')->onDelete('cascade');
         });
-        Schema::table('transfer_cars', function (Blueprint $table) {
-            $table->foreign('transfer_id')->references('id')->on('transfers')->onDelete('cascade');
+        Schema::table('transfers', function (Blueprint $table) {
+            $table->foreign('transfer_car_id')->references('id')->on('transfer_cars')->onDelete('cascade');
         });
     }
 
@@ -37,8 +37,8 @@ class CreateTransfersForeignKey extends Migration
         Schema::table('transfers', function (Blueprint $table) {
             $table->dropForeign(['hotel_id']);
         });
-        Schema::table('transfer_cars', function (Blueprint $table) {
-            $table->dropForeign(['transfer_id']);
+        Schema::table('transfers', function (Blueprint $table) {
+            $table->dropForeign(['transfer_car_id']);
         });
     }
 }

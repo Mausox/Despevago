@@ -7,7 +7,7 @@ $factory->define(TransferCar::class, function (Faker $faker) {
     return [
         'vehicle_registration_number' => $faker->buildingNumber,
         'capacity' => $faker->numberBetween(2,6),
-        'company' => $faker->domainName,
+        'company' => $faker->company,
         'classification' => $faker->randomElement([
             'Economy',
             'Intermediate',

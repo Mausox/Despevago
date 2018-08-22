@@ -87,7 +87,7 @@ Route::post('/reservations/finish', "ReservationController@finishReservation")->
 
 //Transfer
 Route::get('/search_transfer/', 'TransferController@searchTransfer')->name('searchTransfer');
-Route::post('/reservation/transfer','ReservationController@transferReservation')->name('transferReservation');
+Route::post('/reservations/transfer','ReservationController@transferReservation')->name('transferReservation');
 
 Route::get('/hotels/byCity/{city_id}', "HotelController@searchHotelByCity")->name('hotelsByCity');
 Route::get('/branch_offices/byCity/{city_id}', 'BranchOfficeController@searchBranchOfficeByCity')->name('branchOfficesByCity');

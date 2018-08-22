@@ -26,13 +26,15 @@ class DatabaseSeeder extends Seeder
 
         $this->call(PaymentMethodTableSeeder::class);
         $this->call(PaymentHistoryTableSeeder::class);
-        $this->call(TransferCarTableSeeder::class);
         $this->call(HotelTableSeeder::class);
         $this->call(RoomTableSeeder::class);
 
         $this->call(AirportTableSeeder::class);
         $this->call(ClassTypeTableSeeder::class);
         $this->call(TripTableSeeder::class);
+
+        $this->call(TransferCarTableSeeder::class);
+        $this->call(TransferTableSeeder::class);
     }
 }
 

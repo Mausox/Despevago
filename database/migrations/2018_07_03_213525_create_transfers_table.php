@@ -17,11 +17,13 @@ class CreateTransfersTable extends Migration
             $table->increments('id');
             $table->date('start_date');
             $table->time('start_hour');
+            $table->string('route');
             $table->unsignedInteger('number_people');
             $table->money('price');
             $table->timestamps();
             $table->unsignedInteger('hotel_id');
             $table->unsignedInteger('airport_id');
+            $table->unsignedInteger('transfer_car_id');
         });
     }
 
