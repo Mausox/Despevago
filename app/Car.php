@@ -7,14 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Car extends Model
 {
     protected $fillable = [
-        'ubication', 'model' ,'classification', 'capacity', 'price', 'company_id',
+        'ubication', 'brand', 'model' ,'type', 'capacity', 'price', 'branch_office_id',
     ];
 
-    public function unavailable_cars(){
+    public function unavailable_cars()
+    {
         return $this->hasMany(UnavailableCar::class);
     }
 
-    public function car_options(){
+    public function car_options()
+    {
         return $this->belongsToMany(CarOption::class);
     }
 
