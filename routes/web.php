@@ -26,7 +26,7 @@ Route::get('/hotels/create', function ()
 {
    return view('despevago.createHotel');
 });
-/*
+
 //<-------------------      Activities     --------------------->
 Route::resource('/activities','ActivityController');
 Route::get('/activities/byCity/{city_id}', 'ActivityController@searchActivitiesByCity')->name('activitiesByCity');
@@ -83,7 +83,7 @@ Route::post('/reservations/transfer','ReservationController@transferReservation'
 
 Route::get('/hotels/byCity/{city_id}', "HotelController@searchHotelByCity")->name('hotelsByCity');
 Route::get('/branch_offices/byCity/{city_id}', 'BranchOfficeController@searchBranchOfficeByCity')->name('branchOfficesByCity');
-Route::post('/reservation/car', 'ReservationController@carReservation')->name('carReservation');*/
+Route::post('/reservation/car', 'ReservationController@carReservation')->name('carReservation');
 
 // Flights ------------------------->
 // -- Airline

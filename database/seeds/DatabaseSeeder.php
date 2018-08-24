@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // Tipo de usuario es creado antes del usuario.
+        
         $this->call(AirlineTableSeeder::class);
         $this->call(AirlineContactTableSeeder::class);
         $this->call(ClassTypeTableSeeder::class);
@@ -46,6 +47,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(TransferCarTableSeeder::class);
         $this->call(TransferTableSeeder::class);
+        
+        $this->call(ReservationTableSeeder::class);
     }
 }
 

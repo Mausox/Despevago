@@ -23,7 +23,7 @@ class Reservation extends Model
     }
     public function activities()
     {
-        return $this->belongsToMany(Activity::class);
+        return $this->belongsToMany(Activity::class)->withTimestamps();
     }
 
     public function seats()
