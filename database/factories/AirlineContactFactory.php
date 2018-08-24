@@ -5,9 +5,8 @@ use App\AirlineContact;
 use App\Airline;
 
 $factory->define(AirlineContact::class, function (Faker $faker) {
-    $id = Airline::all()->random()->id;
     return [
-        'telephone' => $faker->e164PhoneNumber,
-        'airline_id' => $id,
+        'telephone' => $faker->unique()->e164PhoneNumber,
+        'airline_id' => Airline::all()->random()->id,
     ];
 });

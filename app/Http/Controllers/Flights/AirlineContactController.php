@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
    
 use Illuminate\Http\Request;   
 use App\AirlineContact;   
+use App\Airline;
    
 class AirlineContactController extends Controller   
 {   
@@ -84,4 +85,16 @@ class AirlineContactController extends Controller
         AirlineContact::destroy($id);  
         return "AirlineContact {$id} was deleted";  
     }   
+
+    /**  
+     * Display the specified resource.  
+     *  
+     * @param  int  $airline_id  
+     * @return \Illuminate\Http\Response  
+     */   
+    public function searchAirlineContactsByAirline($airline_id)
+    {
+        $airlineContacts = Airline::find($airline_id)->airline_contacts;
+        return $airlineContacts;
+    }
 } 

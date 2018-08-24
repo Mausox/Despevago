@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
   
 use Illuminate\Http\Request;  
 use App\Airport;  
+use App\City;
   
 class AirportController extends Controller  
 {  
@@ -83,5 +84,17 @@ class AirportController extends Controller
     {  
         Airport::destroy($id); 
         return "Airport {$id} was deleted"; 
-    }  
+    }
+
+    /**  
+     * Display the specified resource.  
+     *  
+     * @param  int  $city_id  
+     * @return \Illuminate\Http\Response  
+     */  
+    public function searchAirportsByCity($city_id)
+    {
+        $airports = City::find($city_id)->airports;
+        return $airports;
+    }    
 }

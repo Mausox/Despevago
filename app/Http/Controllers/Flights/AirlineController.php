@@ -98,17 +98,5 @@ class AirlineController extends Controller
         return $airline;
     }
 
-    /**  
-     * Display the specified resource.  
-     *  
-     * @param  int  $airline_id  
-     * @return \Illuminate\Http\Response  
-     */   
-    public function searchAirlineContactByAirline($airline_id)
-    {
-        $airlineContacts = Airline::find($airline_id)->airline_contacts;
-        return $airlineContacts;
-    }
-
     
 }

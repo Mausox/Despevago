@@ -21,6 +21,6 @@ class Airport extends Model
 
     public function city()
     {
-        return $this->belongsTo(Flight::class);
+        return $this->belongsTo(City::class);
     }
 }

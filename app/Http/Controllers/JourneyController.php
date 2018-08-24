@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Journey;
 use Illuminate\Http\Request;
-use App\City;
-use App\Airport;
 
-class CityController extends Controller
+class JourneyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,7 @@ class CityController extends Controller
      */
     public function index()
     {
-        return City::all();
+        //
     }
 
     /**
@@ -36,27 +35,27 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
-        return City::create($request->all());
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Journey  $journey
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Journey $journey)
     {
-        return City::find($id);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Journey  $journey
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Journey $journey)
     {
         //
     }
@@ -65,36 +64,22 @@ class CityController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Journey  $journey
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Journey $journey)
     {
-        City::find($id)->update($request->all());    
-        return "City {$id} updated!";
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Journey  $journey
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Journey $journey)
     {
-        City::destroy($id);
-        return "City {$id} was deleted";
-    }
-
-    /**  
-     * Display the specified resource.  
-     *  
-     * @param  int  $city_id  
-     * @return \Illuminate\Http\Response  
-     */
-    public function searchCityByAirport($airport_id)
-    {
-        $city = Airport::find($airport_id)->city;
-        return $city;
+        //
     }
 }

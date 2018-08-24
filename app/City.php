@@ -6,16 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class City extends Model
 {
-    protected $name;
-    protected $country_id;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name','country_id'
+        'name',
     ];
 
     public function activities(){

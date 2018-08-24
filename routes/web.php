@@ -26,7 +26,7 @@ Route::get('/hotels/create', function ()
 {
    return view('despevago.createHotel');
 });
-
+/*
 //<-------------------      Activities     --------------------->
 Route::resource('/activities','ActivityController');
 Route::get('/activities/byCity/{city_id}', 'ActivityController@searchActivitiesByCity')->name('activitiesByCity');
@@ -40,7 +40,6 @@ Route::resource('/branch_offices', 'BranchOfficeController');
 Route::resource('/car_flight_packages', 'CarFlightPackageController');
 Route::resource('/car_options', 'CarOptionController');
 Route::resource('/cars', 'CarController');
-Route::resource('/cities', 'CityController');
 Route::resource('/class_types', 'ClassTypeController');
 Route::resource('/companies', 'CompanyController');
 Route::resource('/countries', 'CountryController');
@@ -79,25 +78,30 @@ Route::post('/reservations/finish', "ReservationController@finishReservation")->
 //<-------------------     Reservation    --------------------->
 
 //Transfer
-Route::get('/search_transfer/', 'TransferController@searchTransfer')->name('searchTransfer');
+Route::get('/search_transfer', 'TransferController@searchTransfer')->name('searchTransfer');
 Route::post('/reservations/transfer','ReservationController@transferReservation')->name('transferReservation');
 
 Route::get('/hotels/byCity/{city_id}', "HotelController@searchHotelByCity")->name('hotelsByCity');
 Route::get('/branch_offices/byCity/{city_id}', 'BranchOfficeController@searchBranchOfficeByCity')->name('branchOfficesByCity');
-Route::post('/reservation/car', 'ReservationController@carReservation')->name('carReservation');
+Route::post('/reservation/car', 'ReservationController@carReservation')->name('carReservation');*/
 
 // Flights ------------------------->
 // -- Airline
 Route::resource('/airline', 'AirlineController');
+// ---- Airline by AirlineContact
+Route::get('/airline/by-airline-contact/{airline_contact_id}', 'AirlineController@searchAirlineByAirlineContact');
 
 // -- AirlineContact
 Route::resource('/airline-contact', 'AirlineContactController');
-
-// -- Airline by AirlineContact
-Route::get('/airline/by-airline-contact/{airline_contact_id}', 'AirlineController@searchAirlineByAirlineContact');
-
-// -- AirlineContact by Airline
-Route::get('/airline-contacts/by-airline/{airline_id}', 'AirlineController@searchAirlineContactByAirline');
+// ---- AirlineContact by Airline
+Route::get('/airline-contacts/by-airline/{airline_id}', 'AirlineContactController@searchAirlineContactsByAirline');
 
 // -- Airport
 Route::resource('/airport', 'AirportController');
+// ---- Airports by City
+Route::get('/airports/by-city/{city_id}', 'AirportController@searchAirportsByCity');
+
+// -- City
+Route::resource('/city', 'CityController');
+// ---- City by Airport
+Route::get('/city/by-airport/{airport_id}', 'CityController@searchCityByAirport');
