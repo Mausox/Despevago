@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UnavailableCar extends Model
 {
     protected $fillable = [
-        'date', 'closed', 'reservation_id', 'car_id',
+        'pick_up_date', 'return_date' ,'closed', 'reservation_id', 'car_id',
     ];
 
     public function car(){
