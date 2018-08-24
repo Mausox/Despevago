@@ -17,32 +17,42 @@ class Reservation extends Model
         'date', 'hour', 'current_balance', 'new_balance', 'user_id','closed'
         ];
 
-    public function user(){
+    public function user()
+    {
         return $this->hasMany(User::class);
     }
-    public function activities(){
+    public function activities()
+    {
         return $this->belongsToMany(Activity::class);
     }
-    public function seats(){
+
+    public function seats()
+    {
         return $this->belongsToMany(Seat::class);
     }
 
-    public function transfers(){
+    public function transfers()
+    {
         return $this->belongsToMany(Transfer::class)->withTimestamps();
     }
 
-    //public function ReservationTransfers(){return $this->hasMany(ReservationTransfer::class);}
-
-    public function unavailable_rooms(){
+    public function unavailable_rooms()
+    {
         return $this->hasMany(UnavailableRoom::class);
     }
-    public function unavailable_cars(){
+
+    public function unavailable_cars()
+    {
         return $this->hasMany(UnavailableCar::class);
     }
-    public function car_flight_packages(){
+
+    public function car_flight_packages()
+    {
         return $this->belongsToMany(CarFlightPackage::class);
     }
-    public function room_flight_packages(){
+
+    public function room_flight_packages()
+    {
         return $this->belongsToMany(RoomFlightPackage::class);
     }
 }

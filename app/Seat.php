@@ -39,4 +39,9 @@ class Seat extends Model
     {
         return $this->belongsToMany(RoomFlightPackage::class);
     }
+
+    public function reservations()
+    {
+        return $this->belongsToMany(Reservation::class);
+    }
 }
