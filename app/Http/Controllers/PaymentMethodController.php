@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;  
   
 use Illuminate\Http\Request;  
-use App\Chun;  
+use App\PaymentMethod;  
   
-class ChunController extends Controller  
+class PaymentMethodController extends Controller  
 {  
     /**  
      * Display a listing of the resource.  
@@ -14,7 +14,7 @@ class ChunController extends Controller
      */  
     public function index()  
     {  
-        return Chun::all();  
+        return PaymentMethod::all();  
     }  
   
     /**  
@@ -35,7 +35,7 @@ class ChunController extends Controller
      */  
     public function store(Request $request)  
     {  
-        return Chun::create($request->all());  
+        return PaymentMethod::create($request->all());  
     }  
   
     /**  
@@ -46,7 +46,7 @@ class ChunController extends Controller
      */  
     public function show($id)  
     {  
-        return Chun::find($id);   
+        return PaymentMethod::find($id);   
     }  
   
     /**  
@@ -69,8 +69,8 @@ class ChunController extends Controller
      */  
     public function update(Request $request, $id)  
     {  
-        Chun::find($id)->update($request->all());   
-        return "Chun {$id} updated!"; 
+        PaymentMethod::find($id)->update($request->all());   
+        return "PaymentMethod {$id} updated!"; 
     }  
   
     /**  
@@ -81,7 +81,7 @@ class ChunController extends Controller
      */  
     public function destroy($id)  
     {  
-        Chun::destroy($id); 
-        return "Chun {$id} was deleted"; 
+        PaymentMethod::destroy($id); 
+        return "PaymentMethod {$id} was deleted"; 
     }  
 }
