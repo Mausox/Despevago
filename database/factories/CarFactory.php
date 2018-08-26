@@ -10,11 +10,10 @@ $factory->define(App\Car::class, function (Faker $faker) {
     $v = $faker->vehicleArray();
 
     return [
-        'ubication' => BranchOffice::all()->random()->address,
         'brand' => $v['brand'],
         'model' => $v['model'],
         'type' => $faker->vehicleType,
-        'capacity' => $faker->numberBetween(1,5),
+        'capacity' => $faker->numberBetween(2,5),
         'price' => rand(200, 1000),
         'branch_office_id' => BranchOffice::all()->random()->id,
     ];

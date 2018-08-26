@@ -99,4 +99,20 @@ class CarController extends Controller
         $cars = Car::where("company_id",$company_id)->get();
         return $cars;
     }
+
+    /**
+     * Search the branch's car.
+     *
+     * @param  int  $branch_office_id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function searchCarsByBranchOffice($branch_office_id)
+    {
+        $cars = Car::where("branch_office_id", $branch_office_id)->get();
+        return $cars;
+    }
+
+
+
 }

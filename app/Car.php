@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Car extends Model
 {
     protected $fillable = [
-        'ubication', 'brand', 'model' ,'type', 'capacity', 'price', 'branch_office_id',
+        'brand', 'model' ,'type', 'capacity', 'price', 'branch_office_id',
     ];
 
     public function unavailable_cars()
