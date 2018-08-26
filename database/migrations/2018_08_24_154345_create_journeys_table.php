@@ -20,6 +20,7 @@ class CreateJourneysTable extends Migration
             $table->date('arrival_date');
             $table->time('arrival_hour');
             $table->timestamps();
+            $table->unsignedinteger('flight_id');
             $table->unsignedinteger('departure_airport_id');
             $table->unsignedinteger('arrival_airport_id');
         });

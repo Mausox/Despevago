@@ -17,9 +17,9 @@ class Transfer extends Model
         return $this->belongsToMany(Reservation::class)->withTimestamps();
     }
 
-    public function airports()
+    public function airport()
     {
-        return $this->belongsToMany(Airport::class);
+        return $this->belongsTo(Airport::class);
     }
     public function hotel()
     {

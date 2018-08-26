@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
  
 use Illuminate\Http\Request; 
 use App\Passenger; 
- 
+use App\Seat;
+
 class PassengerController extends Controller 
 { 
     /** 
@@ -84,4 +85,16 @@ class PassengerController extends Controller
         Passenger::destroy($id);
         return "Passenger {$id} was deleted";
     } 
+
+    /** 
+     * Display the specified resource. 
+     * 
+     * @param  int  $id 
+     * @return \Illuminate\Http\Response 
+     */ 
+    public function searchSeatByPassenger($seat_id)
+    {
+        $passenger = Seat::find($seat_id)->passenger;
+        return $passenger;
+    }
 } 

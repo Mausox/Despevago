@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
   
 use Illuminate\Http\Request;  
 use App\ClassType;  
+use App\Seat;
   
 class ClassTypeController extends Controller  
 {  
@@ -83,5 +84,17 @@ class ClassTypeController extends Controller
     {  
         ClassType::destroy($id); 
         return "ClassType {$id} was deleted"; 
-    }  
+    }
+    
+    /**  
+     * Display the specified resource.  
+     *  
+     * @param  int  $id  
+     * @return \Illuminate\Http\Response  
+     */ 
+    public function searchClassTypeBySeat($seat_id)
+    {
+        $class_type = Seat::find($seat_id)->class_type;
+        return $class_type;
+    }
 } 

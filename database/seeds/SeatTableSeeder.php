@@ -12,6 +12,6 @@ class SeatTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Seat::class, 10)->create();
+        factory(Seat::class, 200)->create();
     }
 }

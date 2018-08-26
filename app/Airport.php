@@ -12,8 +12,9 @@ class Airport extends Model
 
     public function transfers()
     {
-        return $this->belongsToMany(Transfer::class);
+        return $this->hasMany(Transfer::class);
     }
+
     public function flights()
     {
         return $this->hasMany(Flight::class);
@@ -22,5 +23,15 @@ class Airport extends Model
     public function city()
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function departure_journeys()
+    {
+        return $this->hasMany(Journey::class, 'departure_airport_id');
+    }
+
+    public function arrival_journeys()
+    {
+        return $this->hasMany(Journey::class, 'arrival_airport_id');
     }
 }
