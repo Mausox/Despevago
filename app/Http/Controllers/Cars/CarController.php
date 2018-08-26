@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\BranchOffice;
 use App\Car;
 use Illuminate\Http\Request;
 
@@ -91,13 +92,27 @@ class CarController extends Controller
      * Search the company's car.
      *
      * @param  int  $company_id
-     * @return \Illuminate\Http\Response
+     * @return array
      */
 
     public function searchCarsByCompany($company_id)
     {
-        $cars = Car::where("company_id",$company_id)->get();
-        return $cars;
+
+        $branchs = BranchOffice::where("company_id",$company_id)->get();
+
+        $data = array();
+
+        foreach ($branchs as $branch)
+        {
+            $cars = Car::where('branch_office_id', $branch->id)->get();
+            $data[] = array
+            (
+                "company" => $company_id,
+                "cars" => $cars
+            );
+        }
+
+        return $data;
     }
 
     /**

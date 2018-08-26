@@ -87,6 +87,8 @@ Route::resource('/branch_office_contacts', 'BranchOfficeContactController');
 Route::resource('/companies', 'CompanyController');
 Route::get('/branch_offices/byCity/{city_id}', 'BranchOfficeController@searchBranchOfficeByCity')->name('branchOfficesByCity');
 Route::get('/cars/byBranchOffice/{branch_office_id}', 'CarController@searchCarsByBranchOffice')->name('carsByBranchOffices');
+Route::get('/cars/byCompany/{company_id}', 'CarController@searchCarsByCompany')->name('carsByCompany');
+Route::get('/companies/byCar/{car_id}', 'CompanyController@searchCompanyByCar')->name('companyByCar');
 
 // Flights ------------------------->
 // -- Airline

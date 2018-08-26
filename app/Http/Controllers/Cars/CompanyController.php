@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\BranchOffice;
 use App\Company;
 use Illuminate\Http\Request;
+use App\Car;
 
 class CompanyController extends Controller
 {
@@ -85,4 +87,36 @@ class CompanyController extends Controller
         Company::destroy($id);
         return "The company ID: {$id} was removed!";
     }
+
+
+    /**
+     * Find the company associated with a car.
+     *
+     * @param  int  $car_id
+     * @return array
+     */
+    public function searchCompanyByCar($car_id)
+    {
+
+        $car = Car::where('id', $car_id)->get();
+        $branch = BranchOffice::where('id', $car[0]["branch_office_id"])->get();
+
+
+        //return "The car : '".$car_id."' belongs to the company: '".$branch[0]["company_id"]."'.";
+
+        $company_id =  $branch[0]["company_id"];
+
+        $company = Company::where('id', $company_id)->get();
+
+        $data = array();
+
+        $data[] = array
+        (
+            "Car" => $car_id,
+            "Company" => $company
+        );
+
+        return $data;
+    }
+
 }
