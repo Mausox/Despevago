@@ -60,8 +60,6 @@ Route::get('/room/byHotel/{hotel_id}', 'RoomController@searchRoomsByHotel')->nam
 
 Route::resource('/room_flight_packages','RoomFlightPackageController');
 Route::resource('/seats', 'SeatController');
-Route::resource('/transfer_cars', 'TransferCarController');
-Route::resource('/transfers', 'TransferController');
 Route::resource('/user_histories', 'UserHistoryController');
 Route::resource('/user_types','UserTypeController');
 
@@ -74,16 +72,24 @@ Route::resource('/trips', 'TripController');
 //<-------------------     Reservation    --------------------->
 Route::post('/reservation/activity', 'ReservationController@activityReservation')->name('activityReservation');
 Route::post('/reservation/room', 'ReservationController@roomReservation')->name('roomReservation');
+Route::post('/reservation/transfer','ReservationController@transferReservation')->name('transferReservation');
 Route::post('/reservations/finish', "ReservationController@finishReservation")->name('finishReservations');
 //<-------------------     Reservation    --------------------->
-
-//Transfer
-Route::get('/search_transfer', 'TransferController@searchTransfer')->name('searchTransfer');
-Route::post('/reservations/transfer','ReservationController@transferReservation')->name('transferReservation');
 
 Route::get('/hotels/byCity/{city_id}', "HotelController@searchHotelByCity")->name('hotelsByCity');
 Route::get('/branch_offices/byCity/{city_id}', 'BranchOfficeController@searchBranchOfficeByCity')->name('branchOfficesByCity');
 Route::post('/reservation/car', 'ReservationController@carReservation')->name('carReservation');
+
+
+// Transfers ------------------------->
+// Transfer search by hotel and airport
+Route::get('/transfers/search', 'TransferController@searchTransfer')->name('searchTransfer');
+// Transfer CRUD
+Route::resource('/transfer_cars', 'TransferCarController');
+Route::resource('/transfers', 'TransferController');
+
+
+
 
 // Flights ------------------------->
 // -- Airline

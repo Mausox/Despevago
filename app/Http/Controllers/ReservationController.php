@@ -218,10 +218,9 @@ class ReservationController extends Controller
     {
         $transfer_id = $request->transfer_id;
         $user_id = $request->user_id;
-        $num_people = $request->num_people;
 
-        //To obtain the price of the transfer
-        $transfer_price = Transfer::find($transfer_id)->value('price');
+        //To obtain the transfer
+        $transfer = Transfer::find($transfer_id);
 
         //To obtain the open reservation of the user
         $reservation = Reservation::where([
@@ -230,9 +229,13 @@ class ReservationController extends Controller
         ])->first();
 
         //In case the transfer was already reserved by the user
-        if($reservation->transfers()->where([['transfer_id',$transfer_id],['reservation_id',$reservation->id]])->exists())
+        if($reservation->transfers()->where([['transfer_id',$transfer->id],['reservation_id',$reservation->id]])->exists())
         {
             return "You have already reserved this transfer.";
+        }
+        else if ($transfer->reservations()->where('transfer_id',$transfer->id)->exists())
+        {
+            return "This transfer is no longer available.";
         }
         else{
 
@@ -241,9 +244,9 @@ class ReservationController extends Controller
             $reservation->transfers()->attach($transfer_id,['closed' => false]);
 
             //Updating balance on the reservation
-            $transfer_price = floatval(preg_replace('/[^\d\.]/', '', $transfer_price));
+            $transfer_price = floatval(preg_replace('/[^\d\.]/', '', $transfer->price));
             $current_balance = floatval(preg_replace('/[^\d\.]/', '', $reservation->current_balance));
-            $current_balance += $transfer_price;
+            $current_balance += $transfer->price;
             $reservation->current_balance = money_format('%i',$current_balance);
 
             $reservation->save();
