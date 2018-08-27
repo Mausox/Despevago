@@ -33,13 +33,7 @@ Route::get('/activities/byCity/{city_id}', 'ActivityController@searchActivitiesB
 Route::get('/activities/byDate/{date}', 'ActivityController@searchActivitiesByDate')->name('activitiesByDate');
 //<-------------------      Activities     --------------------->
 
-
-Route::resource('/branch_office_contacts', 'BranchOfficeContactController');
-Route::resource('/branch_offices', 'BranchOfficeController');
 Route::resource('/car_flight_packages', 'CarFlightPackageController');
-Route::resource('/car_options', 'CarOptionController');
-Route::resource('/cars', 'CarController');
-Route::resource('/companies', 'CompanyController');
 Route::resource('/countries', 'CountryController');
 
 //<-------------------         Hotel      --------------------->
@@ -72,11 +66,21 @@ Route::post('/reservation/activity', 'ReservationController@activityReservation'
 Route::post('/reservation/room', 'ReservationController@roomReservation')->name('roomReservation');
 Route::post('/reservation/transfer','ReservationController@transferReservation')->name('transferReservation');
 Route::post('/reservations/finish', "ReservationController@finishReservation")->name('finishReservations');
+Route::post('/reservation/car', 'ReservationController@carReservation')->name('carReservation');
 //<-------------------     Reservation    --------------------->
 
 Route::get('/hotels/byCity/{city_id}', "HotelController@searchHotelByCity")->name('hotelsByCity');
+
+//Cars
+Route::resource('/cars', 'CarController');
+Route::resource('/car_options', 'CarOptionController');
+Route::resource('/branch_offices', 'BranchOfficeController');
+Route::resource('/branch_office_contacts', 'BranchOfficeContactController');
+Route::resource('/companies', 'CompanyController');
 Route::get('/branch_offices/byCity/{city_id}', 'BranchOfficeController@searchBranchOfficeByCity')->name('branchOfficesByCity');
-Route::post('/reservation/car', 'ReservationController@carReservation')->name('carReservation');
+Route::get('/cars/byBranchOffice/{branch_office_id}', 'CarController@searchCarsByBranchOffice')->name('carsByBranchOffices');
+Route::get('/cars/byCompany/{company_id}', 'CarController@searchCarsByCompany')->name('carsByCompany');
+Route::get('/companies/byCar/{car_id}', 'CompanyController@searchCompanyByCar')->name('companyByCar');
 
 
 // Transfers ------------------------->
