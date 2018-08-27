@@ -13,7 +13,7 @@ class Journey extends Model
         'arrival_hour',
     ];
 
-    public function flights()
+    public function flight()
     {
         return $this->belongsTo(Flight::class);
     }

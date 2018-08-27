@@ -26,4 +26,9 @@ class Flight extends Model
     {
         return $this->belongsTo(Airport::class);
     }
+
+    public function journeys()
+    {
+        return $this->hasMany(Journey::class);
+    }
 }

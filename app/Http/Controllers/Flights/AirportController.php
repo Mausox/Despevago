@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;  
 use App\Airport;  
 use App\City;
+use App\Flight;
+use App\Journey;
+use App\Transfer;
   
 class AirportController extends Controller  
 {  
@@ -96,5 +99,68 @@ class AirportController extends Controller
     {
         $airports = City::find($city_id)->airports;
         return $airports;
-    }    
+    }
+
+    /**  
+     * Display the specified resource.  
+     *  
+     * @param  int  $flight_id  
+     * @return \Illuminate\Http\Response  
+     */  
+    public function searchAirportByFlight($flight_id)
+    {
+        $airport = Flight::find($flight_id)->airport;
+        return $airport;
+    }
+
+    /**  
+     * Display the specified resource.  
+     * 
+     * @param  int  $transfer_id  
+     * @return \Illuminate\Http\Response  
+     */  
+    public function searchAirportByTransfer($transfer_id)  
+    {  
+        $airport = Transfer::find($transfer_id)->airport;
+        return $airport; 
+    }  
+
+    /**  
+     * Display the specified resource.  
+     * 
+     * @param  int  $journey_id  
+     * @return \Illuminate\Http\Response  
+     */  
+    public function searchDepartureAirportByJourney($journey_id)  
+    {  
+        $departure_airport = Journey::find($journey_id)->departure_airport;
+        return $departure_airport; 
+    }  
+
+    /**  
+     * Display the specified resource.  
+     * 
+     * @param  int  $journey_id  
+     * @return \Illuminate\Http\Response  
+     */  
+    public function searchArrivalAirportByJourney($journey_id)  
+    {  
+        $arrival_airport = Journey::find($journey_id)->arrival_airport;
+        return $arrival_airport; 
+    }  
+    
+    /**  
+     * Display a listing of the resource.  
+     * @param int $journey_id
+     * @return \Illuminate\Http\Response  
+     */  
+    public function searchAirportsByJourney($journey_id)
+    {
+        $airports = collect([]);
+        $departure_airport = Journey::find($journey_id)->departure_airport;
+        $arrival_airport = Journey::find($journey_id)->arrival_airport;
+        $airports = $airports->push($departure_airport);
+        $airports = $airports->push($arrival_airport);
+        return $airports;
+    }
 }

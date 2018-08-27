@@ -90,6 +90,19 @@ class TransferController extends Controller
         return "The transfer ID: {$id} was removed!";
     }
 
+    /**  
+     * Display a listing of the resource.  
+     * 
+     * @param  int  $airport_id  
+     * @return \Illuminate\Http\Response  
+     */  
+
+    public function searchTransfersByAirport($airport_id)
+    {
+        $transfers = Airport::find($airport_id)->transfers;
+        return $transfers;
+    }
+
     public function searchTransfer(Request $request)
     {
 

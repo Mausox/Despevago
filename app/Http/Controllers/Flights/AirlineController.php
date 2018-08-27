@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;  
 use App\Airline;  
 use App\AirlineContact;
+use App\Flight;
   
 class AirlineController extends Controller  
 {  
@@ -98,5 +99,15 @@ class AirlineController extends Controller
         return $airline;
     }
 
-    
+    /**  
+     * Display the specified resource.  
+     *  
+     * @param  int  $flight_id  
+     * @return \Illuminate\Http\Response  
+     */   
+    public function searchAirlineByFlight($flight_id)
+    {
+        $airline = Flight::find($flight_id)->airline;
+        return $airline;
+    }
 }
