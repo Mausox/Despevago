@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\City;
 use App\Hotel;
 use App\HotelContact;
 use Illuminate\Http\Request;
@@ -15,17 +16,27 @@ class HotelController extends Controller
      */
     public function index()
     {
-        return Hotel::all();
+        $hotels = Hotel::all();
+        return view('despevago.hotel.indexHotel',['hotels' => $hotels]) ;
     }
 
     /**
      * Show the form for creating a new resource.
      *
      * @param array $data
-     * @return void
+     * @return view
      */
     public function create()
     {
+        $cities = City::all();
+        $citiesName = array();
+
+        foreach ($cities as  $city)
+        {
+            $citiesName[$city->id] = $city->name;
+        }
+
+        return view('despevago.hotel.createHotel', ["cities" => $citiesName]);
     }
 
     /**
@@ -36,8 +47,11 @@ class HotelController extends Controller
      */
     public function store(Request $request)
     {
-        $hotel = Hotel::create($request->all());
-        return $hotel;
+        $hotel = (new Hotel)->fill($request->all());
+        $hotel->score = 0;
+        $hotel->hotel_image = $request->file('hotel_image')->store('public/hotels');
+        $hotel->save();
+        return redirect()->route('hotels.show', [$hotel->id]);
     }
 
     /**
@@ -48,7 +62,17 @@ class HotelController extends Controller
      */
     public function show($id)
     {
-        return Hotel::find($id);
+        $hotel = Hotel::find($id);
+        $hotelContacts = $hotel->hotelContacts->all();
+        $contactsNumber = array();
+
+        foreach ($hotelContacts as $hotelContact)
+        {
+            $contactsNumber[] = $hotelContact->telephone;
+        }
+
+        $city = City::find($hotel->city_id);
+        return view('despevago.hotel.showHotel', ['hotel' => $hotel, 'city' => $city->name, 'contacts' => $contactsNumber]);
     }
 
     /**
