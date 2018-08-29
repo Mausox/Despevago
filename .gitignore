@@ -17,3 +17,8 @@ config/app\.php
 composer\.lock
 
 dgo\.pgsql
+
+*.png
+*.jpeg
+*.gif
+*.jpg
