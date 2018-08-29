@@ -4,13 +4,20 @@
 
 @section('content')
 
-<div class="container">
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
+
+        <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-5 form-elegant">
             <div class="card mb-3">
                 <div class="card-body mx-4">
                     <form method="POST" action="{{ route('login') }}">
-                        @csrf                    
+                        @csrf
+
 
                         <div class="text-center">
                             <h3 class="dark-grey-text mb-5"><strong>{{ __('Sign in') }}</strong></h3>

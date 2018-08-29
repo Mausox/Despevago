@@ -143,3 +143,7 @@ Route::get('/city/by-airport/{airport_id}', 'CityController@searchCityByAirport'
 
 // -- Trasnfer
 Route::get('/transfers/by-airport/{airport_id}', 'TransferController@searchTransfersByAirport');
+
+Route::get('/dashboard', function () {
+    return view('despevago.adminlte');
+})->name('adminDashboard')->middleware('AuthAdmin');
