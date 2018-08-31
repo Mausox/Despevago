@@ -21,11 +21,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin-home', 'HomeController@index')->middleware('AuthAdmin');
 
-/*
-Route::get('/hotels/create', function ()
-{
-   return view('despevago.createHotel');
-});*/
 
 //<-------------------      Activities     --------------------->
 Route::resource('/activities','ActivityController');
@@ -37,8 +32,8 @@ Route::resource('/car_flight_packages', 'CarFlightPackageController');
 Route::resource('/countries', 'CountryController');
 
 //<-------------------         Hotel      --------------------->
-Route::resource('hotels', 'HotelController');
-Route::get('/hotels/byCity/{city_id}', "HotelController@searchHotelByCity")->name('hotelsByCity');
+Route::resource('dashboard/hotels', 'HotelController')->middleware('AuthAdmin');
+Route::get('dashboard/hotels/byCity/{city_id}', "HotelController@searchHotelByCity")->name('hotelsByCity');
 //<-------------------         Hotel      --------------------->
 
 Route::resource('/hotel_contacts', 'HotelContactController');
@@ -144,6 +139,4 @@ Route::get('/city/by-airport/{airport_id}', 'CityController@searchCityByAirport'
 // -- Trasnfer
 Route::get('/transfers/by-airport/{airport_id}', 'TransferController@searchTransfersByAirport');
 
-Route::get('/dashboard', function () {
-    return view('despevago.adminlte');
-})->name('adminDashboard')->middleware('AuthAdmin');
+Route::get('/dashboard', 'DashboardController@dashboard')->name('adminDashboard')->middleware('AuthAdmin');
