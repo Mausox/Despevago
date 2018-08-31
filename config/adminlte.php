@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'logo' => '<img class="img-fluid mx-auto d-block mt-3 mb-3" width="200px" alt="Despevago" src='.'"'."img/logo/logo_brand.png".'"'.'/>',
+    'logo' => '<img class="img-fluid mx-auto d-block mt-3 mb-3" width="200px" alt="Despevago" src='.'"'."storage/app/public/logo/logo_brand.png".'"'.'/>',
 
     'logo_mini' => '<b>A</b>LT',
 

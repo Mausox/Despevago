@@ -23,22 +23,22 @@ class Hotel extends Model
 
     public function rooms()
     {
-        $this->hasMany(Room::class);
+        return $this->hasMany(Room::class);
     }
 
     public function hotelContacts()
     {
-        $this->hasMany(HotelContact::class);
+        return $this->hasMany(HotelContact::class);
     }
 
     public function transfers()
     {
-        $this->hasMany(Transfer::class);
+        return $this->hasMany(Transfer::class);
     }
 
     public function city()
     {
-        $this->belongsTo(City::class);
+        return $this->belongsTo(City::class);
     }
 
 }
