@@ -15,16 +15,48 @@
 @stop
 
 @section('content')
-    <div class="card mb-3">
-        <img class="card-img-top" src="..." alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-        </div>
+    <div style="margin:1.5em;">
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Puntuación</th>
+                <th>Descripción</th>
+                <th>Ciudad</th>
+                <th>Ver Hotel</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            @foreach($hotels as $hotel)
+                <tr>
+                    <td>
+                        {!! $hotel->name !!}
+                    </td>
+                    <td>
+                        {!! $hotel->email !!}
+                    </td>
+                    <td>
+                        {!! $hotel->score !!}
+                    </td>
+                    <td>
+                        {!! $hotel->description !!}
+                    </td>
+                    <td>
+                        {!! $hotel->city->name !!}
+                    </td>
+                    <td>
+                        <a href="{!! url('dashboard/hotels/'.$hotel->id) !!}"> <button type="button" class="btn btn-info">Ver</button></a>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
     </div>
 @stop
 
 @section('css')
+    <link rel="stylesheet" href="{{ URL::asset('css/viewStyle.css') }}">
 
 @stop

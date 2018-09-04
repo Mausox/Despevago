@@ -12,7 +12,7 @@ class UserHistory extends Model
      * @var array
      */
     protected $fillable = [
-        'date', 'hour', 'action', 'user_id',
+        'date', 'hour', 'action', 'user_id','action_type'
     ];
 
     /**

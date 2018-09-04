@@ -14,7 +14,8 @@ class UserHistoryController extends Controller
      */
     public function index()
     {
-        return UserHistory::all();
+        $users_histories = UserHistory::all();
+        return view('despevago.dashboard.user_histories',['users_histories' => $users_histories]);
     }
 
     /**

@@ -95,7 +95,7 @@ class AppServiceProvider extends ServiceProvider
             $event->menu->add(
                 [
                     'text'        => 'Logs usuarios',
-                    'url'         => 'dashboard/user_histories',
+                    'url'         => 'dashboard/users_histories',
                     'icon'        => 'file-text-o',
                     'label'       => $countActivity,
                     'label_color' => 'warning',

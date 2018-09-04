@@ -18,15 +18,17 @@
 
 @section('content')
     <div style="margin:1.5em;">
-    <table id="example" class="hover" style="width:100%">
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Score</th>
-                <th>Description</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Puntuación</th>
+                <th>Descripción</th>
                 <th>Ciudad</th>
-                <th>Ver Hotel</th>
+                <th>Fecha creación</th>
+                <th>Última actualización</th>
+
             </tr>
         </thead>
         <tbody>
@@ -49,7 +51,7 @@
                     {!! $hotel->city->name !!}
                 </td>
                 <td>
-                    <a href="{!! url('dashboard/hotels/'.$hotel->id) !!}"> <button type="button" class="btn btn-info">Info</button></a>
+                    <a href="{!! url('dashboard/hotels/'.$hotel->id) !!}"> <button type="button" class="btn btn-info">Ver</button></a>
                 </td>
             </tr>
         @endforeach
@@ -59,11 +61,28 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 @stop
 
 @section('js')
-    <script> $(document).ready(function() {
-            $('#example').DataTable();
-        } ); </script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable( {
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ filas por página",
+                    "zeroRecords": "Nada encontrado - Lo sentimos",
+                    "info": "Mostrando Página _PAGE_ of _PAGES_",
+                    "infoEmpty": "Tabla vacía",
+                    "infoFiltered": "(filtered from _MAX_ total records)",
+                    "search": "Buscar",
+                    "paginate": {
+                        "first":      "Primero",
+                        "last":       "Último",
+                        "next":       "Siguiente",
+                        "previous":   "Anterior"
+                    }
+                }
+            } );
+        } );
+    </script>
 @stop

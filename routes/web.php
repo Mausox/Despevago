@@ -54,6 +54,12 @@ Route::resource('/user_types','UserTypeController');
 Route::resource('/users','UserController');
 Route::get('/user/reservations/{user_id}', 'UserController@userReservations')->name('userReservations');
 //<-------------------         User       --------------------->
+
+//<-------------------         User_History       --------------------->
+Route::resource('/dashboard/users_histories','UserHistoryController')->middleware('AuthAdmin');
+//<-------------------         User_History       --------------------->
+
+
 Route::resource('/trips', 'TripController');
 
 //<-------------------     Reservation    --------------------->
