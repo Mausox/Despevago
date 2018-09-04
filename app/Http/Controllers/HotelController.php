@@ -16,7 +16,7 @@ class HotelController extends Controller
     public function index()
     {
         $hotels = Hotel::all();
-        return view('despevago.hotel.index',['hotels' => $hotels]);
+        return view('despevago.dashboard.hotel.index',['hotels' => $hotels]);
     }
 
     /**
@@ -49,7 +49,8 @@ class HotelController extends Controller
      */
     public function show($id)
     {
-        return Hotel::find($id);
+        $hotel = Hotel::find($id);
+        return view('despevago.dashboard.hotel.view', ['hotel' => $hotel]);
     }
 
     /**

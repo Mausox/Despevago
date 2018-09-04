@@ -17,16 +17,17 @@
 @stop
 
 @section('content')
+    <div style="margin:1.5em;">
     <table id="example" class="hover" style="width:100%">
         <thead>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Score</th>
-            <th>Description</th>
-            <th>Ciudad</th>
-            <th>Ver Hotel</th>
-        </tr>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Score</th>
+                <th>Description</th>
+                <th>Ciudad</th>
+                <th>Ver Hotel</th>
+            </tr>
         </thead>
         <tbody>
 
@@ -48,11 +49,13 @@
                     {!! $hotel->city->name !!}
                 </td>
                 <td>
-                    <button type="button" class="btn btn-info">Info</button>
+                    <a href="{!! url('dashboard/hotels/'.$hotel->id) !!}"> <button type="button" class="btn btn-info">Info</button></a>
                 </td>
             </tr>
         @endforeach
         </tbody>
+    </table>
+    </div>
 @stop
 
 @section('css')
