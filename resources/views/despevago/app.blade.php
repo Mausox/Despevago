@@ -15,11 +15,11 @@
 </head>
 
 <body>
-<!--<div class="container">
+<div class="container">
         <a href="{{ url('/') }}">
-            <img src={{ asset('img/logo/logo_header.png') }} class="img-fluid mx-auto d-block mt-3 mb-3" width="200px" alt="Despevago">
+            <img src="{{ asset('img/logo/logo_header.png') }}" class="img-fluid mx-auto d-block mt-3 mb-3" width="200px" alt="Despevago">
         </a>
-    </div> -->
+    </div>
 @yield('content')
 
 <!-- SCRIPTS -->

@@ -2,9 +2,7 @@
 
 @section('title', 'Despevago')
 
-@section('header-top')
-    @include('despevago.headers.headerAuth')
-@endsection
+@include('despevago.headers.headerAuth')
 
 @section('content')
 

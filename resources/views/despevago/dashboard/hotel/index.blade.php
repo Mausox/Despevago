@@ -17,46 +17,63 @@
 @stop
 
 @section('content')
-    <div style="margin:1.5em;">
-        <table id="example" class="table table-striped table-bordered" style="width:100%">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Correo</th>
-                <th>Puntuación</th>
-                <th>Descripción</th>
-                <th>Ciudad</th>
-                <th>Fecha creación</th>
-                <th>Última actualización</th>
 
-            </tr>
-        </thead>
-        <tbody>
+    @if (session('status'))
+        <div class="alert alert-success text-center">
+            <p>{{ session('status') }}</p>
+        </div>
+    @endif
 
-        @foreach($hotels as $hotel)
-            <tr>
-                <td>
-                    {!! $hotel->name !!}
-                </td>
-                <td>
-                    {!! $hotel->email !!}
-                </td>
-                <td>
-                    {!! $hotel->score !!}
-                </td>
-                <td>
-                    {!! $hotel->description !!}
-                </td>
-                <td>
-                    {!! $hotel->city->name !!}
-                </td>
-                <td>
-                    <a href="{!! url('dashboard/hotels/'.$hotel->id) !!}"> <button type="button" class="btn btn-info">Ver</button></a>
-                </td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-md-12" style="margin-top:20px">
+            <div style="margin-left:1.5em;">
+                <a href="{!! url('dashboard/hotels/create') !!}"> <button type="button" class="btn btn-success">+ Crear nuevo hotel</button></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" style="margin-top:20px">
+            <div style="margin-left:1.5em;">
+                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Puntuación</th>
+                            <th>Descripción</th>
+                            <th>Ciudad</th>
+                            <th>Ver Hotel</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    @foreach($hotels as $hotel)
+                        <tr>
+                            <td>
+                                {!! $hotel->name !!}
+                            </td>
+                            <td>
+                                {!! $hotel->email !!}
+                            </td>
+                            <td>
+                                {!! $hotel->score !!}
+                            </td>
+                            <td>
+                                {!! $hotel->description !!}
+                            </td>
+                            <td>
+                                {!! $hotel->city->name !!}
+                            </td>
+                            <td>
+                                <a href="{!! url('dashboard/hotels/'.$hotel->id) !!}"> <button type="button" class="btn btn-info">Ver</button></a>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+            </table>
+            </div>
+        </div>
     </div>
 @stop
 

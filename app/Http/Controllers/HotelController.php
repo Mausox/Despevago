@@ -36,7 +36,7 @@ class HotelController extends Controller
             $citiesName[$city->id] = $city->name;
         }
 
-        return view('despevago.hotel.createHotel', ["cities" => $citiesName]);
+        return view('despevago.dashboard.hotel.create', ["cities" => $citiesName]);
     }
 
     /**
@@ -51,7 +51,7 @@ class HotelController extends Controller
         $hotel->score = 0;
         $hotel->hotel_image = $request->file('hotel_image')->store('public/hotels');
         $hotel->save();
-        return redirect()->route('hotels.show', [$hotel->id]);
+        return redirect()->route('despevago.hotels.dashboard.view', [$hotel->id]);
     }
 
     /**
@@ -72,7 +72,7 @@ class HotelController extends Controller
         }
 
         $city = City::find($hotel->city_id);
-        return view('despevago.hotel.showHotel', ['hotel' => $hotel, 'city' => $city->name, 'contacts' => $contactsNumber]);
+        return view('despevago.dashboard.hotel.view', ['hotel' => $hotel, 'city' => $city->name, 'contacts' => $contactsNumber]);
     }
 
     /**
@@ -83,7 +83,17 @@ class HotelController extends Controller
      */
     public function edit($id)
     {
-        //
+        $cities = City::all();
+        $citiesName = array();
+
+        $hotel = Hotel::find($id);
+
+        foreach ($cities as  $city)
+        {
+            $citiesName[$city->id] = $city->name;
+        }
+
+        return view('despevago.dashboard.hotel.edit', ["cities" => $citiesName,"hotel" => $hotel]);
     }
 
     /**
@@ -97,7 +107,14 @@ class HotelController extends Controller
     {
         Hotel::find($id)->update($request->all());
         $hotel = Hotel::find($id);
-        return $hotel;
+        if ($request->file())
+        {
+            $hotel->hotel_image = $request->file('hotel_image')->store('public/hotels');
+
+        }
+
+        $hotel->save();
+        return redirect('/dashboard/hotels/'.$hotel->id)->with('status', 'Hotel '.$hotel->name.'de ID:'.$hotel->id.' ha sido actualizado');
     }
 
     /**
@@ -108,8 +125,10 @@ class HotelController extends Controller
      */
     public function destroy($id)
     {
+        $hotel = Hotel::find($id);
         Hotel::destroy($id);
-        return "Se eliminó el hotel de id: ".$id;
+
+        return redirect('/dashboard/hotels')->with('status', 'Hotel '.$hotel->name.'de ID:'.$hotel->id.' ha sido eliminado');
     }
 
     //Función que permite la búsqueda de un hotel y su contacto en una ciudad en específico.
