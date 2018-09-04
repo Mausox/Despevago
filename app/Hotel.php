@@ -18,8 +18,16 @@ class Hotel extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'score', 'description','city_id'
+        'name', 'email', 'score', 'description','city_id', 'hotel_image'
     ];
+
+    public function rules()
+    {
+        return
+            [
+                'hotel_image' => 'image'
+            ];
+    }
 
     public function rooms()
     {
