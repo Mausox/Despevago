@@ -34,6 +34,7 @@ Route::get('/activities/byDate/{date}', 'ActivityController@searchActivitiesByDa
 //<-------------------      Activities     --------------------->
 
 Route::resource('/car_flight_packages', 'CarFlightPackageController');
+
 Route::resource('/countries', 'CountryController');
 
 //<-------------------         Hotel      --------------------->
@@ -67,7 +68,7 @@ Route::post('/reservation/transfer','ReservationController@transferReservation')
 Route::post('/reservation/car', 'ReservationController@carReservation')->name('carReservation');
 Route::post('/reservation/seat', 'ReservationController@seatReservation')->name('seatReservation');
 Route::post('/reservation/car_flight_package', 'ReservationController@carFlightPackageReservation')->name('carFlightPackageReservation');
-//Route::post('/reservation/room_flight_package', 'ReservationController@roomFlightPackageReservation')->name('roomFlightPackageReservation');
+Route::post('/reservation/room_flight_package', 'ReservationController@roomFlightPackageReservation')->name('roomFlightPackageReservation');
 Route::post('/reservation/finish', "ReservationController@finishReservation")->name('finishReservations');
 Route::resource('/reservations','ReservationController');
 

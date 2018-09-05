@@ -104,6 +104,8 @@ class ReservationController extends Controller
     public function finishReservation(Request $request)
     {
         $reservation = Reservation::find($request->reservation_id);
+        $reservation->date = Carbon::now();
+        $reservation->time = Carbon::now();
         $reservation->closed = true;
         $reservation->save();
 
