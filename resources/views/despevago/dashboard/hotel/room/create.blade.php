@@ -19,56 +19,55 @@
         <div class="row">
             <div class="col-md-6">
 
-                {!!  Form::open(['route' => 'room.store','method' => 'post','files' => true]) !!}
+                {!!  Form::open(['route' => 'rooms.store','method' => 'post','files' => true]) !!}
 
                 {!! Form::token(); !!}
 
                 <div class="form-group">
-                    {!! Form::label('name', 'Nombre'); !!}
-                    {!! Form::text('name', null, array('class' => 'form-control', 'required' => 'required')); !!}
-                    @include('common.errors', ['name' => 'name'])
+                    {!! Form::label('numeration', 'Numeración'); !!}
+                    {!! Form::text('numeration', null, array('class' => 'form-control', 'required' => 'required')); !!}
+                    @include('common.errors', ['name' => 'numeration'])
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('email', 'E-mail'); !!}
-                    {!! Form::email('email', null, array('class' => 'form-control', 'required' => 'required')); !!}
-                    @include('common.errors', ['name' => 'email'])
+                    {!! Form::hidden('hotel_id', $hotel_id, array('class' => 'form-control', 'required' => 'required')); !!}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('capacity', 'Capacidad'); !!}
+                    {!! Form::text('capacity', null, array('class' => 'form-control', 'required' => 'required')); !!}
+                    @include('common.errors', ['name' => 'capacity'])
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('adult_price', 'Precio Adulto'); !!}
+                    {!! Form::text('adult_price', null, array('class' => 'form-control', 'required' => 'required')); !!}
+                    @include('common.errors', ['name' => 'adult_price'])
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('child_price', 'Precio Niño'); !!}
+                    {!! Form::text('child_price', null, array('class' => 'form-control', 'required' => 'required')); !!}
+                    @include('common.errors', ['name' => 'child_price'])
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('description', 'Descripción'); !!}
-                    {!! Form::textarea('description', null, array('class' => 'form-control', 'required' => 'required', 'placeholder' => "Ingrese una breve descripción de su hotel")); !!}
+                    {!! Form::textarea  ('description', null, array('class' => 'form-control','required' => 'required')); !!}
                     @include('common.errors', ['name' => 'description'])
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('telephone', 'Teléfono'); !!}
-                    {!! Form::text('telephone', null, array('class' => 'form-control','required' => 'required')); !!}
-                    @include('common.errors', ['name' => 'description'])
+                    {!! Form::label('room_options', 'Seleccione las opciones de la habitación'); !!}
+                    {!! Form::select('$room_option_id', ["Opciones habitación" => $room_options_name],null, array('class' => 'js-example-basic-multiple form-control', 'name' => 'room_options[]', 'multiple' => 'multiple')) !!}
+
+                    <div class="form-group">
+                    {!! Form::label('room_image', 'Imagen de la habitación'); !!}
+                    {!! Form::file('room_image', array('class' => 'form-control'));!!}
+                    @include('common.errors', ['name' => 'room_image'])
                 </div>
 
-                <div class="form-group">
-                    {!! Form::label('address', 'Dirección'); !!}
-                    {!! Form::text('address', null, array('class' => 'form-control','required' => 'required')); !!}
-                    @include('common.errors', ['name' => 'address'])
-                </div>
 
-                <div class="form-group">
-                    {!! Form::label('rooms_capacity', 'Capacidad de habitaciones'); !!}
-                    {!! Form::text('rooms_capacity', null, array('class' => 'form-control','required' => 'required')); !!}
-                    @include('common.errors', ['name' => 'rooms_capacity'])
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('city_id', 'Ciudad'); !!}
-                    {!! Form::select('city_id', ["Ciudades" => $cities],null, array('class' => 'form-control', 'placeholder' => "Seleccione una ciudad")) !!}
-                    @include('common.errors', ['name' => 'city_id'])
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('hotel_image', 'Imagen del hotel'); !!}
-                    {!! Form::file('hotel_image', array('class' => 'form-control'));!!}
-                    @include('common.errors', ['name' => 'hotel_image'])
                 </div>
 
 
@@ -77,7 +76,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div style="margin-top:20px" class="text-center mb-3">
-                    {!! Form::button('Crear Hotel', array('class' => 'btn btn-primary', 'type' => 'submit')); !!}
+                    {!! Form::button('Crear Habitación', array('class' => 'btn btn-primary', 'type' => 'submit')); !!}
                     {!! Form::close() !!}
 
                 </div>
@@ -97,4 +96,12 @@
 @section('css')
     <link rel="stylesheet" href="{{ URL::asset('css/viewStyle.css') }}">
 
+@stop
+
+@section('js')
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
+    </script>
 @stop

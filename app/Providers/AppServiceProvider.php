@@ -10,6 +10,7 @@ use App\Flight;
 use App\Hotel;
 use App\RoomFlightPackage;
 use App\Transfer;
+use App\UserHistory;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Events\Dispatcher;
 use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
@@ -139,13 +140,14 @@ class AppServiceProvider extends ServiceProvider
                 'label_color' => 'success',
             ]);
 
+            $countUserHistory = UserHistory::all()->count();
             $event->menu->add('Logs y más');
             $event->menu->add(
                 [
                     'text'        => 'Logs usuarios',
                     'url'         => 'dashboard/users_histories',
                     'icon'        => 'file-text-o',
-                    'label'       => $countActivity,
+                    'label'       => $countUserHistory,
                     'label_color' => 'warning',
                 ]);
 
