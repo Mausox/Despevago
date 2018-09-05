@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSeatsTable extends Migration
+class CreateCarFlightPackageReservationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateSeatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('seats', function (Blueprint $table) {
+        Schema::create('car_flight_package_reservation', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('number');
-            $table->integer('status');
-            $table->money('price');
+            $table->unsignedInteger('car_flight_package_id');
+            $table->unsignedInteger('reservation_id');
+            $table->boolean('closed');
             $table->timestamps();
-            $table->unsignedInteger('passenger_id')->nullable();
-            $table->unsignedInteger('class_type_id');
-            $table->unsignedInteger('flight_id');
         });
     }
 
@@ -32,6 +29,6 @@ class CreateSeatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seats');
+        Schema::dropIfExists('car_flight_package_reservation');
     }
 }

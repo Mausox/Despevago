@@ -43,7 +43,6 @@ Route::get('/hotels/byCity/{city_id}', "HotelController@searchHotelByCity")->nam
 
 Route::resource('/hotel_contacts', 'HotelContactController');
 Route::resource('/passenger', 'PassengerController');
-Route::resource('/reservations','ReservationController');
 
 //<-------------------         Room       --------------------->
 Route::resource('/room', 'RoomController');
@@ -65,9 +64,12 @@ Route::resource('/trips', 'TripController');
 Route::post('/reservation/activity', 'ReservationController@activityReservation')->name('activityReservation');
 Route::post('/reservation/room', 'ReservationController@roomReservation')->name('roomReservation');
 Route::post('/reservation/transfer','ReservationController@transferReservation')->name('transferReservation');
-Route::post('/reservations/finish', "ReservationController@finishReservation")->name('finishReservations');
 Route::post('/reservation/car', 'ReservationController@carReservation')->name('carReservation');
-//<-------------------     Reservation    --------------------->
+Route::post('/reservation/seat', 'ReservationController@seatReservation')->name('seatReservation');
+Route::post('/reservation/car_flight_package', 'ReservationController@carFlightPackageReservation')->name('carFlightPackageReservation');
+//Route::post('/reservation/room_flight_package', 'ReservationController@roomFlightPackageReservation')->name('roomFlightPackageReservation');
+Route::post('/reservation/finish', "ReservationController@finishReservation")->name('finishReservations');
+Route::resource('/reservations','ReservationController');
 
 Route::get('/hotels/byCity/{city_id}', "HotelController@searchHotelByCity")->name('hotelsByCity');
 

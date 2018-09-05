@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class RoomFlightPackage extends Model
 {
     protected $fillable = [
-        'name', 'start_date', 'start_hour', 'end_date', 'end_hour', 'discount', 'unavailable_room_id', 'city_id',
+        'name', 'start_date', 'start_hour', 'end_date', 'end_hour', 'discount', 'room_id', 'city_id', 'seat_id'
     ];
-    public function seats(){
-        return $this->belongsToMany(Seat::class);
+    public function seat(){
+        return $this->belongsTo(Seat::class);
     }
 
     public function reservations(){
@@ -19,5 +19,9 @@ class RoomFlightPackage extends Model
 
     public function room(){
         return $this->belongsTo(Room::class);
+    }
+
+    public function city(){
+        return $this->belongsTo(City::class);
     }
 }

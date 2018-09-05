@@ -23,7 +23,8 @@ class CreateCarFlightPackagesTable extends Migration
             $table->integer('discount');
             $table->timestamps();
             $table->unsignedInteger('city_id');
-            $table->unsignedInteger('unavailable_car_id');
+            $table->unsignedInteger('car_id')->nullable();
+            $table->unsignedInteger('seat_id')->nullable();
         });
     }
 
