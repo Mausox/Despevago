@@ -42,6 +42,12 @@
                 </div>
 
                 <div class="form-group">
+                    {!! Form::label('telephone', 'Teléfono'); !!}
+                    {!! Form::text('telephone', null, array('class' => 'form-control','required' => 'required')); !!}
+                    @include('common.errors', ['name' => 'description'])
+                </div>
+
+                <div class="form-group">
                     {!! Form::label('city_id', 'Ciudad'); !!}
                     {!! Form::select('city_id', ["Ciudades" => $cities],null, array('class' => 'form-control', 'placeholder' => "Seleccione una ciudad")) !!}
                     @include('common.errors', ['name' => 'city_id'])
@@ -53,14 +59,7 @@
                     @include('common.errors', ['name' => 'hotel_image'])
                 </div>
 
-            </div>
-            <div class="col-md-4">
-                    <div class="form-group">
-                        {!! Form::label('contact_number', 'Teléfono de contacto'); !!}
-                        {!! Form::text('description', null, array('class' => 'form-control')); !!}
-                        @include('common.errors', ['name' => 'description'])
-                    </div>
-            </div>
+
         </div>
 
         <div class="row">

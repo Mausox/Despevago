@@ -18,7 +18,7 @@ class Hotel extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'score', 'description','city_id', 'hotel_image'
+        'name', 'email', 'score', 'description','city_id', 'hotel_image','telephone'
     ];
 
     public function rules()
@@ -34,10 +34,6 @@ class Hotel extends Model
         return $this->hasMany(Room::class);
     }
 
-    public function hotelContacts()
-    {
-        return $this->hasMany(HotelContact::class);
-    }
 
     public function transfers()
     {

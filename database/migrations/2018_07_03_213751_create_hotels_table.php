@@ -19,6 +19,7 @@ class CreateHotelsTable extends Migration
             $table->string('email')->unique();
             $table->float('score');
             $table->string('description');
+            $table->string('telephone');
             $table->timestamps();
             $table->unsignedInteger('city_id');
         });

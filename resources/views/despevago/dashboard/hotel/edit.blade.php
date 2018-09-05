@@ -52,20 +52,17 @@
                 </div>
 
                 <div class="form-group">
+                    {!! Form::label('telephone', 'Teléfono'); !!}
+                    {!! Form::text('telephone', $hotel->telephone, array('class' => 'form-control', 'required' => 'required')); !!}
+                    @include('common.errors', ['name' => 'telephone'])
+                </div>
+
+                <div class="form-group">
                     {!! Form::label('hotel_image', 'Imagen del hotel'); !!}
                     {!! Form::file('hotel_image', array('class' => 'form-control'));!!}
                     @include('common.errors', ['name' => 'hotel_image'])
                 </div>
 
-            </div>
-            <div class="col-md-6">
-                @foreach($hotel->hotelContacts as $contact)
-                    <div class="form-group">
-                        {!! Form::label('contact_number', 'Teléfono de contacto'); !!}
-                        {!! Form::text('description', $contact->telephone, array('class' => 'form-control')); !!}
-                        @include('common.errors', ['name' => 'description'])
-                    </div>
-                @endforeach
             </div>
 
             <div class="row">

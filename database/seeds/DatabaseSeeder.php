@@ -32,7 +32,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CompanyTableSeeder::class);
         $this->call(CountryTableSeeder::class);
         $this->call(BranchOfficeTableSeeder::class);
-        $this->call(BranchOfficeContactTableSeeder::class);
         $this->call(CarTableSeeder::class);
         $this->call(CarOptionTableSeeder::class);
 

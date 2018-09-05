@@ -51,7 +51,7 @@ class HotelController extends Controller
         $hotel->score = 0;
         $hotel->hotel_image = $request->file('hotel_image')->store('public/hotels');
         $hotel->save();
-        return redirect()->route('despevago.hotels.dashboard.view', [$hotel->id]);
+        return redirect()->route('hotels.show', [$hotel->id])->with('status',"El hotel ".$hotel->name." ha sido creado");
     }
 
     /**
@@ -63,16 +63,8 @@ class HotelController extends Controller
     public function show($id)
     {
         $hotel = Hotel::find($id);
-        $hotelContacts = $hotel->hotelContacts->all();
-        $contactsNumber = array();
-
-        foreach ($hotelContacts as $hotelContact)
-        {
-            $contactsNumber[] = $hotelContact->telephone;
-        }
-
         $city = City::find($hotel->city_id);
-        return view('despevago.dashboard.hotel.view', ['hotel' => $hotel, 'city' => $city->name, 'contacts' => $contactsNumber]);
+        return view('despevago.dashboard.hotel.view', ['hotel' => $hotel, 'city' => $city->name]);
     }
 
     /**
@@ -137,16 +129,6 @@ class HotelController extends Controller
     public function searchHotelByCity($city_id)
     {
         $hotels = Hotel::where('city_id',$city_id)->get();
-        $data = array();
-        foreach ($hotels as $hotel)
-        {
-            $hotel_contact = HotelContact::where('hotel_id',$hotel->id)->get();
-            $data[] = array
-            (
-                "hotel" => $hotel,
-                "hotel_contact" => $hotel_contact
-            );
-        }
-        return $data;
+        return $hotels;
     }
 }

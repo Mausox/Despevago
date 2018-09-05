@@ -75,9 +75,7 @@
                             <tr>
                                 <th>Teléfonos de contacto <i class="fa fa-phone"></i></th>
                                 <td>
-                                @foreach($contacts as $contact)
-                                          <p>{!! $contact !!}</p>
-                                @endforeach
+                                    {!! $hotel->telephone !!}
                                 </td>
                             </tr>
                             </tbody>

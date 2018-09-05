@@ -100,11 +100,9 @@ class BranchOfficeController extends Controller
         $data = array();
         foreach ($branch_offices as $branch_office)
         {
-            $branch_office_contact = BranchOfficeContact::where('branch_office_id',$branch_office->id)->get();
             $data[] = array
             (
                 "branch_office" => $branch_office,
-                "branch_office_contact" => $branch_office_contact
             );
         }
         return $data;
