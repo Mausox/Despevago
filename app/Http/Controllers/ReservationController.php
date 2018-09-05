@@ -14,6 +14,8 @@ use App\Transfer;
 use App\Room;
 use App\ReservationTransfer;
 use App\Car;
+use App\Activity;
+use App\ActivityReservation;
 use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
@@ -178,28 +180,36 @@ class ReservationController extends Controller
     //Función que permite reservar una actividad
     //Entradas: activity_id,user_id
     //Tipo: POST
-    //Estado: NO PROBADA POR FALTA DEL MODELO ACTIVITYRESERVATION.
     public function activityReservation(Request $request)
     {
         $activity_id = $request->activity_id;
-        $user_id = $request->user_id;
+        $activity = Activity::find($activity_id);
+        $user_id = Auth::user()->id;
+        
+        $adult_number = $request->adult_number;
+        $child_number = $request->child_number;
+        $people_number = $adult_number+$child_number;
 
-        $activity = Room::find($activity_id);
+        $adult_price = floatval(preg_replace('/[^\d\.]/', '', $activity->price_adult));
+        $child_price = floatval(preg_replace('/[^\d\.]/', '', $activity->price_child));
 
-        $price = floatval(preg_replace('/[^\d\.]/', '', $activity->price));
 
-        if($activity->capacity > 0)
+        if($activity->capacity - $people_number > 0)
         {
             $reservation = Reservation::where('user_id',$user_id)->where('closed',false)->first();
 
+            $adult_total = $adult_price*$adult_number;
+            $child_total = $child_price*$child_number;
+            
             $current_balance = floatval(preg_replace('/[^\d\.]/', '', $reservation->current_balance));
-            $current_balance += $price;
+            $current_balance += $adult_total;
+            $current_balance += $child_total;
             $reservation->current_balance = money_format('%i',$current_balance);
 
-            //ActivityReservation::create(['closed' => false, 'reservation_id' => $reservation->id, 'activity' => $activity_id]);
-
+            ActivityReservation::create(['closed' => false, 'reservation_id' => $reservation->id, 'activity_id' => $activity_id]);
+            $activity->capacity -= $people_number;
             $reservation->save();
-
+            $activity->save();
 
             return "Your activity was added to you reservation";
         }

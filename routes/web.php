@@ -29,8 +29,10 @@ Route::get('/hotels/create', function ()
 });*/
 
 //<-------------------      Activities     --------------------->
-Route::resource('/activities','ActivityController');
-Route::get('/activities/byCity/{city_id}', 'ActivityController@searchActivitiesByCity')->name('activitiesByCity');
+Route::resource('/activity','ActivityController');
+Route::get('/activities', 'ActivityController@search')->name('activities');
+
+Route::post('/activities/byCity', 'ActivityController@searchActivitiesByCity')->name('activitiesByCity');
 Route::get('/activities/byDate/{date}', 'ActivityController@searchActivitiesByDate')->name('activitiesByDate');
 //<-------------------      Activities     --------------------->
 
@@ -74,11 +76,12 @@ Route::get('/hotels/byCity/{city_id}', "HotelController@searchHotelByCity")->nam
 
 //Cars
 Route::resource('/cars', 'CarController');
+Route::get('/searchCar', 'CarController@search');
 Route::resource('/car_options', 'CarOptionController');
 Route::resource('/branch_offices', 'BranchOfficeController');
 Route::resource('/branch_office_contacts', 'BranchOfficeContactController');
 Route::resource('/companies', 'CompanyController');
-Route::get('/branch_offices/byCity/{city_id}', 'BranchOfficeController@searchBranchOfficeByCity')->name('branchOfficesByCity');
+Route::post('/searchCar/branch_offices/byCity', 'BranchOfficeController@searchBranchOfficeByCity')->name('branchOfficesByCity');
 Route::get('/cars/byBranchOffice/{branch_office_id}', 'CarController@searchCarsByBranchOffice')->name('carsByBranchOffices');
 Route::get('/cars/byCompany/{company_id}', 'CarController@searchCarsByCompany')->name('carsByCompany');
 Route::get('/companies/byCar/{car_id}', 'CompanyController@searchCompanyByCar')->name('companyByCar');

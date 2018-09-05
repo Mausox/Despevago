@@ -17,7 +17,8 @@ class CreateActivitiesTable extends Migration
             $table->increments('id');
             $table->string('address');
             $table->date('date');
-            $table->money('price');
+            $table->money('price_adult');
+            $table->money('price_child');
             $table->time('hour');
             $table->string('description');
             $table->unsignedInteger('capacity');
