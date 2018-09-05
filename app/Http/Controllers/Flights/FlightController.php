@@ -8,6 +8,7 @@ use App\Seat;
 use App\Airline;
 use App\Airport;
 use App\Journey;
+use App\City;
 
 class FlightController extends Controller  
 {  

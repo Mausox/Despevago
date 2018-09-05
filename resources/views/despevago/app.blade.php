@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Despevago - @yield('title')</title>
-    <link rel="shortcut icon" href="{{{ asset('icon_dv.ico') }}}">
-    <!--Font-awesome -->
+    <link rel="shortcut icon" href="{{{ asset('favicon_dgo.ico') }}}">
+        <!--Font-awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/solid.css" integrity="sha384-TbilV5Lbhlwdyc4RuIV/JhD8NR+BfMrvz4BL5QFa2we1hQu6wvREr3v6XSRfCTRp" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/brands.css" integrity="sha384-7xAnn7Zm3QC1jFjVc1A6v/toepoG3JXboQYzbM0jrPzou9OFXm/fY6Z/XiIebl/k" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/fontawesome.css" integrity="sha384-ozJwkrqb90Oa3ZNb+yKFW2lToAWYdTiF1vt8JiH5ptTGHTGcN7qdoR1F95e0kYyG" crossorigin="anonymous">
@@ -19,9 +19,7 @@
 
 <body>
     <!-- header -->
-    @yield('header-top')
-    @yield('slideshow-top')
-    @yield('header-menu')
+    @yield('header')
     
     <!-- body -->
     @yield('content')

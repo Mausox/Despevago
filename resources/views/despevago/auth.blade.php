@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Despevago - @yield('title')</title>
-    <link rel="shortcut icon" href="{{{ asset('icon_dv.ico') }}}">
-    <!-- Base css-->
+    <link rel="shortcut icon" href="{{{ asset('favicon_dgo.ico') }}}">
+        <!-- Base css-->
     <link type="text/css" href={{ asset('css/bootstrap.min.css') }} rel="stylesheet">
     <link type="text/css" href={{ asset('css/mdb.min.css') }} rel="stylesheet">
     <link type="text/css" href={{ asset('css/style.css') }} rel="stylesheet">
