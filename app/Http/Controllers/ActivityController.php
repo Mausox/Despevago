@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Activity;
+use App\City;
 
 class ActivityController extends Controller
 {
@@ -14,7 +15,10 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        return Activity::all();
+        //return Activity::all();
+
+        $activities = Activity::latest()->paginate(5);
+        return view('despevago.activities.index', compact('activities'))->with('i', (request()->input('page', 1) -1) *5);
     }
 
     /**
@@ -47,7 +51,12 @@ class ActivityController extends Controller
      */
     public function show($id)
     {
-        return Activity::find($id);
+        //return Activity::find($id);
+
+        $activity = Activity::find($id);
+        $city_id = $activity->city_id;
+        $city = City::find($city_id)->name;
+        return view('despevago.activities.show', compact('activity', 'city'));
     }
 
     /**
@@ -89,10 +98,15 @@ class ActivityController extends Controller
     //Función que entrega las actividades de una ciudad en particular
     //Entradas: hotel_id
     //Tipo: GET
-    public function searchActivitiesByCity($city_id)
+    public function searchActivitiesByCity(Request $request)
     {
-        $activity = Activity::where("city_id",$city_id)->get();
-        return $activity;
+        $city_id = $request->city_id;
+        $activities = Activity::where("city_id",$city_id)->get();
+        $city = City::find($city_id)->name;
+
+        return view('despevago.activities.index', compact('activities', 'city'));
+        
+        //return $activity->all();
     }
 
     //Función que entrega las actividades de una fecha en particular
@@ -101,7 +115,22 @@ class ActivityController extends Controller
     public function searchActivitiesByDate($date)
     {
         $activity = Activity::where("date",$date)->get();
+        
         return $activity;
     }
 
+    public function search()
+    {
+        //$cities_all = City::all();
+        //$cities = $cities_all->pluck('name')->toArray();
+
+        $cities = City::all();
+        $citiesName = array();
+
+        foreach ($cities as  $city)
+        {
+            $citiesName[$city->id] = $city->name;
+        }
+        return view('despevago.activities.search', compact('citiesName'));
+    }
 }
