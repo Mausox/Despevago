@@ -23,9 +23,9 @@ class RoomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($hotel_id)
     {
-        //
+        return view('despevago.dashboard.hotel.create',["hotel_id" => $hotel_id]);
     }
 
     /**
@@ -49,7 +49,8 @@ class RoomController extends Controller
     public function show($id)
     {
         $room = Room::find($id);
-        return $room;
+        $roomOptions = $room->roomOptions;
+        return view('despevago.dashboard.hotel.room.view', ['room' => $room, 'roomOptions' => $roomOptions]);
     }
 
     /**

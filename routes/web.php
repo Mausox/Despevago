@@ -36,12 +36,12 @@ Route::resource('dashboard/hotels', 'HotelController')->middleware('AuthAdmin');
 Route::get('dashboard/hotels/byCity/{city_id}', "HotelController@searchHotelByCity")->name('hotelsByCity');
 //<-------------------         Hotel      --------------------->
 
-Route::resource('/hotel_contacts', 'HotelContactController');
 Route::resource('/passenger', 'PassengerController');
 Route::resource('/reservations','ReservationController');
 
 //<-------------------         Room       --------------------->
-Route::resource('/room', 'RoomController');
+Route::resource('/dashboard/hotels/rooms', 'RoomController')->middleware('AuthAdmin');
+Route::get('/dashboard/hotels/{hotel_id}/rooms/create', 'RoomController@create')->middleware('AuthAdmin');
 Route::get('/room/byHotel/{hotel_id}', 'RoomController@searchRoomsByHotel')->name('roomsByHotel');
 //<-------------------         Room       --------------------->
 
@@ -76,7 +76,6 @@ Route::get('/hotels/byCity/{city_id}', "HotelController@searchHotelByCity")->nam
 Route::resource('/cars', 'CarController');
 Route::resource('/car_options', 'CarOptionController');
 Route::resource('/branch_offices', 'BranchOfficeController');
-Route::resource('/branch_office_contacts', 'BranchOfficeContactController');
 Route::resource('/companies', 'CompanyController');
 Route::get('/branch_offices/byCity/{city_id}', 'BranchOfficeController@searchBranchOfficeByCity')->name('branchOfficesByCity');
 Route::get('/cars/byBranchOffice/{branch_office_id}', 'CarController@searchCarsByBranchOffice')->name('carsByBranchOffices');
@@ -94,12 +93,8 @@ Route::resource('/transfers', 'TransferController');
 // Flights ------------------------------------------>
 // -- Airline
 Route::resource('/airline', 'AirlineController');
-Route::get('/airline/by-airline-contact/{airline_contact_id}', 'AirlineController@searchAirlineByAirlineContact');
 Route::get('/airline/by-flight/{flight_id}', 'AirlineController@searchAirlineByFlight');
 
-// -- AirlineContact
-Route::resource('/airline-contact', 'AirlineContactController');
-Route::get('/airline-contacts/by-airline/{airline_id}', 'AirlineContactController@searchAirlineContactsByAirline');
 
 // -- Airport
 Route::resource('/airport', 'AirportController');

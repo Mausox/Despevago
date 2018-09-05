@@ -64,7 +64,8 @@ class HotelController extends Controller
     {
         $hotel = Hotel::find($id);
         $city = City::find($hotel->city_id);
-        return view('despevago.dashboard.hotel.view', ['hotel' => $hotel, 'city' => $city->name]);
+        $rooms = $hotel->rooms;
+        return view('despevago.dashboard.hotel.view', ['hotel' => $hotel, 'city' => $city->name, 'rooms' => $rooms]);
     }
 
     /**

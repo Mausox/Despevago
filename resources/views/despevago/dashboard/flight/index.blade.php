@@ -43,8 +43,8 @@
                             <th>Puntuación</th>
                             <th>Descripción</th>
                             <th>Ciudad</th>
-                            <th>Capacidad de habitaciones</th>
-                            <th>Dirección</th>
+                            <th>Hora Actualización</th>
+                            <th>Hora Creación</th>
                             <th>Ver Hotel</th>
                         </tr>
                     </thead>
@@ -67,12 +67,11 @@
                                 {!! $hotel->city->name !!}
                             </td>
                             <td>
-                                {!! $hotel->rooms_capacity !!}
+                                {!! $hotel->created_at !!}
                             </td>
                             <td>
-                                {!! $hotel->address !!}
+                                {!! $hotel->updated_at !!}
                             </td>
-
                             <td>
                                 <a href="{!! url('dashboard/hotels/'.$hotel->id) !!}"> <button type="button" class="btn btn-info">Ver</button></a>
                             </td>

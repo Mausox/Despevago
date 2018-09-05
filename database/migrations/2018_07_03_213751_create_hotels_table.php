@@ -20,6 +20,8 @@ class CreateHotelsTable extends Migration
             $table->float('score');
             $table->string('description');
             $table->string('telephone');
+            $table->string('address');
+            $table->integer('rooms_capacity');
             $table->timestamps();
             $table->unsignedInteger('city_id');
         });

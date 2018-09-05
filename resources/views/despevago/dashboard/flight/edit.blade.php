@@ -46,18 +46,6 @@
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('address', 'Dirección'); !!}
-                    {!! Form::text('address', $hotel->address, array('class' => 'form-control','required' => 'required')); !!}
-                    @include('common.errors', ['name' => 'address'])
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('rooms_capacity', 'Capacidad de habitaciones'); !!}
-                    {!! Form::text('rooms_capacity', $hotel->rooms_capacity, array('class' => 'form-control','required' => 'required')); !!}
-                    @include('common.errors', ['name' => 'rooms_capacity'])
-                </div>
-
-                <div class="form-group">
                     {!! Form::label('city_id', 'Ciudad'); !!}
                     {!! Form::select('city_id', ["Ciudades" => $cities],$hotel->city_id, array('class' => 'form-control', 'placeholder' => "Seleccione una ciudad")) !!}
                     @include('common.errors', ['name' => 'city_id'])

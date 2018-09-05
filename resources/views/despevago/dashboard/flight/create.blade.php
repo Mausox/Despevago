@@ -5,7 +5,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Crear Hotel
+            Crear Vuelo
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col-md-6">
 
-                {!!  Form::open(['route' => 'hotels.store','method' => 'post','files' => true]) !!}
+                {!!  Form::open(['route' => 'flight.store','method' => 'post','files' => true]) !!}
 
                 {!! Form::token(); !!}
 
@@ -45,18 +45,6 @@
                     {!! Form::label('telephone', 'Teléfono'); !!}
                     {!! Form::text('telephone', null, array('class' => 'form-control','required' => 'required')); !!}
                     @include('common.errors', ['name' => 'description'])
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('address', 'Dirección'); !!}
-                    {!! Form::text('address', null, array('class' => 'form-control','required' => 'required')); !!}
-                    @include('common.errors', ['name' => 'address'])
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('rooms_capacity', 'Capacidad de habitaciones'); !!}
-                    {!! Form::text('rooms_capacity', null, array('class' => 'form-control','required' => 'required')); !!}
-                    @include('common.errors', ['name' => 'rooms_capacity'])
                 </div>
 
                 <div class="form-group">

@@ -87,17 +87,6 @@ class AirlineController extends Controller
         return "Airline {$id} was deleted"; 
     }
 
-    /**  
-     * Display the specified resource.  
-     *  
-     * @param  int  $airline_contact_id  
-     * @return \Illuminate\Http\Response  
-     */   
-    public function searchAirlineByAirlineContact($airline_contact_id)
-    {
-        $airline = AirlineContact::find($airline_contact_id)->airline;
-        return $airline;
-    }
 
     /**  
      * Display the specified resource.  

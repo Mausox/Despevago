@@ -12,5 +12,6 @@ $factory->define(Room::class, function (Faker $faker) {
         'child_price' => $faker->numberBetween(50,500),
         'description' => $faker->text(200),
         'hotel_id' => Hotel::all()->random()->id,
-    ];
+        'numeration' => $faker->numberBetween(1,1000),
+        ];
 });

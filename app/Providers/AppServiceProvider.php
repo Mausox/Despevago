@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Activity;
+use App\Airport;
+use App\Car;
 use App\CarFlightPackage;
 use App\Flight;
 use App\Hotel;
@@ -38,14 +40,61 @@ class AppServiceProvider extends ServiceProvider
                 'label_color' => 'success',
             ]);
 
+            $countCar =  Car::all()->count();
+            $event->menu->add([
+                'text'        => 'Autos',
+                'url'         => 'dashboard/cars',
+                'icon'        => 'car',
+                'label'       =>  $countCar,
+                'label_color' => 'success',
+            ]);
 
             $countFlight = Flight::all()->count();
+            $countAirport = Airport::all()->count();
+
             $event->menu->add([
                 'text'        => 'Vuelos',
-                'url'         => 'dashboard/flies',
                 'icon'        => 'plane',
-                'label'       => $countFlight,
-                'label_color' => 'success',
+                'submenu' =>
+                [
+                    [
+                        'text'        => 'Tipos de vuelos',
+                        'url'         => 'dashboard/flight',
+                        'submenu' =>
+                        [
+                            [
+                                'text'        => 'Solo ida',
+                                'url'         => 'dashboard/flight',
+                                'label'       => $countFlight,
+                                'label_color' => 'success',
+                            ],
+                            [
+                                'text'        => 'Solo vuelta',
+                                'url'         => 'dashboard/flight',
+                                'label'       => $countFlight,
+                                'label_color' => 'success',
+                            ],
+                            [
+                                'text'        => 'Ida y vuelta',
+                                'url'         => 'dashboard/flight',
+                                'label'       => $countFlight,
+                                'label_color' => 'success',
+                            ]
+                        ]
+                    ],
+                    [
+                        'text'        => 'Aeropuertos',
+                        'url'         => 'dashboard/aiport',
+                        'label'       => $countAirport,
+                        'label_color' => 'success',
+                    ],
+                    [
+                        'text'        => 'Aeropuertos',
+                        'url'         => 'dashboard/aiport',
+                        'label'       => $countAirport,
+                        'label_color' => 'success',
+                    ]
+                ]
             ]);
 
             $countCarFlightPackage= CarFlightPackage::all()->count();
@@ -53,7 +102,6 @@ class AppServiceProvider extends ServiceProvider
 
             $event->menu->add([
                 'text'        => 'Paquetes Turísticos',
-                'url'         => 'dashboard/packages',
                 'icon'        => 'cubes',
                 'submenu' =>[
                     [

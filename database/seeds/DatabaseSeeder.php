@@ -14,7 +14,6 @@ class DatabaseSeeder extends Seeder
         // Tipo de usuario es creado antes del usuario.
         
         $this->call(AirlineTableSeeder::class);
-        $this->call(AirlineContactTableSeeder::class);
         $this->call(ClassTypeTableSeeder::class);
         $this->call(CountryTableSeeder::class);
         $this->call(CityTableSeeder::class);

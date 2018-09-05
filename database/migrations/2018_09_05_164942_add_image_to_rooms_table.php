@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAirlineContactsTable extends Migration
+class AddImageToRoomsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateAirlineContactsTable extends Migration
      */
     public function up()
     {
-        Schema::create('airline_contacts', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('telephone');
-            $table->timestamps();
-            $table->unsignedInteger('airline_id');
+        Schema::table('rooms', function (Blueprint $table) {
+            $table->string('room_image')->default('public/room/room_default.png');
         });
     }
 
@@ -28,6 +25,8 @@ class CreateAirlineContactsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('airline_contacts');
+        Schema::table('rooms', function (Blueprint $table) {
+            $table->dropColumn('room_image');
+        });
     }
 }

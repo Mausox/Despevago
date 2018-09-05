@@ -18,7 +18,7 @@ class Hotel extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'score', 'description','city_id', 'hotel_image','telephone'
+        'name', 'email', 'score', 'description','city_id', 'hotel_image','telephone','address','capacity'
     ];
 
     public function rules()
