@@ -8,7 +8,6 @@ use App\TransferCar;
 use App\Airport;
 use App\Hotel;
 
-
 class TransferController extends Controller
 {
     /**
@@ -18,7 +17,8 @@ class TransferController extends Controller
      */
     public function index()
     {
-        return Transfer::all();
+        $transfers = Transfer::all();
+        return view('despevago.transfers.indexTransfer', ['transfers' => $transfers]);
     }
 
     /**
@@ -28,7 +28,30 @@ class TransferController extends Controller
      */
     public function create()
     {
-        //
+        $hotels = Hotel::all();
+        $hotelsName = array();
+
+        foreach ($hotels as  $hotel)
+        {
+            $hotelsName[$hotel->id] = $hotel->name;
+        }
+        $airports = Airport::all();
+        $airportsName = array();
+
+        foreach ($airports as  $airport)
+        {
+            $airportsName[$airport->id] = $airport->name;
+        }
+
+        $transferCars = TransferCar::all();
+        $transferCarsName = array();
+
+        foreach ($transferCars as  $transferCar)
+        {
+            $transferCarsName[$transferCar->id] = $transferCar->vehicle_registration_number;
+        }
+
+        return view('despevago.transfers.createTransfer', ['hotels' => $hotelsName,  'airports' => $airportsName, 'transfer_cars' => $transferCarsName]);
     }
 
     /**
@@ -39,8 +62,18 @@ class TransferController extends Controller
      */
     public function store(Request $request)
     {
-        $transfer = Transfer::create($request->all());
-        return $transfer;
+        request()->validate([
+            'start_date' => 'required',
+            'start_hour' => 'required|date_format:H:i',
+            'route' => 'required',
+            'price' => 'required|min:0',
+            'hotel_id' => 'required',
+            'airport_id' => 'required',
+            'transfer_car_id' => 'required',
+        ]);
+        $request->number_people = 0;
+        Transfer::create(array_merge($request->all(), ['number_people' => 0]));
+        return redirect()->route('transfers.index')->with('success', 'Transfer has been created!');
     }
 
     /**
@@ -51,7 +84,8 @@ class TransferController extends Controller
      */
     public function show($id)
     {
-        return Transfer::find($id);
+        $transfer = Transfer::find($id);
+        return view('despevago.transfers.showTransfer',['transfer' => $transfer]);
     }
 
     /**
@@ -62,7 +96,31 @@ class TransferController extends Controller
      */
     public function edit($id)
     {
-        //
+        $hotels = Hotel::all();
+        $hotelsName = array();
+
+        foreach ($hotels as  $hotel)
+        {
+            $hotelsName[$hotel->id] = $hotel->name;
+        }
+        $airports = Airport::all();
+        $airportsName = array();
+
+        foreach ($airports as  $airport)
+        {
+            $airportsName[$airport->id] = $airport->name;
+        }
+
+        $transferCars = TransferCar::all();
+        $transferCarsName = array();
+
+        foreach ($transferCars as  $transferCar)
+        {
+            $transferCarsName[$transferCar->id] = $transferCar->vehicle_registration_number;
+        }
+
+        $transfer = Transfer::find($id);
+        return view('despevago.transfers.editTransfer', ['transfer' => $transfer, 'hotels' => $hotelsName,  'airports' => $airportsName, 'transfer_cars' => $transferCarsName]);
     }
 
     /**
@@ -75,7 +133,7 @@ class TransferController extends Controller
     public function update(Request $request, $id)
     {
         Transfer::find($id)->update($request->all());
-        return "The transfer ID: {$id} was updated!";
+        return redirect()->route('transfers.index')->with('success', 'The transfer was updated');
     }
 
     /**
@@ -87,7 +145,7 @@ class TransferController extends Controller
     public function destroy($id)
     {
         Transfer::destroy($id);
-        return "The transfer ID: {$id} was removed!";
+        return redirect()->route('transfers.index')->with('success', 'The transfer was removed!');
     }
 
     /**  
