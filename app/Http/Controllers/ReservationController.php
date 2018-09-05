@@ -12,8 +12,10 @@ use Illuminate\Http\Request;
 use App\Reservation;
 use App\Transfer;
 use App\Room;
-use App\ReservationTransfer;
+use App\Seat;
 use App\Car;
+use App\CarFlightPackage;
+use App\RoomFlightPackage;
 use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
@@ -112,16 +114,49 @@ class ReservationController extends Controller
             $unavailableRoom->closed = true;
             $unavailableRoom->save();
         }
-        //<--------------------------------- Rooms --------------------------------->
+
 
         //<------------------------------ Activities ------------------------------->
-        $activityReservation = ActivityReservation::where("reservation_id", $request->reservation_id)->where("closed", false)->get();
-        $activityReservation->closed = true;
-        $activityReservation->capacity -= 1;
-        //<------------------------------ Activities ------------------------------->
+        $activities = $reservation->activities()->where('closed',false)->get();
+        foreach($activities as $activity)
+        {
+            $activity->pivot->closed = true;
+            $activity->pivot->save();
+        }
 
+        //<------------------------------ Seats ------------------------------->
+        $seats = $reservation->seats()->where('closed',false)->get();
+        foreach($seats as $seat)
+        {
+            $seat->pivot->closed = true;
+            $seat->pivot->save();
+        }
 
+        //<------------------------------ Transfers  ------------------------------->
+        $transfers = $reservation->transfers()->where('closed',false)->get();
+        foreach($transfers as $transfer)
+        {
+            $transfer->pivot->closed = true;
+            $transfer->pivot->save();
+        }
 
+        //<------------------------------ Car Flight Package ------------------------------->
+        $carFlightPackages = $reservation->car_flight_packages()->where('closed',false)->get();
+        foreach($carFlightPackages as $carFlightPackage)
+        {
+            $carFlightPackage->pivot->closed = true;
+            $carFlightPackage->pivot->save();
+        }
+
+        //<------------------------------ Room Flight Package ------------------------------->
+        $roomFlightPackages = $reservation->room_flight_packages()->where('closed',false)->get();
+        foreach($roomFlightPackages as $roomFlightPackage)
+        {
+            $roomFlightPackage->pivot->closed = true;
+            $roomFlightPackage->pivot->save();
+        }
+
+        //<------------------------------ UnavailableCar ------------------------------->
         $unavailableCars = UnavailableCar::where("reservation_id", $request->reservation_id)->where("closed", false)->get();
         foreach ($unavailableCars as $unavailableCar)
         {
@@ -183,20 +218,22 @@ class ReservationController extends Controller
     {
         $activity_id = $request->activity_id;
         $user_id = $request->user_id;
-
+        $number_people = $request->number_people;
         $activity = Room::find($activity_id);
 
         $price = floatval(preg_replace('/[^\d\.]/', '', $activity->price));
 
-        if($activity->capacity > 0)
+        if($activity->capacity - $number_people > 0)
         {
             $reservation = Reservation::where('user_id',$user_id)->where('closed',false)->first();
 
             $current_balance = floatval(preg_replace('/[^\d\.]/', '', $reservation->current_balance));
             $current_balance += $price;
             $reservation->current_balance = money_format('%i',$current_balance);
+            $activity->capacity -= $number_people;
 
-            //ActivityReservation::create(['closed' => false, 'reservation_id' => $reservation->id, 'activity' => $activity_id]);
+            $reservation->activities()->attach($activity_id,['closed' => false]);
+
 
             $reservation->save();
 
@@ -212,12 +249,13 @@ class ReservationController extends Controller
 
 
     //Function: Allows user to make a transfer reservation
-    //Parameters: transfer_id, user_id
+    //Parameters: transfer_id, user_id, number_people
     //POST
     public function transferReservation(Request $request)
     {
         $transfer_id = $request->transfer_id;
         $user_id = $request->user_id;
+        $number_people = $request->number_people;
 
         //To obtain the transfer
         $transfer = Transfer::find($transfer_id);
@@ -240,20 +278,154 @@ class ReservationController extends Controller
         else{
 
             //Adding the transfer reservation on the pivot table
-
             $reservation->transfers()->attach($transfer_id,['closed' => false]);
+            $transfer->number_people = $number_people;
+            $transfer->save();
 
             //Updating balance on the reservation
-            $transfer_price = floatval(preg_replace('/[^\d\.]/', '', $transfer->price));
             $current_balance = floatval(preg_replace('/[^\d\.]/', '', $reservation->current_balance));
             $current_balance += $transfer->price;
             $reservation->current_balance = money_format('%i',$current_balance);
-
             $reservation->save();
 
             return "Your transfer was added to your reservation";
         }
     }
+
+    ////Function: Allows user to make a transfer reservation
+    //Parameters: seat_id, user_id, passenger_id
+    //POST
+    public function seatReservation(Request $request)
+    {
+        $seat_id = $request->seat_id;
+        $user_id = $request->user_id;
+        $passenger_id = $request->passenger_id;
+
+        $seat = Seat::find($seat_id);
+
+        //To obtain the open reservation of the user
+        $reservation = Reservation::where([
+            ['user_id', $user_id],
+            ['closed', false],
+        ])->first();
+
+
+        if($seat->status == 0){
+
+            $seat->status = 1;
+            $seat->passenger_id = $passenger_id;
+            $reservation->seats()->attach($seat_id,['closed' => false]);
+            $seat->save();
+
+            $current_balance = floatval(preg_replace('/[^\d\.]/', '', $reservation->current_balance));
+            $seat_price = floatval(preg_replace('/[^\d\.]/', '', $seat->price));
+            $current_balance += $seat_price;
+            $reservation->current_balance = money_format('%i',$current_balance);
+            $reservation->save();
+
+            return "The seat was reserved successfully";
+        }
+        else{
+            return "the seat is no longer available";
+        }
+    }
+
+    ////Function: Allows user to make a car flight package reservation
+    //Parameters: seat_id, car_id, user_id, car_flight_package_id
+    //POST
+    public function carFlightPackageReservation(Request $request)
+    {
+        $seat_id = $request->seat_id;
+        $car_id = $request->car_id;
+        $user_id = $request->user_id;
+        $package_id = $request->car_flight_package_id;
+
+        //To obtain the open reservation of the user
+        $reservation = Reservation::where([
+            ['user_id', $user_id],
+            ['closed', false],
+        ])->first();
+        $seat = Seat::find($seat_id);
+        $car = Car:: find($car_id);
+        $package = CarFlightPackage::find($package_id);
+
+        if ($package->reservations()->where('car_flight_package_id',$package->id)->exists()){
+            return "The package is no longer available";
+        }
+        else{
+
+            $reservation->car_flight_packages()->attach($package_id ,['closed' => false]);
+
+            $seat->status = 1;
+            $seat->status->save();
+            
+            $package->seat_id = $seat->id;
+            $package->car_id = $car->id;
+            $package->save();
+
+            $seat_price = floatval(preg_replace('/[^\d\.]/', '', $seat->price));
+            $car_price = floatval(preg_replace('/[^\d\.]/', '', $car->price));
+            $package_price = ($seat_price + $car_price)*($package->discount/100);
+
+            //Updating balance on the reservation
+            $current_balance = floatval(preg_replace('/[^\d\.]/', '', $reservation->current_balance));
+            $current_balance += $package_price;
+            $reservation->current_balance = money_format('%i',$current_balance);
+            $reservation->save();
+
+            return "The package has been reserved";
+        }
+
+
+
+    }
+
+    ////Function: Allows user to make a room flight package reservation
+    //Parameters: seat_id, room_id, user_id, room_flight_package_id
+    //POST
+    public function roomFlightPackageReservation(Request $request)
+    {
+        $seat_id = $request->seat_id;
+        $room_id = $request->room_id;
+        $user_id = $request->user_id;
+        $package_id = $request->room_flight_package_id;
+
+        //To obtain the open reservation of the user
+        $reservation = Reservation::where([
+            ['user_id', $user_id],
+            ['closed', false],
+        ])->first();
+        $seat = Seat::find($seat_id);
+        $room = Room:: find($room_id);
+        $package = RoomFlightPackage::find($package_id);
+
+        if ($package->reservations()->where('room_flight_package_id', $package->id)->exists()) {
+            return "The room flight package is no longer available";
+        } else {
+
+            $reservation->room_flight_packages()->attach($package_id, ['closed' => false]);
+
+            $seat->status = 1;
+            $seat->status->save();
+
+            $package->seat_id = $seat->id;
+            $package->room_id = $room->id;
+            $package->save();
+
+            $seat_price = floatval(preg_replace('/[^\d\.]/', '', $seat->price));
+            $room_price = floatval(preg_replace('/[^\d\.]/', '', $room->price));
+            $package_price = ($seat_price + $room_price) * ($package->discount / 100);
+
+            //Updating balance on the reservation
+            $current_balance = floatval(preg_replace('/[^\d\.]/', '', $reservation->current_balance));
+            $current_balance += $package_price;
+            $reservation->current_balance = money_format('%i', $current_balance);
+            $reservation->save();
+
+            return "The room flight package has been reserved";
+        }
+    }
+
 
     public function carReservation(Request $request)
     {

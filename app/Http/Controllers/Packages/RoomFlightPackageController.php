@@ -85,4 +85,5 @@ class RoomFlightPackageController extends Controller
         RoomFlightPackage::destroy($id);
         return "The room flight package ID: {$id} was removed!";
     }
+
 }
