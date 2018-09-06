@@ -36,6 +36,19 @@ Route::resource('dashboard/hotels', 'HotelController')->middleware('AuthAdmin');
 Route::get('dashboard/hotels/byCity/{city_id}', "HotelController@searchHotelByCity")->name('hotelsByCity');
 //<-------------------         Hotel      --------------------->
 
+//<----------------------    Company    ----------------------->
+Route::resource('dashboard/companies', 'CompanyController')->middleware('AuthAdmin');
+Route::get('dashboard/companies/byCity/{city_id}', "CompanyController@searchCompanyByCity")->name('companiesByCity');
+//<----------------------    Company    ----------------------->
+
+//<-------------------         BranchOffice       --------------------->
+Route::resource('/dashboard/companies/branch_offices', 'BranchOfficeController')->middleware('AuthAdmin');
+Route::get('/dashboard/companies/{branch_offices_id}/branch_offices/create', 'BranchOfficeController@create')->middleware('AuthAdmin');
+Route::get('/branch_office/byCompany/{company_id}', 'BranchOfficeController@searchBranchOfficeByCompany')->name('branchOfficesByCompany');
+//<-------------------         BranchOffice       --------------------->
+
+
+
 Route::resource('/passenger', 'PassengerController');
 Route::resource('/reservations','ReservationController');
 

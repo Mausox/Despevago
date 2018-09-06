@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\BranchOffice;
 use App\BranchOfficeContact;
+use App\City;
 use Illuminate\Http\Request;
 
 class BranchOfficeController extends Controller
@@ -23,9 +24,17 @@ class BranchOfficeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($company_id)
     {
-        //
+        $cities = City::all();
+        $citiesName = array();
+        
+        foreach ($cities as  $city)
+        {
+            $citiesName[$city->id] = $city->name;
+        }
+
+        return view('despevago.dashboard.company.branchOffice.create', ["company_id" => $company_id, "cities" => $citiesName]);
     }
 
     /**

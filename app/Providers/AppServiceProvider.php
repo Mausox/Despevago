@@ -43,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
             $countCar =  Car::all()->count();
             $event->menu->add([
                 'text'        => 'Autos',
-                'url'         => 'dashboard/cars',
+                'url'         => 'dashboard/companies',
                 'icon'        => 'car',
                 'label'       =>  $countCar,
                 'label_color' => 'success',
