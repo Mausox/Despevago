@@ -98,19 +98,37 @@ class ReservationController extends Controller
         return "The reservation {$id} was removed!";
     }
 
+    public function shoppingCart(Request $request)
+    {
+        $reservation = Reservation::where([
+            ['user_id', $request->user()->id],
+            ['closed', false],
+        ])->first();
+
+        $SProoms = $reservation->unavailable_rooms;
+
+
+        return view('despevago.users.shoppingCart', ['unaRooms' => $SProoms, 'user' => $request->user()]);
+    }
+
+
     //Función que finaliza una reserva y "cierra" las reservas en unavailableRooms, cars,etc.
     //Entradas: reservation_id
     //Tipo: POST
     public function finishReservation(Request $request)
     {
-        $reservation = Reservation::find($request->reservation_id);
+        $reservation = Reservation::where([
+            ['user_id', $request->user()->id],
+            ['closed', false],
+        ])->first();
+
         $reservation->date = Carbon::now();
-        $reservation->time = Carbon::now();
+        $reservation->hour = Carbon::now();
         $reservation->closed = true;
         $reservation->save();
 
         //<--------------------------------- Rooms --------------------------------->
-        $unavailableRooms = UnavailableRoom::where("reservation_id", $request->reservation_id)->where("closed", false)->get();
+        $unavailableRooms = UnavailableRoom::where("reservation_id", $reservation->id)->where("closed", false)->get();
         foreach ($unavailableRooms as $unavailableRoom)
         {
             $unavailableRoom->closed = true;
@@ -159,7 +177,7 @@ class ReservationController extends Controller
         }
 
         //<------------------------------ UnavailableCar ------------------------------->
-        $unavailableCars = UnavailableCar::where("reservation_id", $request->reservation_id)->where("closed", false)->get();
+        $unavailableCars = UnavailableCar::where("reservation_id", $reservation->id)->where("closed", false)->get();
         foreach ($unavailableCars as $unavailableCar)
         {
             $unavailableCar->closed = true;
@@ -167,7 +185,7 @@ class ReservationController extends Controller
         }
 
 
-        return "The reservation was successfully done";
+        return redirect('user/profile')->with('status', 'You have ended your transaction succesfully');
     }
 
 
@@ -179,37 +197,41 @@ class ReservationController extends Controller
         $room_id = $request->room_id;
         $adults_number = $request->adults_number;
         $children_number = $request->children_number;
-        $user_id = $request->user_id;
-        $dates = $request->date;
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+        $user_id = $request->user()->id;
 
         $room = Room::find($room_id);
+        //To obtain the open reservation of the user
+        $reservation = Reservation::where([
+            ['user_id', $user_id],
+            ['closed', false],
+        ])->first();
 
         $adult_price = floatval(preg_replace('/[^\d\.]/', '', $room->adult_price));
         $child_price = floatval(preg_replace('/[^\d\.]/', '', $room->child_price));
 
-        if($adults_number+$children_number <= $room->capacity)
-        {
-            $reservation = Reservation::where('user_id',$user_id)->where('closed',false)->first();
 
-            $current_balance = floatval(preg_replace('/[^\d\.]/', '', $reservation->current_balance));
-            $current_balance += ($adult_price*$adults_number + $child_price*$children_number);
-            $reservation->current_balance = money_format('%i',$current_balance);
+        $current_balance = floatval(preg_replace('/[^\d\.]/', '', $reservation->current_balance));
+        $current_balance += ($adult_price*$adults_number + $child_price*$children_number);
+        $reservation->current_balance = money_format('%i',$current_balance);
 
-            foreach ($dates as $date)
-            {
-                UnavailableRoom::create(['date'=>$date,'closed' => false, 'reservation_id' => $reservation->id, 'room_id' => $room_id]);
-            }
-
-            $reservation->save();
-
-
-            return "Your room was added to you reservation";
+        $i = Carbon::parse($start_date);;
+        $end_date_time = Carbon::parse($end_date)->addDay();;
+        while($i != $end_date_time){
+            $unavailable_room = new UnavailableRoom();
+            $unavailable_room->date = $i;
+            $unavailable_room->reservation_id = $reservation->id;
+            $unavailable_room->room_id = $room->id;
+            $unavailable_room->closed = false;
+            $unavailable_room->save();
+            $i->addDay();
         }
+        $reservation->save();
 
-        else
-        {
-            return "Capacity overflow: Room capacity = " . $room->capacity . " and adults_number + children_number = ".($adults_number + $children_number);
-        }
+
+        return "Your room was added to you reservation";
+
     }
 
     //Función que permite reservar una actividad

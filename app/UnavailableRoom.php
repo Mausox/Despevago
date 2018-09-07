@@ -6,16 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class UnavailableRoom extends Model
 {
-    protected $date;
-    protected $closed;
-    protected $reservation_id;
-    protected $room_id;
 
     protected $fillable = [
         'date', 'closed', 'reservation_id', 'room_id'
     ];
 
-    public function reservations ()
+    public function reservation()
     {
         $this->belongsTo(Reservation::class);
     }

@@ -14,7 +14,7 @@
 Route::get('/', function ()
 {
     return view('welcome');
-});
+})->name('/');
 
 Auth::routes();
 
@@ -38,9 +38,12 @@ Route::resource('/car_flight_packages', 'CarFlightPackageController');
 Route::resource('/countries', 'CountryController');
 
 //<-------------------         Hotel      --------------------->
-Route::resource('hotels', 'HotelController');
 Route::get('/hotels/byCity/{city_id}', "HotelController@searchHotelByCity")->name('hotelsByCity');
-//<-------------------         Hotel      --------------------->
+Route::get('/hotels/search/rooms', "HotelController@searchHotelRoom")->name('searchHotelRoom');
+Route::get('/hotels/search','HotelController@searchFormHotel')->name('searchFormHotel');
+Route::get('/hotels/search_results', "HotelController@searchHotelByCity")->name('searchHotel');
+Route::resource('hotels', 'HotelController');
+
 
 Route::resource('/hotel_contacts', 'HotelContactController');
 Route::resource('/passenger', 'PassengerController');
@@ -56,6 +59,9 @@ Route::resource('/user_histories', 'UserHistoryController');
 Route::resource('/user_types','UserTypeController');
 
 //<-------------------         User       --------------------->
+Route::get('user/profile', 'UserController@userProfile')->name('user.profile');
+Route::get('user/shopping_cart', 'ReservationController@shoppingCart')->name('user.shopping_cart');
+Route::post('user/shopping_cart', 'ReservationController@finishReservation')->name('user.finishReservation');
 Route::resource('/users','UserController');
 Route::get('/user/reservations/{user_id}', 'UserController@userReservations')->name('userReservations');
 //<-------------------         User       --------------------->
@@ -72,7 +78,6 @@ Route::post('/reservation/room_flight_package', 'ReservationController@roomFligh
 Route::post('/reservation/finish', "ReservationController@finishReservation")->name('finishReservations');
 Route::resource('/reservations','ReservationController');
 
-Route::get('/hotels/byCity/{city_id}', "HotelController@searchHotelByCity")->name('hotelsByCity');
 
 //Cars
 Route::resource('/cars', 'CarController');
@@ -146,3 +151,8 @@ Route::get('/city/by-airport/{airport_id}', 'CityController@searchCityByAirport'
 
 // -- Trasnfer
 Route::get('/transfers/by-airport/{airport_id}', 'TransferController@searchTransfersByAirport');
+
+
+Route::resource('payment_methods', 'PaymentMethodController');
+Route::get('payment', 'PaymentMethodController@paymentForm')->name('paymentForm');
+Route::post('payment', 'PaymentMethodController@paymentAdd')->name('paymentAdd');

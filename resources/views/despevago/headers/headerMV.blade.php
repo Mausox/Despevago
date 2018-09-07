@@ -3,7 +3,7 @@
         <div class="container">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item space {{ request()->is('/hotels') ? 'active' : ''}}">
-                    <a class="nav-link active" href="#"><i class="fas fa-hotel"></i> Accommodation</a>
+                    <a class="nav-link active" href="{{'/hotels/search'}}"><i class="fas fa-hotel"></i> Accommodation</a>
                 </li>
                 <li class="nav-item space {{ request()->is('/flights') ? 'active' : ''}}">
                     <a class="nav-link" href="#"><i class="fas fa-plane"></i> Flights</a>
