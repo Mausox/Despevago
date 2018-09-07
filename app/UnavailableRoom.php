@@ -13,12 +13,12 @@ class UnavailableRoom extends Model
 
     public function reservation()
     {
-        $this->belongsTo(Reservation::class);
+        return $this->belongsTo(Reservation::class);
     }
 
     public function room()
     {
-        $this->belongsTo(Room::class);
+        return $this->belongsTo(Room::class, 'room_id', 'id');
 
     }
 

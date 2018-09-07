@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\City;
 use App\Hotel;
 use App\HotelContact;
+use App\PaymentHistory;
 use App\UnavailableCar;
 use App\UnavailableRoom;
 use Carbon\Carbon;
@@ -16,6 +17,7 @@ use App\Seat;
 use App\Car;
 use App\CarFlightPackage;
 use App\RoomFlightPackage;
+use App\UserHistory;
 use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
@@ -106,9 +108,14 @@ class ReservationController extends Controller
         ])->first();
 
         $SProoms = $reservation->unavailable_rooms;
+        $SPactivities = $reservation->activities;
+        $SPseats = $reservation->seats;
 
-
-        return view('despevago.users.shoppingCart', ['unaRooms' => $SProoms, 'user' => $request->user()]);
+        return view('despevago.users.shoppingCart',
+            ['unaRooms' => $SProoms,
+            'activities' => $SPactivities,
+            'seats' => $SPseats,
+            'user' => $request->user()]);
     }
 
 
@@ -122,6 +129,7 @@ class ReservationController extends Controller
             ['closed', false],
         ])->first();
 
+
         $reservation->date = Carbon::now();
         $reservation->hour = Carbon::now();
         $reservation->closed = true;
@@ -131,6 +139,13 @@ class ReservationController extends Controller
         $unavailableRooms = UnavailableRoom::where("reservation_id", $reservation->id)->where("closed", false)->get();
         foreach ($unavailableRooms as $unavailableRoom)
         {
+            $user_history = new UserHistory();
+            $user_history->date = Carbon::now();
+            $user_history->hour = Carbon::now();
+            $user_history->user_id = $request->user()->id;
+            $user_history->action = 'User reserved a room';
+            $user_history->save();
+
             $unavailableRoom->closed = true;
             $unavailableRoom->save();
         }
@@ -140,6 +155,13 @@ class ReservationController extends Controller
         $activities = $reservation->activities()->where('closed',false)->get();
         foreach($activities as $activity)
         {
+            $user_history = new UserHistory();
+            $user_history->date = Carbon::now();
+            $user_history->hour = Carbon::now();
+            $user_history->user_id = $request->user()->id;
+            $user_history->action = 'User reserved an activity';
+            $user_history->save();
+
             $activity->pivot->closed = true;
             $activity->pivot->save();
         }
@@ -148,6 +170,13 @@ class ReservationController extends Controller
         $seats = $reservation->seats()->where('closed',false)->get();
         foreach($seats as $seat)
         {
+            $user_history = new UserHistory();
+            $user_history->date = Carbon::now();
+            $user_history->hour = Carbon::now();
+            $user_history->user_id = $request->user()->id;
+            $user_history->action = 'User reserved a flight';
+            $user_history->save();
+
             $seat->pivot->closed = true;
             $seat->pivot->save();
         }
@@ -156,6 +185,13 @@ class ReservationController extends Controller
         $transfers = $reservation->transfers()->where('closed',false)->get();
         foreach($transfers as $transfer)
         {
+            $user_history = new UserHistory();
+            $user_history->date = Carbon::now();
+            $user_history->hour = Carbon::now();
+            $user_history->user_id = $request->user()->id;
+            $user_history->action = 'User reserved a transfer';
+            $user_history->save();
+
             $transfer->pivot->closed = true;
             $transfer->pivot->save();
         }
@@ -164,6 +200,13 @@ class ReservationController extends Controller
         $carFlightPackages = $reservation->car_flight_packages()->where('closed',false)->get();
         foreach($carFlightPackages as $carFlightPackage)
         {
+            $user_history = new UserHistory();
+            $user_history->date = Carbon::now();
+            $user_history->hour = Carbon::now();
+            $user_history->user_id = $request->user()->id;
+            $user_history->action = 'User reserved a car flight package';
+            $user_history->save();
+
             $carFlightPackage->pivot->closed = true;
             $carFlightPackage->pivot->save();
         }
@@ -172,6 +215,13 @@ class ReservationController extends Controller
         $roomFlightPackages = $reservation->room_flight_packages()->where('closed',false)->get();
         foreach($roomFlightPackages as $roomFlightPackage)
         {
+            $user_history = new UserHistory();
+            $user_history->date = Carbon::now();
+            $user_history->hour = Carbon::now();
+            $user_history->user_id = $request->user()->id;
+            $user_history->action = 'User reserved a room flight package';
+            $user_history->save();
+
             $roomFlightPackage->pivot->closed = true;
             $roomFlightPackage->pivot->save();
         }
@@ -180,6 +230,13 @@ class ReservationController extends Controller
         $unavailableCars = UnavailableCar::where("reservation_id", $reservation->id)->where("closed", false)->get();
         foreach ($unavailableCars as $unavailableCar)
         {
+            $user_history = new UserHistory();
+            $user_history->date = Carbon::now();
+            $user_history->hour = Carbon::now();
+            $user_history->user_id = $request->user()->id;
+            $user_history->action = 'User reserved a car';
+            $user_history->save();
+
             $unavailableCar->closed = true;
             $unavailableCar->save();
         }
