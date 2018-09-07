@@ -1,10 +1,12 @@
+@extends('despevago.materialize')
 
-@extends('despevago.app')
+@section('title', 'Transfer result')
 
-@section('title','Show transfer '.$transfer->id)
-
-@include('despevago.headers.headerAuth')
-@include('despevago.headers.headerMV')
+@section('header')
+    @include('despevago.headers.auth')
+    @include('despevago.headers.middle-logo')
+    @include('despevago.headers.menu ')
+@endsection
 
 @section('content')
 <div class="container">

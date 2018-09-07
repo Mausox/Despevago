@@ -99,7 +99,8 @@ Route::get('/companies/byCar/{car_id}', 'CompanyController@searchCompanyByCar')-
 
 // Transfers ------------------------->
 // Transfer search by hotel and airport
-Route::get('/transfers/search', 'TransferController@searchTransfer')->name('searchTransfer');
+Route::get('/transfers/search', 'TransferController@searchTransfer')->name('transfer.search');
+Route::get('/transfers/result', 'TransferController@resultTransfer')->name('transfer.result');
 // Transfer CRUD
 Route::resource('/transfer_cars', 'TransferCarController');
 Route::resource('/transfers', 'TransferController');

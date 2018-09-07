@@ -7,6 +7,7 @@ use App\Transfer;
 use App\TransferCar;
 use App\Airport;
 use App\Hotel;
+use App\City;
 
 class TransferController extends Controller
 {
@@ -163,17 +164,32 @@ class TransferController extends Controller
 
     public function searchTransfer(Request $request)
     {
+        $airports = Airport::all();
+        $airportsName = array();
 
-        $airport = $request->airport;
-        $hotel = $request->hotel;
+        foreach ($airports as  $airport)
+        {
+            $airportsName[$airport->id] = $airport->name;
+        }
+        $hotels = Hotel::all();
+        $hotelsName = array();
+
+        foreach ($hotels as  $hotel)
+        {
+            $hotelsName[$hotel->id] = $hotel->name;
+        }
+        return view('despevago.transfers.searchTransfer', ['airports' => $airportsName, 'hotels' => $hotelsName]);
+    }
+
+    public function resultTransfer(Request $request)
+    {
+
+        $airport = Airport::find($request->airport_id);
+        $hotel = Hotel::find($request->hotel_id);
         $numberPeople = $request->numberPeople;
         $route = $request->route;
         $date = $request->date;
         $hour = $request->hour;
-
-        $airport_id = Airport::where('name',$airport)->value('id');
-        $hotel_id = Hotel::where('name',$hotel)->value('id');
-
 
         $resultTransfer = Transfer::whereHas('transfer_car', function ($query) use ($numberPeople){
             $query->where('capacity', '>', $numberPeople);
@@ -181,16 +197,16 @@ class TransferController extends Controller
                     ['start_date', $date],
                     ['start_hour','>',$hour],
                     ['route', $route],
-                    ['hotel_id',$hotel_id],
-                    ['airport_id',$airport_id],
+                    ['hotel_id',$hotel->id],
+                    ['airport_id',$airport->id],
         ])->get();
 
-        if ($resultTransfer->isEmpty())
+        if (!$resultTransfer->isEmpty())
         {
-            return "No result matched your search";
+            return view('despevago.transfers.resultTransfer', ['transfers' => $resultTransfer, 'numberPeople' =>  $numberPeople]);
         }
         else {
-            return $resultTransfer;
+            return redirect('transfers/search')->with('status', 'There were no matches for your search!');
         }
     }
 }
