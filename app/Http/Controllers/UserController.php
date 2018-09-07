@@ -130,4 +130,8 @@ class UserController extends Controller
 
         return $rooms_array;
     }
+
+    public function userProfile(Request $request){
+        return view('despevago.users.profile', ['user' => $request->user()]);
+    }
 }

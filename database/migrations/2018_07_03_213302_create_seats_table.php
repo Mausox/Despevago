@@ -19,7 +19,7 @@ class CreateSeatsTable extends Migration
             $table->integer('status');
             $table->money('price');
             $table->timestamps();
-            $table->unsignedInteger('passenger_id');
+            $table->unsignedInteger('passenger_id')->nullable();
             $table->unsignedInteger('class_type_id');
             $table->unsignedInteger('flight_id');
         });

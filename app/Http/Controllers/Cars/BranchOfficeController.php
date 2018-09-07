@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\BranchOffice;
 use App\BranchOfficeContact;
+use App\City;
+use App\UserHistory;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class BranchOfficeController extends Controller
@@ -23,9 +27,17 @@ class BranchOfficeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($company_id)
     {
-        //
+        $cities = City::all();
+        $citiesName = array();
+        
+        foreach ($cities as  $city)
+        {
+            $citiesName[$city->id] = $city->name;
+        }
+
+        return view('despevago.dashboard.company.branchOffice.create', ["company_id" => $company_id, "cities" => $citiesName]);
     }
 
     /**
@@ -36,8 +48,12 @@ class BranchOfficeController extends Controller
      */
     public function store(Request $request)
     {
-        $branch_office = BranchOffice::create($request->all());
-        return $branch_office;
+        $branch_office = (new BranchOffice)->fill($request->all());
+        $branch_office->company_id = $request->company_id;
+        $branch_office->save();
+
+        UserHistory::create(['action_type' => "Store",'action' => 'Stored the branch office with id: '.$branch_office->id,'date' => Carbon::now(),'hour' => Carbon::now(),'user_id' => Auth::user()->id]);
+        return redirect()->route('branch_offices.show', [$branch_office->id])->with('status',"The branch office ID: $branch_office->id has been created!");
     }
 
     /**
@@ -48,7 +64,9 @@ class BranchOfficeController extends Controller
      */
     public function show($id)
     {
-        return BranchOffice::find($id);
+        $branch_office = BranchOffice::find($id);
+        $cars = $branch_office->cars;
+        return view('despevago.dashboard.company.branchOffice.view', ['branch_office' => $branch_office, 'cars' => $cars]);
     }
 
     /**
@@ -59,7 +77,17 @@ class BranchOfficeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $branch_office = BranchOffice::find($id);
+
+        $cities = City::all();
+        $citiesName = array();
+        
+        foreach ($cities as  $city)
+        {
+            $citiesName[$city->id] = $city->name;
+        }
+        
+        return view('despevago.dashboard.company.branchOffice.edit',["company_id" => $branch_office->company_id, "branch_office" => $branch_office, "cities" => $citiesName]);
     }
 
     /**
@@ -71,8 +99,12 @@ class BranchOfficeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        BranchOffice::find($id)->update($request->all());
-        return "The branch office ID: {$id} was updated!";
+        $branch_office = BranchOffice::find($id)->fill($request->all());
+    
+        $branch_office->save();
+
+        UserHistory::create(['action_type' => "Update",'action' => 'Updated the branch office with id: '.$branch_office->id,'date' => Carbon::now(),'hour' => Carbon::now(),'user_id' => Auth::user()->id]);
+        return redirect()->route('branch_offices.show', [$branch_office->id])->with('status',"The branch office ID: $branch_office->id has been updated!");
     }
 
     /**
@@ -83,8 +115,10 @@ class BranchOfficeController extends Controller
      */
     public function destroy($id)
     {
+        $branch_office = BranchOffice::find($id);
         BranchOffice::destroy($id);
-        return "The branch office ID: {$id} was removed!";
+        UserHistory::create(['action_type' => "Destroy",'action' => 'Destroyed the branch office with id: '.$branch_office->id,'date' => Carbon::now(),'hour' => Carbon::now(),'user_id' => Auth::user()->id]);
+        return redirect('/dashboard/companies/'.$branch_office->company_id)->with('status', 'The branch office ID:'.$branch_office->id.' has been deleted!');
     }
 
     /**
@@ -94,17 +128,22 @@ class BranchOfficeController extends Controller
      * @return array
      */
 
-    public function searchBranchOfficeByCity($city_id)
+    public function searchBranchOfficeByCity(Request $request)
     {
+        $pick_up_date = $request->pick_up_date;
+        $return_date = $request->return_date;
+
+        
+
+
+        $city_id = $request->city_id;
         $branch_offices = BranchOffice::where('city_id',$city_id)->get();
         $data = array();
         foreach ($branch_offices as $branch_office)
         {
-            $branch_office_contact = BranchOfficeContact::where('branch_office_id',$branch_office->id)->get();
             $data[] = array
             (
                 "branch_office" => $branch_office,
-                "branch_office_contact" => $branch_office_contact
             );
         }
         return $data;

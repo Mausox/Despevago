@@ -21,12 +21,8 @@ class CreateFlightsForeignKey extends Migration
 
         Schema::table('flights', function (Blueprint $table) {
             $table->foreign('airline_id')->references('id')->on('airlines')->onDelete('cascade');
-            $table->foreign('airport_id')->references('id')->on('airports')->onDelete('cascade');
         });
 
-        Schema::table('airline_contacts', function (Blueprint $table) {
-            $table->foreign('airline_id')->references('id')->on('airlines')->onDelete('cascade');
-        });
 
         Schema::table('airports', function (Blueprint $table)
         {
@@ -48,11 +44,6 @@ class CreateFlightsForeignKey extends Migration
         });
 
         Schema::table('flights', function (Blueprint $table) {
-            $table->dropForeign(['airline_id']);
-            $table->dropForeign(['airport_id']);
-        });
-
-        Schema::table('airline_contacts', function (Blueprint $table) {
             $table->dropForeign(['airline_id']);
         });
 

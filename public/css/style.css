@@ -41,7 +41,7 @@
 }
 
 /* Quita el padding por defecto del navbar*/
-.navbar.navbar-expand.navbar-dark
+.navbar.navbar-expand-lg.navbar-dark
 {
 	padding-top: 0em;
 	padding-bottom: 0em;
@@ -61,4 +61,229 @@
 {
 	margin-top: 0.4em;
 	margin-bottom: 0.4em;
+}
+
+.cardHotel
+{
+	margin-top: 1em;
+}
+
+/* MATERIALIZE */
+.nav-size
+{
+    height:2.5em;
+    position:-1em;
+}
+ 
+.nav-size .content
+{
+    height: 2.5em;
+    position: -2.5em;
+}
+ 
+.nav-size .content.important
+{
+    height: 2.5em;
+    position: -2.5em;
+    background-color:#2196f3;
+}
+ 
+:hover.content.important
+{
+    height: 2.5em;
+    position: -2.5em;
+    background-color:#1976d2;
+}
+ 
+.row.nav-size.navbar-fixed
+{
+    margin: 0em;
+}
+.icon-center
+{
+    margin-top: 0px;
+}
+
+.material-icons.left
+{
+    margin-right: 5px
+}
+ 
+/* Logo header*/
+.logo-header
+{
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
+}
+ 
+.background-logo
+{
+    padding-bottom: 6.5em;
+}
+
+/* Margin */
+.mt-5
+{
+    margin-top: 2em;
+}
+.mt-3
+{
+    margin-top: 0.75em;
+}
+.mt-0
+{
+    margin-top: 0em;
+}
+.mr-5
+{
+    margin-right: 2em;
+}
+
+.mb-0
+{
+    margin-bottom: 0em;
+}
+.mb-1
+{
+    margin-bottom: 0.5em;
+}
+.mb-5
+{
+    margin-bottom: 2em;
+}
+.pad-3
+{
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+}
+.pad-5
+{
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+}
+.pad-10
+{
+    padding-left: 2.5em;
+    padding-right: 2.5em;
+}
+
+a
+{
+    text-transform: none;
+    overflow: hidden;
+white-space: nowrap;    
+}
+
+.inline
+{
+    display: inline;
+}
+
+/*Radio button*/
+[type="radio"]:checked + span::after, [type="radio"].with-gap:checked + span::after {
+    background-color: #0d47a1;
+}
+[type="radio"]:checked + span::after, [type="radio"].with-gap:checked + span::before, [type="radio"].with-gap:checked + span::after {
+    border: 2px solid #0d47a1;
+}
+
+/* input field */
+.input-field .prefix.active
+{
+    color: #0d47a1;
+}
+
+input:not([type]):focus:not([readonly]),
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=url]:not(.browser-default):focus:not([readonly]),
+input[type=time]:not(.browser-default):focus:not([readonly]),
+input[type=date]:not(.browser-default):focus:not([readonly]),
+input[type=datetime]:not(.browser-default):focus:not([readonly]),
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
+input[type=tel]:not(.browser-default):focus:not([readonly]),
+input[type=number]:not(.browser-default):focus:not([readonly]),
+input[type=search]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #0d47a1;
+  -webkit-box-shadow: 0 1px 0 0 #0d47a1;
+          box-shadow: 0 1px 0 0 #0d47a1;
+}
+
+input:not([type]):focus:not([readonly]) + label,
+input[type=text]:not(.browser-default):focus:not([readonly]) + label,
+input[type=password]:not(.browser-default):focus:not([readonly]) + label,
+input[type=email]:not(.browser-default):focus:not([readonly]) + label,
+input[type=url]:not(.browser-default):focus:not([readonly]) + label,
+input[type=time]:not(.browser-default):focus:not([readonly]) + label,
+input[type=date]:not(.browser-default):focus:not([readonly]) + label,
+input[type=datetime]:not(.browser-default):focus:not([readonly]) + label,
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]) + label,
+input[type=tel]:not(.browser-default):focus:not([readonly]) + label,
+input[type=number]:not(.browser-default):focus:not([readonly]) + label,
+input[type=search]:not(.browser-default):focus:not([readonly]) + label,
+textarea.materialize-textarea:focus:not([readonly]) + label {
+  color: #0d47a1;
+}
+
+.dropdown-content li > a, .dropdown-content li > span 
+{
+    font-size: 16px;
+    color: #1e88e5;
+    display: block;
+    line-height: 22px;
+    padding: 14px 16px;
+}
+nav.nav-center ul {
+    text-align: center;
+}
+nav.nav-center ul li {
+    display: inline-flex;
+    float: none;
+}
+nav.nav-center ul li a {
+    display: inline-block;
+}
+
+.datepicker-date-display
+{
+    background-color: #0d47a1;
+}
+
+.datepicker-table td.is-today 
+{
+    color: #2196f3;
+}
+
+.datepicker-table td.is-selected 
+{
+    background-color: #0d47a1;
+    color: #fff;
+}
+
+.datepicker-day-button:focus
+{
+    background-color: #1976d2;
+}
+
+.datepicker-cancel, .datepicker-clear, .datepicker-today, .datepicker-done 
+{
+
+    color: #0d47a1;
+    padding: 0 1rem;
+}
+
+button:focus 
+{
+    outline: none;
+    background-color: #1976d2;
+}
+
+.card .card-content {
+    padding-top: 24px;
+    padding-right: 24px;
+    padding-bottom: 0;
+    padding-left: 24px;
+    border-radius: 0 0 2px 2px;
 }

@@ -11,5 +11,8 @@ $factory->define(Hotel::class, function (Faker $faker) {
         'score' => $faker->numberBetween(1,5),
         'description'=> $faker->text,
         'city_id' => City::all()->random()->id,
+        'telephone' => $faker->phoneNumber,
+        'address' => $faker->address,
+        'rooms_capacity' => $faker->numberBetween(10,100),
     ];
 });

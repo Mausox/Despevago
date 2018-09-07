@@ -9,5 +9,6 @@ $factory->define(Airline::class, function (Faker $faker) {
         'address' => $faker->unique()->address,
         'score' => $faker->numberBetween(0, 5),
         'description' => $faker->catchPhrase,
+        'telephone'=> $faker->phoneNumber,
     ];
 });

@@ -19,6 +19,7 @@ class CreateAirlinesTable extends Migration
             $table->string('address');
             $table->float('score');
             $table->string('description');
+            $table->string('telephone');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreateAirlinesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('airlines');
+        Schema::dropIfExists('airline');
     }
 }

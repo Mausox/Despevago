@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\City;
 use App\Hotel;
 use App\HotelContact;
+use App\UserHistory;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HotelController extends Controller
 {
@@ -15,17 +19,27 @@ class HotelController extends Controller
      */
     public function index()
     {
-        return Hotel::all();
+        $hotels = Hotel::all();
+        return view('despevago.dashboard.hotel.index',['hotels' => $hotels]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
      * @param array $data
-     * @return void
+     * @return view
      */
     public function create()
     {
+        $cities = City::all();
+        $citiesName = array();
+
+        foreach ($cities as  $city)
+        {
+            $citiesName[$city->id] = $city->name;
+        }
+
+        return view('despevago.dashboard.hotel.create', ["cities" => $citiesName]);
     }
 
     /**
@@ -36,8 +50,12 @@ class HotelController extends Controller
      */
     public function store(Request $request)
     {
-        $hotel = Hotel::create($request->all());
-        return $hotel;
+        $hotel = (new Hotel)->fill($request->all());
+        $hotel->score = 0;
+        $hotel->hotel_image = $request->file('hotel_image')->store('public/hotels');
+        $hotel->save();
+        UserHistory::create(['action_type' => "Store",'action' => 'Stored the hotel with id: '.$hotel->id,'date' => Carbon::now(),'hour' => Carbon::now(),'user_id' => Auth::user()->id]);
+        return redirect()->route('hotels.show', [$hotel->id])->with('status',"El hotel ".$hotel->name." ha sido creado");
     }
 
     /**
@@ -48,7 +66,10 @@ class HotelController extends Controller
      */
     public function show($id)
     {
-        return Hotel::find($id);
+        $hotel = Hotel::find($id);
+        $city = City::find($hotel->city_id);
+        $rooms = $hotel->rooms;
+        return view('despevago.dashboard.hotel.view', ['hotel' => $hotel, 'city' => $city->name, 'rooms' => $rooms]);
     }
 
     /**
@@ -59,7 +80,16 @@ class HotelController extends Controller
      */
     public function edit($id)
     {
-        //
+        $cities = City::all();
+        $citiesName = array();
+
+        $hotel = Hotel::find($id);
+
+        foreach ($cities as  $city)
+        {
+            $citiesName[$city->id] = $city->name;
+        }
+        return view('despevago.dashboard.hotel.edit', ["cities" => $citiesName,"hotel" => $hotel]);
     }
 
     /**
@@ -71,9 +101,17 @@ class HotelController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         Hotel::find($id)->update($request->all());
         $hotel = Hotel::find($id);
-        return $hotel;
+        if ($request->file())
+        {
+            $hotel->hotel_image = $request->file('hotel_image')->store('public/hotels');
+
+        }
+        $hotel->save();
+        UserHistory::create(['action_type' => "Update",'action' => 'Updated the hotel with id: '.$hotel->id,'date' => Carbon::now(),'hour' => Carbon::now(),'user_id' => Auth::user()->id]);
+        return redirect('/dashboard/hotels/'.$hotel->id)->with('status', 'Hotel '.$hotel->name.'de ID:'.$hotel->id.' ha sido actualizado');
     }
 
     /**
@@ -84,26 +122,62 @@ class HotelController extends Controller
      */
     public function destroy($id)
     {
+        $hotel = Hotel::find($id);
         Hotel::destroy($id);
-        return "Se eliminó el hotel de id: ".$id;
+
+        return redirect('/dashboard/hotels')->with('status', 'Hotel '.$hotel->name.'de ID:'.$hotel->id.' ha sido eliminado');
+    }
+
+
+    public function searchFormHotel(){
+        $cities = City::all();
+        $citiesName = array();
+
+        foreach ($cities as  $city)
+        {
+            $citiesName[$city->id] = $city->name;
+        }
+        return view('despevago.hotels.searchHotel', ['cities' => $citiesName]);
     }
 
     //Función que permite la búsqueda de un hotel y su contacto en una ciudad en específico.
     //Entradas: city_id
     //Tipo: GET
-    public function searchHotelByCity($city_id)
+    public function searchHotelByCity(Request $request)
     {
         $hotels = Hotel::where('city_id',$city_id)->get();
-        $data = array();
-        foreach ($hotels as $hotel)
-        {
-            $hotel_contact = HotelContact::where('hotel_id',$hotel->id)->get();
-            $data[] = array
-            (
-                "hotel" => $hotel,
-                "hotel_contact" => $hotel_contact
-            );
+        return $hotels;
+    }
+    //Search room of hotel according to user parameters
+    public function searchHotelRoom(Request $request)
+    {
+        $hotel = Hotel::find($request->hotel_id);
+        $number_adults = $request->number_adults;
+        $number_children = $request->number_children;
+        $number_room = $request->number_room;
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        $number_people = $number_adults + $number_children;
+
+        $result_rooms = Room::whereDoesntHave('unavailableRooms', function ($query) use ($start_date, $end_date){
+            $query->where('date','>',$start_date)->where('date','<',$end_date);
+        })->where([
+            ['capacity','>=', $number_people],
+            ['hotel_id', $hotel->id]
+        ])->get();
+
+        if($result_rooms->count() >= $number_room){
+            return view('despevago.hotels.resultHotelRooms',
+                ['hotel' => $hotel,
+                'start_date' => $start_date,
+                'end_date' => $end_date,
+                'number_children' => $number_children,
+                'number_adults' => $number_adults,
+                'rooms' => $result_rooms]);
+        }else{
+            return view('despevago.hotels.resultHotelRooms', ['hotel' => $hotel, 'rooms' => $result_rooms])->with('message', 'There were no results');
         }
-        return $data;
+
     }
 }

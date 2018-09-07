@@ -41,7 +41,7 @@ class User extends Authenticatable
 
     public function payment_methods()
     {
-        return $this->belongsToMany(PaymentMethod::class);
+        return $this->belongsToMany(PaymentMethod::class)->withTimestamps();
     }
 
     public function payment_histories()

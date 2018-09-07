@@ -27,9 +27,7 @@ class CreateCarsForeignKey extends Migration
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
         });
 
-        Schema::table('branch_office_contacts', function (Blueprint $table) {
-            $table->foreign('branch_office_id')->references('id')->on('branch_offices')->onDelete('cascade');
-        });
+
     }
 
     /**
@@ -48,13 +46,5 @@ class CreateCarsForeignKey extends Migration
             $table->dropForeign(['car_id']);
         });
 
-        Schema::table('branch_offices', function (Blueprint $table) {
-            $table->dropForeign(['city_id']);
-            $table->dropForeign(['company_id']);
-        });
-
-        Schema::table('branch_office_contacts', function (Blueprint $table) {
-            $table->dropForeign(['branch_office_id']);
-        });
     }
 }

@@ -19,6 +19,7 @@ class CreateRoomsTable extends Migration
             $table->money('adult_price');
             $table->money('child_price');
             $table->string('description');
+            $table->integer('numeration');
             $table->timestamps();
             $table->unsignedInteger('hotel_id');
         });

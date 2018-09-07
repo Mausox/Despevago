@@ -14,6 +14,12 @@ $factory->define(App\UserHistory::class, function (Faker $faker) {
             'User booked an hotel room',
             'User bought a package',
         ]),
+        'action_type' => $faker->randomElement([
+            'Update',
+            'Delete',
+            'Reserve',
+            'Create'
+        ]),
         'user_id' => User::all()->random()->id,
     ];
 });

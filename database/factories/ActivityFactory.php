@@ -6,9 +6,11 @@ use App\City;
 
 $factory->define(Activity::class, function (Faker $faker) {
     return [
+        'name' => $faker->streetName. "Activity",
         'address' => $faker->address,
         'date' => $faker->dateTimeBetween('-5 days', '+10 days'),
-        'price' => $faker->numberBetween(50, 200),
+        'price_adult' => $faker->numberBetween(50, 200),
+        'price_child' => $faker->numberBetween(20, 100),
         'hour' => $faker->dateTime,
         'description' => $faker->text,
         'capacity' => $faker->numberBetween(10, 50),

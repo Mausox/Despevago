@@ -18,27 +18,31 @@ class Hotel extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'score', 'description','city_id'
+        'name', 'email', 'score', 'description','city_id', 'hotel_image','telephone','address','rooms_capacity'
     ];
+
+    public function rules()
+    {
+        return
+            [
+                'hotel_image' => 'image'
+            ];
+    }
 
     public function rooms()
     {
-        $this->hasMany(Room::class);
+        return $this->hasMany(Room::class);
     }
 
-    public function hotelContacts()
-    {
-        $this->hasMany(HotelContact::class);
-    }
 
     public function transfers()
     {
-        $this->hasMany(Transfer::class);
+        return $this->hasMany(Transfer::class);
     }
 
     public function city()
     {
-        $this->belongsTo(City::class);
+        return $this->belongsTo(City::class);
     }
 
 }

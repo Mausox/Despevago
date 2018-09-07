@@ -16,7 +16,6 @@ class CreateCarOptionsTable extends Migration
         Schema::create('car_options', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('description');
             $table->timestamps();
         });
     }

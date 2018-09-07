@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\UserHistory;
+use App\User;
 
 class UserHistoryController extends Controller
 {
@@ -14,7 +15,8 @@ class UserHistoryController extends Controller
      */
     public function index()
     {
-        return UserHistory::all();
+        $users_histories = UserHistory::all();
+        return view('despevago.dashboard.user_histories',['users_histories' => $users_histories]);
     }
 
     /**
@@ -84,5 +86,12 @@ class UserHistoryController extends Controller
     {
         UserHistory::destroy($id);
         return "The user history ID: {$id} was removed!";
+    }
+
+    public function userHistory(Request $request)
+    {
+        $user = User::find($request->user()->id);
+        $user_histories = $user->user_histories;
+        return view('despevago.users.history', ['user' => $user, 'user_histories' => $user_histories]);
     }
 }

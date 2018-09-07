@@ -6,6 +6,7 @@ use App\BranchOffice;
 use App\Company;
 use Illuminate\Http\Request;
 use App\Car;
+use App\City;
 
 class CompanyController extends Controller
 {
@@ -16,7 +17,8 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return Company::all();
+        $companies = Company::all();
+        return view('despevago.dashboard.company.index',['companies' => $companies]);
     }
 
     /**
@@ -26,7 +28,15 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        $cities = City::all();
+        $citiesName = array();
+
+        foreach ($cities as  $city)
+        {
+            $citiesName[$city->id] = $city->name;
+        }
+
+        return view('despevago.dashboard.company.create', ["cities" => $citiesName]);
     }
 
     /**
@@ -37,8 +47,14 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        $company = Company::create($request->all());
-        return $company;
+        $company = (new Company)->fill($request->all());
+        request()->validate([
+            'name' => 'required|string',
+            'address' => 'required|string',
+            'email' => 'required|email',
+        ]);
+        Company::create($request->all());
+        return redirect()->route('companies.show', [$company->id])->with('status',"The company ".$company->name." has been created!");
     }
 
     /**
@@ -49,7 +65,10 @@ class CompanyController extends Controller
      */
     public function show($id)
     {
-        return Company::find($id);
+        $company = Company::find($id);
+        $branch_offices = $company->branch_offices;
+        
+        return view('despevago.dashboard.company.view', ['company' => $company, 'branch_offices' => $branch_offices]);
     }
 
     /**
@@ -60,7 +79,17 @@ class CompanyController extends Controller
      */
     public function edit($id)
     {
-        //
+        $cities = City::all();
+        $citiesName = array();
+
+        $company = Company::find($id);
+
+        foreach ($cities as  $city)
+        {
+            $citiesName[$city->id] = $city->name;
+        }
+
+        return view('despevago.dashboard.company.edit', ["cities" => $citiesName,"company" => $company]);
     }
 
     /**
@@ -73,7 +102,9 @@ class CompanyController extends Controller
     public function update(Request $request, $id)
     {
         Company::find($id)->update($request->all());
-        return "The company ID:{$id} was updated!";
+        $company = Company::find($id);
+        $company->save();
+        return redirect('/dashboard/companies/'.$company->id)->with('status', 'Company '.$company->name.', ID: '.$company->id.' has been updated!');
     }
 
     /**
@@ -84,8 +115,10 @@ class CompanyController extends Controller
      */
     public function destroy($id)
     {
+        $company = Company::find($id);
         Company::destroy($id);
-        return "The company ID: {$id} was removed!";
+
+        return redirect('/dashboard/companies')->with('status', 'Company '.$company->name.', ID: '.$company->id.' has been deleted!');
     }
 
 
@@ -117,6 +150,12 @@ class CompanyController extends Controller
         );
 
         return $data;
+    }
+
+    public function searchCompanyByCity($city_id)
+    {
+        $companies = Company::where('city_id', $city_id)->get();
+        return $companies;
     }
 
 }

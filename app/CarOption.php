@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CarOption extends Model
 {
     protected $fillable = [
-        'name', 'description',
+        'name',
     ];
 
     public function cars(){
