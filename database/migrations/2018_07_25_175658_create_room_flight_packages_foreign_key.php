@@ -14,8 +14,9 @@ class CreateRoomFlightPackagesForeignKey extends Migration
     public function up()
     {
         Schema::table('room_flight_packages', function (Blueprint $table) {
-            $table->foreign('unavailable_room_id')->references('id')->on('unavailable_rooms')->onDelete('cascade');
+            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
+            $table->foreign('seat_id')->references('id')->on('seats')->onDelete('cascade');
         });
     }
 
@@ -27,8 +28,9 @@ class CreateRoomFlightPackagesForeignKey extends Migration
     public function down()
     {
         Schema::table('room_flight_packages', function (Blueprint $table) {
-            $table->dropForeign(['unavailable_room_id']);
+            $table->dropForeign(['room_id']);
             $table->dropForeign(['city_id']);
+            $table->dropForeign(['seat_id']);
         });
     }
 }

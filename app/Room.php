@@ -10,12 +10,12 @@ class Room extends Model
         'capacity', 'adult_price', 'child_price', 'description',
     ];
 
-    public function roomOptions()
+    public function room_options()
     {
         return $this->belongsToMany(RoomOption::class);
     }
 
-    public function unavailableRooms()
+    public function unavailable_rooms()
     {
         return $this->hasMany(UnavailableRoom::class);
     }

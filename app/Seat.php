@@ -32,12 +32,12 @@ class Seat extends Model
 
     public function car_flight_packages()
     {
-        return $this->belongsToMany(CarFlightPackage::class);
+        return $this->hasMany(CarFlightPackage::class);
     }
 
     public function room_flight_packages()
     {
-        return $this->belongsToMany(RoomFlightPackage::class);
+        return $this->hasMany(RoomFlightPackage::class);
     }
 
     public function reservations()

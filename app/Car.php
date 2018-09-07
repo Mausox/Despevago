@@ -24,4 +24,9 @@ class Car extends Model
     {
         return $this->belongsTo(BranchOffice::class);
     }
+
+    public function car_flight_packages()
+    {
+        return $this->hasMany(CarFlightPackage::class);
+    }
 }

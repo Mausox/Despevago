@@ -31,6 +31,9 @@ class City extends Model
         return $this->hasOne(Country::class);
     }
     public function car_flight_packages(){
-        return $this->belongsToMany(CarFlightPackage::class);
+        return $this->hasMany(CarFlightPackage::class);
+    }
+    public function room_flight_packages(){
+        return $this->hasMany(RoomFlightPackage::class);
     }
 }

@@ -34,15 +34,27 @@ class CreateProcedures extends Migration
         $$
         LANGUAGE plpgsql;');
 
-        DB::unprepared('
+        DB::unprepared("
         CREATE OR REPLACE FUNCTION reservation_user_balance_update()
         RETURNS trigger AS $$
         BEGIN
         UPDATE users SET current_balance = current_balance - NEW.current_balance WHERE id = NEW.user_id;
+        INSERT INTO reservations (created_at, updated_at, user_id, current_balance, new_balance, closed) VALUES (NOW()::timestamp - INTERVAL '3 hours', NOW()::timestamp - INTERVAL '3 hours', NEW.user_id, 0, 0, false);
         RETURN NULL;
         END;
         $$
-        LANGUAGE plpgsql;');
+        LANGUAGE plpgsql;");
+
+        DB::unprepared("
+        CREATE OR REPLACE FUNCTION user_empty_reservation()
+        RETURNS trigger AS $$
+            BEGIN
+        INSERT INTO reservations (created_at, updated_at, user_id, current_balance, new_balance, closed) VALUES (NOW()::timestamp - INTERVAL '3 hours', NOW()::timestamp - INTERVAL '3 hours', NEW.id, 0, 0, false);
+        RETURN NULL;
+        END;
+        $$
+        LANGUAGE plpgsql;");
+
     }
 
     /**
