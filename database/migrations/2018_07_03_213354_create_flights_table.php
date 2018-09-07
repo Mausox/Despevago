@@ -21,7 +21,6 @@ class CreateFlightsTable extends Migration
             $table->string('airplane_model');
             $table->timestamps();
             $table->unsignedInteger('airline_id');
-            $table->unsignedInteger('airport_id');
         });
     }
 

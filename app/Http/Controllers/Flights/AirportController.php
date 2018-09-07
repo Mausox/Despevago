@@ -2,13 +2,16 @@
   
 namespace App\Http\Controllers;  
   
-use Illuminate\Http\Request;  
+use App\UserHistory;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use App\Airport;  
 use App\City;
 use App\Flight;
 use App\Journey;
 use App\Transfer;
-  
+use Illuminate\Support\Facades\Auth;
+
 class AirportController extends Controller  
 {  
     /**  
@@ -18,7 +21,9 @@ class AirportController extends Controller
      */  
     public function index()  
     {  
-        return Airport::all();  
+        $airports = Airport::all();
+        return view('despevago.dashboard.air_flights.airport.index',['airports' => $airports]);
+
     }  
   
     /**  
@@ -27,8 +32,16 @@ class AirportController extends Controller
      * @return \Illuminate\Http\Response  
      */  
     public function create()  
-    {  
-        //  
+    {
+        $cities = City::all();
+        $citiesName = array();
+
+        foreach ($cities as  $city)
+        {
+            $citiesName[$city->id] = $city->name;
+        }
+
+        return view('despevago.dashboard..air_flights.airport.create', ["cities" => $citiesName]);
     }  
   
     /**  
@@ -38,8 +51,12 @@ class AirportController extends Controller
      * @return \Illuminate\Http\Response  
      */  
     public function store(Request $request)  
-    {  
-        return Airport::create($request->all());  
+    {
+        $airport = (new Airport())->fill($request->all());
+        $airport->city_id = $request->city_id;
+        $airport->save();
+        UserHistory::create(['action_type' => "Create",'action' => 'Created the airport with id: '.$airport->id,'date' => Carbon::now(),'hour' => Carbon::now(),'user_id' => Auth::user()->id]);
+        return view('despevago.dashboard.air_flights.airport.view', ['airport' => $airport]);
     }  
   
     /**  
@@ -50,7 +67,10 @@ class AirportController extends Controller
      */  
     public function show($id)  
     {  
-        return Airport::find($id);   
+        $airport = Airport::find($id);
+
+        return view('despevago.dashboard.air_flights.airport.view', ['airport' => $airport]);
+
     }  
   
     /**  
@@ -60,8 +80,18 @@ class AirportController extends Controller
      * @return \Illuminate\Http\Response  
      */  
     public function edit($id)  
-    {  
-        //  
+    {
+
+        $cities = City::all();
+        $citiesName = array();
+
+        $airport = Airport::find($id);
+
+        foreach ($cities as  $city)
+        {
+            $citiesName[$city->id] = $city->name;
+        }
+        return view('despevago.dashboard..air_flights.airport.edit', ["cities" => $citiesName,"airport" => $airport]);
     }  
   
     /**  
@@ -72,9 +102,12 @@ class AirportController extends Controller
      * @return \Illuminate\Http\Response  
      */  
     public function update(Request $request, $id)  
-    {  
-        Airport::find($id)->update($request->all());   
-        return "Airport {$id} updated!"; 
+    {
+        $airport = Airport::find($id)->fill($request->all());
+        $airport->city_id = $request->city_id;
+        $airport->save();
+        UserHistory::create(['action_type' => "Update",'action' => 'Updated the airport with id: '.$airport->id,'date' => Carbon::now(),'hour' => Carbon::now(),'user_id' => Auth::user()->id]);
+        return view('despevago.dashboard.air_flights.airport.view', ['airport' => $airport]);
     }  
   
     /**  
@@ -84,9 +117,13 @@ class AirportController extends Controller
      * @return \Illuminate\Http\Response  
      */  
     public function destroy($id)  
-    {  
-        Airport::destroy($id); 
-        return "Airport {$id} was deleted"; 
+    {
+        $airport = Airport::find($id);
+        Airport::destroy($id);
+
+        UserHistory::create(['action_type' => "Delete",'action' => 'Deleted the airport with id: '.$airport->id,'date' => Carbon::now(),'hour' => Carbon::now(),'user_id' => Auth::user()->id]);
+        return redirect('/dashboard/airport')->with('status', 'Airport '.$airport->name.' ID:'.$airport->id.' has been deleted');
+
     }
 
     /**  

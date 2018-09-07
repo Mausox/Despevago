@@ -7,7 +7,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Hotel Index
+            Airline Index
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -27,7 +27,7 @@
     <div class="row">
         <div class="col-md-12" style="margin-top:20px">
             <div style="margin-left:1.5em;">
-                <a href="{!! url('dashboard/hotels/create') !!}"> <button type="button" class="btn btn-success">+ Crear nuevo hotel</button></a>
+                <a href="{!! url('dashboard/airline/create') !!}"> <button type="button" class="btn btn-success">+ Create new airline</button></a>
             </div>
         </div>
     </div>
@@ -38,42 +38,42 @@
                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Nombre</th>
-                            <th>Correo</th>
-                            <th>Puntuación</th>
-                            <th>Descripción</th>
-                            <th>Ciudad</th>
-                            <th>Hora Actualización</th>
-                            <th>Hora Creación</th>
-                            <th>Ver Hotel</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Score</th>
+                            <th>Description</th>
+                            <th>Telephone</th>
+                            <th>Created At</th>
+                            <th>Updated At</th>
+                            <th>View Airline</th>
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach($hotels as $hotel)
+                    @foreach($airlines as $airline)
                         <tr>
                             <td>
-                                {!! $hotel->name !!}
+                                {!! $airline->name !!}
                             </td>
                             <td>
-                                {!! $hotel->email !!}
+                                {!! $airline->address !!}
                             </td>
                             <td>
-                                {!! $hotel->score !!}
+                                {!! $airline->score !!}
                             </td>
                             <td>
-                                {!! $hotel->description !!}
+                                {!! $airline->description !!}
                             </td>
                             <td>
-                                {!! $hotel->city->name !!}
+                                {!! $airline->telephone !!}
                             </td>
                             <td>
-                                {!! $hotel->created_at !!}
+                                {!! $airline->created_at !!}
                             </td>
                             <td>
-                                {!! $hotel->updated_at !!}
+                                {!! $airline->updated_at !!}
                             </td>
                             <td>
-                                <a href="{!! url('dashboard/hotels/'.$hotel->id) !!}"> <button type="button" class="btn btn-info">Ver</button></a>
+                                <a href="{!! url('dashboard/airline/'.$airline->id) !!}"> <button type="button" class="btn btn-info">View</button></a>
                             </td>
                         </tr>
                     @endforeach
@@ -92,20 +92,6 @@
     <script>
         $(document).ready(function() {
             $('#example').DataTable( {
-                "language": {
-                    "lengthMenu": "Mostrar _MENU_ filas por página",
-                    "zeroRecords": "Nada encontrado - Lo sentimos",
-                    "info": "Mostrando Página _PAGE_ of _PAGES_",
-                    "infoEmpty": "Tabla vacía",
-                    "infoFiltered": "(filtered from _MAX_ total records)",
-                    "search": "Buscar",
-                    "paginate": {
-                        "first":      "Primero",
-                        "last":       "Último",
-                        "next":       "Siguiente",
-                        "previous":   "Anterior"
-                    }
-                }
             } );
         } );
     </script>

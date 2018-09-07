@@ -11,6 +11,7 @@ class Flight extends Model
         'cabin_baggage',
         'capacity',
         'airplane_model',
+        'airline_id'
     ];
     public function seats()
     {

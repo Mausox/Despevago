@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\City;
 use App\Hotel;
 use App\HotelContact;
+use App\UserHistory;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HotelController extends Controller
 {
@@ -51,6 +54,7 @@ class HotelController extends Controller
         $hotel->score = 0;
         $hotel->hotel_image = $request->file('hotel_image')->store('public/hotels');
         $hotel->save();
+        UserHistory::create(['action_type' => "Store",'action' => 'Stored the hotel with id: '.$hotel->id,'date' => Carbon::now(),'hour' => Carbon::now(),'user_id' => Auth::user()->id]);
         return redirect()->route('hotels.show', [$hotel->id])->with('status',"El hotel ".$hotel->name." ha sido creado");
     }
 
@@ -85,7 +89,6 @@ class HotelController extends Controller
         {
             $citiesName[$city->id] = $city->name;
         }
-
         return view('despevago.dashboard.hotel.edit', ["cities" => $citiesName,"hotel" => $hotel]);
     }
 
@@ -98,6 +101,7 @@ class HotelController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         Hotel::find($id)->update($request->all());
         $hotel = Hotel::find($id);
         if ($request->file())
@@ -105,8 +109,8 @@ class HotelController extends Controller
             $hotel->hotel_image = $request->file('hotel_image')->store('public/hotels');
 
         }
-
         $hotel->save();
+        UserHistory::create(['action_type' => "Update",'action' => 'Updated the hotel with id: '.$hotel->id,'date' => Carbon::now(),'hour' => Carbon::now(),'user_id' => Auth::user()->id]);
         return redirect('/dashboard/hotels/'.$hotel->id)->with('status', 'Hotel '.$hotel->name.'de ID:'.$hotel->id.' ha sido actualizado');
     }
 

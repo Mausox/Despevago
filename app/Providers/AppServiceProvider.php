@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Activity;
+use App\Airline;
 use App\Airport;
 use App\Car;
 use App\CarFlightPackage;
@@ -10,6 +11,7 @@ use App\Flight;
 use App\Hotel;
 use App\RoomFlightPackage;
 use App\Transfer;
+use App\UserHistory;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Events\Dispatcher;
 use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
@@ -30,10 +32,10 @@ class AppServiceProvider extends ServiceProvider
 
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
 
-            $event->menu->add('Navegador principal');
+            $event->menu->add('Main');
             $countHotel =  Hotel::all()->count();
             $event->menu->add([
-                'text'        => 'Hoteles',
+                'text'        => 'Hotels',
                 'url'         => 'dashboard/hotels',
                 'icon'        => 'hotel',
                 'label'       =>  $countHotel,
@@ -42,8 +44,8 @@ class AppServiceProvider extends ServiceProvider
 
             $countCar =  Car::all()->count();
             $event->menu->add([
-                'text'        => 'Autos',
-                'url'         => 'dashboard/companies',
+                'text'        => 'Cars',
+                'url'         => 'dashboard/cars',
                 'icon'        => 'car',
                 'label'       =>  $countCar,
                 'label_color' => 'success',
@@ -51,47 +53,29 @@ class AppServiceProvider extends ServiceProvider
 
             $countFlight = Flight::all()->count();
             $countAirport = Airport::all()->count();
+            $countAirline = Airline::all()->count();
 
             $event->menu->add([
-                'text'        => 'Vuelos',
+                'text'        => 'Air Flights',
                 'icon'        => 'plane',
                 'submenu' =>
                 [
                     [
-                        'text'        => 'Tipos de vuelos',
+                        'text'        => 'Flights',
                         'url'         => 'dashboard/flight',
-                        'submenu' =>
-                        [
-                            [
-                                'text'        => 'Solo ida',
-                                'url'         => 'dashboard/flight',
-                                'label'       => $countFlight,
-                                'label_color' => 'success',
-                            ],
-                            [
-                                'text'        => 'Solo vuelta',
-                                'url'         => 'dashboard/flight',
-                                'label'       => $countFlight,
-                                'label_color' => 'success',
-                            ],
-                            [
-                                'text'        => 'Ida y vuelta',
-                                'url'         => 'dashboard/flight',
-                                'label'       => $countFlight,
-                                'label_color' => 'success',
-                            ]
-                        ]
+                        'label'       => $countFlight,
+                        'label_color' => 'success',
                     ],
                     [
-                        'text'        => 'Aeropuertos',
-                        'url'         => 'dashboard/aiport',
+                        'text'        => 'Airports',
+                        'url'         => 'dashboard/airport',
                         'label'       => $countAirport,
                         'label_color' => 'success',
                     ],
                     [
-                        'text'        => 'Aeropuertos',
-                        'url'         => 'dashboard/aiport',
-                        'label'       => $countAirport,
+                        'text'        => 'Airlines',
+                        'url'         => 'dashboard/airline',
+                        'label'       => $countAirline,
                         'label_color' => 'success',
                     ]
                 ]
@@ -101,17 +85,17 @@ class AppServiceProvider extends ServiceProvider
             $countRoomFlightPackage = RoomFlightPackage::all()->count();
 
             $event->menu->add([
-                'text'        => 'Paquetes Turísticos',
+                'text'        => 'Tourist Packages',
                 'icon'        => 'cubes',
                 'submenu' =>[
                     [
-                        'text'        => 'Paquetes Vuelo - Auto',
+                        'text'        => 'Package Flight - Car',
                         'url'         => 'dashboard/packages',
                         'label'       => $countCarFlightPackage,
                         'label_color' => 'success',
                     ],
                     [
-                        'text'        => 'Paquetes Vuelo - Hotel',
+                        'text'        => 'Package Flight - Hotel',
                         'url'         => 'dashboard/transfers',
                         'label'       => $countRoomFlightPackage,
                         'label_color' => 'success',
@@ -122,7 +106,7 @@ class AppServiceProvider extends ServiceProvider
             $countTransfer = Transfer::all()->count();
 
             $event->menu->add([
-                'text'        => 'Traslados',
+                'text'        => 'Transfer',
                 'url'         => 'dashboard/transfers',
                 'icon'        => 'bus',
                 'label'       => $countTransfer,
@@ -132,20 +116,21 @@ class AppServiceProvider extends ServiceProvider
             $countActivity = Activity::all()->count();
             $event->menu->add(
             [
-                'text'        => 'Actividades',
+                'text'        => 'Activities',
                 'url'         => 'dashboard/activities',
                 'icon'        => 'futbol-o',
                 'label'       => $countActivity,
                 'label_color' => 'success',
             ]);
 
+            $countUserHistory = UserHistory::all()->count();
             $event->menu->add('Logs y más');
             $event->menu->add(
                 [
-                    'text'        => 'Logs usuarios',
+                    'text'        => 'Logs Users',
                     'url'         => 'dashboard/users_histories',
                     'icon'        => 'file-text-o',
-                    'label'       => $countActivity,
+                    'label'       => $countUserHistory,
                     'label_color' => 'warning',
                 ]);
 
