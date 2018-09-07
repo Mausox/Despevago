@@ -2,6 +2,11 @@
 
 @section('title', 'Hotel Search')
 
+@section('header')
+    @include('despevago.headers.auth')
+    @include('despevago.headers.middle-logo')
+    @include('despevago.headers.menu ')
+@endsection
 
 @section('content')
     <div class="container">
@@ -9,9 +14,9 @@
             {!!Form::open(['method' => 'GET', 'route' => ['searchHotel']])!!}
             <div class="col-xs-12">
                 <div class="form-group">
-                    <strong>City: </strong>
-                    <div>
-                        {!! Form::select('city_id' , ['Cities: ' => $cities], null, array('class' => 'form-control', 'placeholder' => "Select a city")) !!}
+                    {!! Form::label('City', 'Select a city', ['class' => 'pad-3']); !!}
+                    <div class="input-field col s12 pad-5 mt-0">
+                        {!! Form::select('city_id', ["Select a city" => $cities], null, array('class' => 'mt-0')) !!}
                     </div>
                 </div>
             </div>
@@ -61,3 +66,10 @@
     </div>
 @endsection
 
+@section('script')
+<script>
+    $(document).ready(function(){
+        $('select').formSelect();
+    });  
+</script>
+@endsection--}}

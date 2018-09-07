@@ -9,9 +9,9 @@
 @endsection
 
 @section('content')
-    <hr>
     <div class="container">
-        <h1>{{$user->first_name}} {{$user->last_name}} history</h1>
+        <div class="card-panel mt-5">
+        <span class="card-title valign center"><h5 class="mb-1 mt-0">{{$user->first_name}} {{$user->last_name}} history</h5></span>
         <table class="table table-bordered">
             <tr>
                 <th>Date & Time</th>
@@ -25,6 +25,8 @@
                 </tr>
             @endforeach
         </table>
-        <a class="btn btn-md btn-success" href="{{ route('user.profile') }}">Back</a>
+        <a class="mt-5 blue darken-4 waves-effect waves-light btn" href="{{ route('user.profile') }}">Back</a>
+    </div>
+
     </div>
 @endsection

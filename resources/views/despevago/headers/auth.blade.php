@@ -26,6 +26,13 @@
                             </a>
                         </li>
                         <li>
+                                <a class="valign-wrapper content">
+                                    <i class="material-icons left">attach_money</i>
+                                    {{ Auth::user()->current_balance}}
+
+                                </a>
+                            </li>
+                        <li class="{{ request()->is('user/profile') ? 'active' : ''}}">
                             <a class="valign-wrapper content" href="{{ route('user.profile') }}">
                                 <i class="material-icons">person</i>
                                 {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}

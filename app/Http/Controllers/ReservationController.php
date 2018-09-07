@@ -327,12 +327,12 @@ class ReservationController extends Controller
             $reservation->save();
             $activity->save();
 
-            return "Your activity was added to you reservation";
+            return redirect()->route('user.shopping_cart');
         }
 
         else
         {
-            return "The event is full";
+            return back()->withInput();
         }
     }
 
