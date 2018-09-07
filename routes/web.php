@@ -11,6 +11,8 @@
 |
 */
 Route::get('/flights', 'SearchController@searchFlight');
+Route::get('/activities', 'SearchController@searchActivities')->name('activities');
+
 
 Route::get('/', function()
 {
@@ -30,7 +32,6 @@ Route::get('/hotels/create', function ()
 
 //<-------------------      Activities     --------------------->
 Route::resource('/activity','ActivityController');
-Route::get('/activities', 'ActivityController@search')->name('activities');
 
 Route::post('/activities/byCity', 'ActivityController@searchActivitiesByCity')->name('activitiesByCity');
 Route::get('/activities/byDate/{date}', 'ActivityController@searchActivitiesByDate')->name('activitiesByDate');

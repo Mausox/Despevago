@@ -21,4 +21,16 @@ class SearchController extends Controller
         $dd = Carbon::now()->day;
         return view('despevago.flights.search', compact('citiesName', 'yyyy', 'mm', 'dd'));
     }
+
+    public function searchActivities()
+    {
+        $cities = City::all();
+        $citiesName = array();
+
+        foreach ($cities as  $city)
+        {
+            $citiesName[$city->id] = $city->name;
+        }
+        return view('despevago.activities.search', compact('citiesName'));
+    }
 }

@@ -1,40 +1,47 @@
-@extends('despevago.app')
+@extends('despevago.materialize')
 
-@section('title', 'Search a car')
+@section('title', 'Find your activity')
 
-@include('despevago.headers.headerAuth')
-@include('despevago.headers.headerMV')
+@section('header')
+    @include('despevago.headers.auth')
+    @include('despevago.headers.middle-logo')
+    @include('despevago.headers.menu ')
+@endsection
 
 @section('content')
-
 <div class="container">
-    <div class="row">
-        <h3>Search your activity</h3>
-    </div>
-
-
-    @if(count($errors) > 0)
-            <div class="alert alert-danger">
-                <strong>Whooops!</strong> There were some problems with your input.<br>
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-    @endif
-</div>
-
-<div class="container">
-    <div class="form-group col-lg-4 col-sm-6">
-        <div class="row">
-                {!! Form::open(['method' => 'POST','route'=>['activitiesByCity']]) !!}
-                {!! Form::label('city_id', 'City'); !!}
-                {!! Form::select('city_id', ["Cities" => $citiesName], null, array('class' => 'form-control', 'placeholder' => "Select a city")) !!}
-                {!! Form::button('Search', ['type' => 'submit', 'class' => 'btn btn-sm btn-primary']) !!}
-                {!! Form::close() !!}
+    <div class="col 12">
+        <div class="card mt-5">
+            <div class="card-content">
+                <span class="card-title valign center"><h5 class="mb-1 mt-0">Find your activity</h5></span>
+                
+                <form method="POST" action="{{ route('activitiesByCity')}}">
+                    @csrf 
+                    <div class="row ">
+                        {!! Form::label('City', 'Select a city', ['class' => 'pad-3']); !!}
+                        <div class="input-field col s12 pad-5 mt-0">
+                            {!! Form::select('city_id', ["Select a city" => $citiesName], null, array('class' => 'mt-0')) !!}
+                        </div>
+                    </div>
+                    </div>
+                    {{-- Submit--}}
+                    <div class="card-action">
+                        <div class="row mb-0">
+                            <button class="right blue darken-4 waves-effect waves-light btn" type="submit" name="action">Search Activity<i class="material-icons left">search</i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
         </div>
     </div>
 </div>
+@endsection
+@section('script')
+<script>
+    $(document).ready(function(){
+        $('select').formSelect();
+    });  
+</script>
+@endsection
 
         

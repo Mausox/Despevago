@@ -101,11 +101,9 @@ class ActivityController extends Controller
     public function searchActivitiesByCity(Request $request)
     {
         $city_id = $request->city_id;
-        $activities = Activity::where("city_id",$city_id)->get();
+        $activities = City::find($city_id)->activities;
         $city = City::find($city_id)->name;
-
         return view('despevago.activities.index', compact('activities', 'city'));
-        
         //return $activity->all();
     }
 
@@ -119,18 +117,5 @@ class ActivityController extends Controller
         return $activity;
     }
 
-    public function search()
-    {
-        //$cities_all = City::all();
-        //$cities = $cities_all->pluck('name')->toArray();
 
-        $cities = City::all();
-        $citiesName = array();
-
-        foreach ($cities as  $city)
-        {
-            $citiesName[$city->id] = $city->name;
-        }
-        return view('despevago.activities.search', compact('citiesName'));
-    }
 }
