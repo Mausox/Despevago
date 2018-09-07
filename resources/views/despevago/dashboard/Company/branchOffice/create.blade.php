@@ -34,15 +34,15 @@
                 </div>
 
                 <div class="form-group">
-                        {!! Form::label('city_id', 'Ciudad'); !!}
-                        {!! Form::select('city_id', ["Ciudades" => $cities],null, array('class' => 'form-control', 'placeholder' => "Select a city")) !!}
+                        {!! Form::label('city_id', 'City'); !!}
+                        {!! Form::select('city_id', ["Cities" => $cities],null, array('class' => 'form-control', 'placeholder' => "Select a city")) !!}
                         @include('common.errors', ['name' => 'city_id'])
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('telephone', 'Teléfono'); !!}
+                    {!! Form::label('telephone', 'Telephone'); !!}
                     {!! Form::text('telephone', null, array('class' => 'form-control','required' => 'required')); !!}
-                    @include('common.errors', ['name' => 'description'])
+                    @include('common.errors', ['name' => 'telephone'])
                 </div>
 
                 
@@ -52,7 +52,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div style="margin-top:20px" class="text-center mb-3">
-                    {!! Form::button('Crear Branch Office', array('class' => 'btn btn-primary', 'type' => 'submit')); !!}
+                    {!! Form::button('Create Branch Office', array('class' => 'btn btn-primary', 'type' => 'submit')); !!}
                     {!! Form::close() !!}
 
                 </div>
