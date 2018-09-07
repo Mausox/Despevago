@@ -67,6 +67,7 @@ class CompanyController extends Controller
     {
         $company = Company::find($id);
         $branch_offices = $company->branch_offices;
+        
         return view('despevago.dashboard.company.view', ['company' => $company, 'branch_offices' => $branch_offices]);
     }
 

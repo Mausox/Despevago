@@ -41,6 +41,7 @@
                             <th>Name</th>
                             <th>Address</th>
                             <th>Email</th>
+                            <th>View company</th>
                         </tr>
                     </thead>
                     <tbody>

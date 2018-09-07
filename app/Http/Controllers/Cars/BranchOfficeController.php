@@ -65,7 +65,8 @@ class BranchOfficeController extends Controller
     public function show($id)
     {
         $branch_office = BranchOffice::find($id);
-        return view('despevago.dashboard.company.branchOffice.view', ['branch_office' => $branch_office]);
+        $cars = $branch_office->cars;
+        return view('despevago.dashboard.company.branchOffice.view', ['branch_office' => $branch_office, 'cars' => $cars]);
     }
 
     /**

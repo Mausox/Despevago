@@ -47,6 +47,12 @@ Route::get('/dashboard/companies/{branch_offices_id}/branch_offices/create', 'Br
 Route::get('/branch_office/byCompany/{company_id}', 'BranchOfficeController@searchBranchOfficeByCompany')->name('branchOfficesByCompany');
 //<-------------------         BranchOffice       --------------------->
 
+//<-------------------         Car       --------------------->
+Route::resource('/dashboard/companies/branch_offices/cars', 'CarController')->middleware('AuthAdmin');
+Route::get('/dashboard/companies/branch_offices/{branch_office_id}/cars/create', 'CarController@create')->middleware('AuthAdmin');
+Route::get('/cars/byBranchOffices/{branch_office_id}', 'CarController@searchCarsByBranchOffice')->name('carsByBranchOffice');
+//<-------------------         Room       --------------------->
+
 
 
 Route::resource('/passenger', 'PassengerController');
