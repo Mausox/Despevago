@@ -3,7 +3,7 @@
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons left">menu</i>MENU</a>
         <ul class="hide-on-med-and-down">
             <li class="{{ request()->is('activities') ? 'active' : ''}}"><a href="/activities"><i class="icon-center material-icons left">local_activity</i>Activities</a></li>
-            <li class="{{ request()->is('hotels') ? 'active' : ''}}"><a href="/hotels"><i class="icon-center material-icons left">hotel</i>Accommodation</a></li>
+            <li class="{{ request()->is('hotels/search') ? 'active' : ''}}"><a href="/hotels/search"><i class="icon-center material-icons left">hotel</i>Accommodation</a></li>
             <li class="{{ request()->is('flights') ? 'active' : ''}}"><a href="/flights"><i class="icon-center material-icons left">local_airport</i>Flights</a></li>
             <li class="{{ request()->is('packages') ? 'active' : ''}}"><a href="/packages"><i class="icon-center material-icons left">work</i>Packages</a></li>
             <li class="{{ request()->is('cars') ? 'active' : ''}}"><a href="/cars"><i class="icon-center material-icons left">directions_car</i>Cars</a></li>
@@ -14,7 +14,7 @@
     
 <ul class="sidenav" id="mobile-demo">
     <li class="{{ request()->is('activities') ? 'active' : ''}}"><a href="/activities"><i class="icon-center material-icons left">local_activity</i>Activities</a></li>
-    <li class="{{ request()->is('hotels') ? 'active' : ''}}"><a href="/hotels"><i class="icon-center material-icons left">hotel</i>Accommodation</a></li>
+    <li class="{{ request()->is('hotels') ? 'active' : ''}}"><a href="/hotels/search"><i class="icon-center material-icons left">hotel</i>Accommodation</a></li>
     <li class="{{ request()->is('flights') ? 'active' : ''}}"><a href="/flights"><i class="icon-center material-icons left">local_airport</i>Flights</a></li>
     <li class="{{ request()->is('packages') ? 'active' : ''}}"><a href="/packages"><i class="icon-center material-icons left">work</i>Packages</a></li>
     <li class="{{ request()->is('cars') ? 'active' : ''}}"><a href="/cars"><i class="icon-center material-icons left">directions_car</i>Cars</a></li>

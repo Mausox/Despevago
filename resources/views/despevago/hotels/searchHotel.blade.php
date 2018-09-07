@@ -2,6 +2,11 @@
 
 @section('title', 'Hotel Search')
 
+@section('header')
+    @include('despevago.headers.auth')
+    @include('despevago.headers.middle-logo')
+    @include('despevago.headers.menu ')
+@endsection
 
 @section('content')
     <div class="container">
@@ -67,4 +72,4 @@
         $('select').formSelect();
     });  
 </script>
-@endsection
+@endsection--}}
