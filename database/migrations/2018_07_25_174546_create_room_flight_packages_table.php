@@ -22,8 +22,9 @@ class CreateRoomFlightPackagesTable extends Migration
             $table->time('end_hour');
             $table->integer('discount');
             $table->timestamps();
-            $table->unsignedInteger('unavailable_room_id');
             $table->unsignedInteger('city_id');
+            $table->unsignedInteger('room_id')->nullable();
+            $table->unsignedInteger('seat_id')->nullable();
         });
     }
 

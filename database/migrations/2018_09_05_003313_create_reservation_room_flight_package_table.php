@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTouristPackagesTable extends Migration
+class CreateReservationRoomFlightPackageTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateTouristPackagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('tourist_packages', function (Blueprint $table) {
+        Schema::create('reservation_room_flight_package', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->date('start_date');
-            $table->time('start_hour');
-            $table->date('end_date');
-            $table->time('end_hour');
-            $table->float('discount');
+            $table->unsignedInteger('reservation_id');
+            $table->unsignedInteger('room_flight_package_id');
+            $table->boolean('closed');
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ class CreateTouristPackagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tourist_packages');
+        Schema::dropIfExists('reservation_room_flight_package');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateActivityReservationTable extends Migration
+class CreateCarFlightPackageReservationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateActivityReservationTable extends Migration
      */
     public function up()
     {
-        Schema::create('activity_reservation', function (Blueprint $table) {
+        Schema::create('car_flight_package_reservation', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('car_flight_package_id');
             $table->unsignedInteger('reservation_id');
-            $table->unsignedInteger('activity_id');
             $table->boolean('closed');
             $table->timestamps();
         });
@@ -29,6 +29,6 @@ class CreateActivityReservationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('activity_reservation');
+        Schema::dropIfExists('car_flight_package_reservation');
     }
 }

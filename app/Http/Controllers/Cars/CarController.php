@@ -21,7 +21,10 @@ class CarController extends Controller
      */
     public function index()
     {
-        return Car::all();
+        //return Car::all();
+
+        $cars = Car::latest()->paginate(5);
+        return view('despevago.cars.index', compact('cars'))->with('i', (request()->input('page', 1) -1) *5);
     }
 
     /**
@@ -86,7 +89,7 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Car $car)
     {
         $car = Car::find($id);
         $car_options = CarOption::all();
@@ -111,8 +114,19 @@ class CarController extends Controller
      */
     public function update(Request $request, $id)
     {
+        /*Car::find($id)->update($request->all());
+        return "The car ID:{$id} was updated!";*/
+        request()->validate([
+            'brand' => 'required',
+            'model' => 'required',
+            'type' => 'required',
+            'capacity' => 'required|integer|min:0',
+            'price' => 'required|integer|min:0',
+            'branch_office_id' => 'required',
+        ]);
         Car::find($id)->update($request->all());
-        return "The car ID:{$id} was updated!";
+        return redirect()->route('cars.index')->with('success', 'Car updated successfully!');
+
     }
 
     /**
@@ -169,6 +183,25 @@ class CarController extends Controller
         return $cars;
     }
 
+    public function search()
+    {
+        /*$branch_office_all = BranchOffice::all();
+        $branch_offices = $branch_office_all->pluck('address')->toArray();
 
+
+        return view('despevago.cars.search', compact('branch_offices'));
+        */
+
+        $cities = City::all();
+        $citiesName = array();
+
+        foreach ($cities as  $city)
+        {
+            $citiesName[$city->id] = $city->name;
+        }
+        return view('despevago.cars.search', compact('citiesName'));
+
+          
+    }
 
 }

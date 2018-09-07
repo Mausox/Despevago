@@ -150,6 +150,7 @@ return [
         JeroenNoten\LaravelAdminLte\ServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
 
+
         /*
          * Package Service Providers...
          */

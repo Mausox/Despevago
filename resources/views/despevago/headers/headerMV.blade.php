@@ -25,12 +25,5 @@
                 </li>
             </ul>
         </div>
-
-        <div class="row">
-            <a href="{!! url()->previous(); !!}"> <i class="fas fa-arrow-circle-left"> Go back</i></a>
-        </div>
     </nav>
-
-
 </header>
-

@@ -15,8 +15,8 @@ class CreateReservationsTable extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('date');
-            $table->time('hour');
+            $table->date('date')->nullable();
+            $table->time('hour')->nullable();
             $table->money('current_balance');
             $table->money('new_balance');
             $table->timestamps();

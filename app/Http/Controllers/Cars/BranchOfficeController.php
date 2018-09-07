@@ -128,8 +128,15 @@ class BranchOfficeController extends Controller
      * @return array
      */
 
-    public function searchBranchOfficeByCity($city_id)
+    public function searchBranchOfficeByCity(Request $request)
     {
+        $pick_up_date = $request->pick_up_date;
+        $return_date = $request->return_date;
+
+        
+
+
+        $city_id = $request->city_id;
         $branch_offices = BranchOffice::where('city_id',$city_id)->get();
         $data = array();
         foreach ($branch_offices as $branch_office)

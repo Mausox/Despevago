@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Activity;
 
-class ActivityController extends Controller
+class UnavailableCarController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +13,7 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        return Activity::all();
+        //
     }
 
     /**
@@ -35,8 +34,7 @@ class ActivityController extends Controller
      */
     public function store(Request $request)
     {
-        $activity = Activity::create($request->all());
-        return $activity;
+        //
     }
 
     /**
@@ -47,7 +45,7 @@ class ActivityController extends Controller
      */
     public function show($id)
     {
-        return Activity::find($id);
+        //
     }
 
     /**
@@ -70,8 +68,7 @@ class ActivityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Activity::find($id)->update($request->all());
-        return "The activity ID: {$id} was updated!";
+        //
     }
 
     /**
@@ -82,26 +79,6 @@ class ActivityController extends Controller
      */
     public function destroy($id)
     {
-        Activity::destroy($id);
-        return "The activity ID: {$id} was removed!";
+        //
     }
-
-    //Función que entrega las actividades de una ciudad en particular
-    //Entradas: hotel_id
-    //Tipo: GET
-    public function searchActivitiesByCity($city_id)
-    {
-        $activity = Activity::where("city_id",$city_id)->get();
-        return $activity;
-    }
-
-    //Función que entrega las actividades de una fecha en particular
-    //Entradas: date
-    //Tipo: GET
-    public function searchActivitiesByDate($date)
-    {
-        $activity = Activity::where("date",$date)->get();
-        return $activity;
-    }
-
 }

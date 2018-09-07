@@ -1,19 +1,16 @@
-@extends('despevago.app')
+@extends('despevago.materialize')
 
 @section('title', 'Home')
 
-@section('header-top')
-    @include('despevago.headers.headerAuth')
-@endsection
-
-@section('slideshow-top')
-    @include('despevago.headers.slideshow')
-@endsection
-
-@section('header-menu')
-    @include('despevago.headers.headerMV')
+@section('header')
+    @include('despevago.headers.auth')
+    @include('despevago.headers.middle-logo')
+    @include('despevago.headers.menu ')
 @endsection
 
 @section('content')
-@endsection
+        
 
+@endsection
+@section('script')
+@endsection
