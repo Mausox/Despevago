@@ -10,7 +10,11 @@
 
 @section('content')
 <div class="container">
-    
+    @if(count($errors) > 0)
+    <div class="alert alert-danger">
+        <strong>Whooops!</strong>No tickets Remaining<br>
+    </div>
+@endif
   <div class="row mt-5">
         <div class="row mb-0 pad-5">
                 <a class="mt-3 blue darken-4 waves-effect waves-light btn-small" href="{{ route('activities')}}"><i class="material-icons left">keyboard_arrow_left</i>Back</a>
