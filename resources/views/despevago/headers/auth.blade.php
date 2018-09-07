@@ -18,8 +18,15 @@
                             </a>
                         </li>
                         @else
+                        
                         <li>
-                            <a class="valign-wrapper content" href="{{ route('home') }}">
+                            <a class="valign-wrapper content" href="{{route('user.shopping_cart')}}">
+                                <i class="material-icons left">add_shopping_cart</i>
+                                Shopping Cart
+                            </a>
+                        </li>
+                        <li>
+                            <a class="valign-wrapper content" href="{{ route('user.profile') }}">
                                 <i class="material-icons">person</i>
                                 {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
                             </a>

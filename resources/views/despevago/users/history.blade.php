@@ -1,9 +1,12 @@
-@extends('despevago.app')
+@extends('despevago.materialize')
 
 @section('title', $user->first_name. ' '.$user->last_name. ' shopping cart')
 
-@include('despevago.headers.headerAuth')
-@include('despevago.headers.headerMV')
+@section('header')
+    @include('despevago.headers.auth')
+    @include('despevago.headers.middle-logo')
+    @include('despevago.headers.menu ')
+@endsection
 
 @section('content')
     <hr>

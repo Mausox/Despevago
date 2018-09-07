@@ -1,11 +1,11 @@
-@extends('despevago.app')
+@extends('despevago.materialize')
 
 @section('title', 'Create payment method')
-
-@include('despevago.headers.headerAuth')
-@include('despevago.headers.headerMV')
-
-
+@section('header')
+    @include('despevago.headers.auth')
+    @include('despevago.headers.middle-logo')
+    @include('despevago.headers.menu ')
+@endsection
 
 @section('content')
 <div class="container">

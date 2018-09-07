@@ -1,9 +1,6 @@
-@extends('despevago.app')
+@extends('despevago.materialize')
 
 @section('title', 'Hotel'.($hotel->name))
-
-@include('despevago.headers.headerAuth')
-@include('despevago.headers.headerMV')
 
 
 @section('content')

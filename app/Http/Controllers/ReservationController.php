@@ -299,12 +299,18 @@ class ReservationController extends Controller
     public function activityReservation(Request $request)
     {
         $activity_id = $request->activity_id;
-        $user_id = $request->user_id;
+        $activity = Activity::find($activity_id);
+        $user_id = Auth::user()->id;
+        
+        $adult_number = $request->adult_number;
+        $child_number = $request->child_number;
+        $people_number = $adult_number+$child_number;
 
-        $activity = Room::find($activity_id);
+        $adult_price = floatval(preg_replace('/[^\d\.]/', '', $activity->price_adult));
+        $child_price = floatval(preg_replace('/[^\d\.]/', '', $activity->price_child));
 
 
-        if($activity->capacity > 0)
+        if($activity->capacity - $people_number > 0)
         {
             $reservation = Reservation::where('user_id',$user_id)->where('closed',false)->first();
 
@@ -315,10 +321,9 @@ class ReservationController extends Controller
             $current_balance += $adult_total;
             $current_balance += $child_total;
             $reservation->current_balance = money_format('%i',$current_balance);
-            $activity->capacity -= $number_people;
 
-            //ActivityReservation::create(['closed' => false, 'reservation_id' => $reservation->id, 'activity' => $activity_id]);
-
+            $reservation->activities()->attach($activity_id, ['closed'=>false]);
+            $activity->capacity -= $people_number;
             $reservation->save();
             $activity->save();
 

@@ -1,18 +1,19 @@
-@extends('despevago.app')
+@extends('despevago.materialize')
 
 @section('title', 'Payment')
 
-@include('despevago.headers.headerAuth')
-@include('despevago.headers.headerMV')
-
-
+@section('header')
+    @include('despevago.headers.auth')
+    @include('despevago.headers.middle-logo')
+    @include('despevago.headers.menu ')
+@endsection
 
 @section('content')
 <div class="container">
+    {!!Form::open(['route' => ['paymentAdd']])!!}
     <hr>
     <h1> Adding credit to your account</h1>
     <div class="form-control">
-        {!!Form::open(['route' => ['paymentAdd']])!!}
         @if(count($errors) > 0)
             <div class="alert alert-danger">
                 <strong>Whooops!</strong> You must fill all the fields before sumbiting.<br>
