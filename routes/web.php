@@ -92,12 +92,12 @@ Route::resource('/transfers', 'TransferController');
 
 // Flights ------------------------------------------>
 // -- Airline
-Route::resource('/airline', 'AirlineController');
+Route::resource('/dashboard/airline', 'AirlineController')->middleware('AuthAdmin');
 Route::get('/airline/by-flight/{flight_id}', 'AirlineController@searchAirlineByFlight');
 
 
 // -- Airport
-Route::resource('/airport', 'AirportController');
+Route::resource('/dashboard/airport', 'AirportController')->middleware('AuthAdmin');
 Route::get('/airports/by-city/{city_id}', 'AirportController@searchAirportsByCity');
 Route::get('/airport/by-flight/{flight_id}', 'AirportController@searchAirportByFlight');
 Route::get('/airport/by-transfer/{transfer_id}', 'AirportController@searchAirportByTransfer');
@@ -110,7 +110,7 @@ Route::resource('/class-type', 'ClassTypeController');
 Route::get('/class-type/by-seat/{seat_id}', 'ClassTypeController@searchClassTypeBySeat');
 
 // -- Flight
-Route::resource('/flight', 'FlightController');
+Route::resource('/dashboard/flight', 'FlightController')->middleware('AuthAdmin');
 Route::get('/flight/by-seat/{seat_id}', 'FlightController@searchFlightBySeat');
 Route::get('/flights/by-airline/{airline_id}', 'FlightController@searchFlightsByAirline');
 Route::get('/flights/by-airport/{airport_id}', 'FlightController@searchFlightsByAirport');
@@ -128,7 +128,9 @@ Route::resource('/passenger', 'PassengerController');
 Route::get('/passenger/by-seat/{seat_id}', 'PassengerController@searchSeatByPassenger');
 
 // -- Seat
-Route::resource('/seat', 'SeatController');
+Route::resource('dashboard/flight/seat', 'SeatController')->middleware('AuthAdmin');
+Route::get('/dashboard/flight/{flight_id}/seat/create', 'SeatController@create')->middleware('AuthAdmin');
+
 Route::get('/seat/by-passenger/{passenger_id}', 'SeatController@searchSeatByPassenger');
 Route::get('/seats/by-flight/{flight_id}', 'SeatController@searchSeatsByFlight');
 Route::get('/seats/by-class-type/{class_type_id}', 'SeatController@searchSeatsByClassType');

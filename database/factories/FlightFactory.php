@@ -11,7 +11,6 @@ $factory->define(Flight::class, function (Faker $faker) {
         'cabin_baggage' => $faker->numberBetween(0,3),
         'capacity' => $faker->numberBetween(0,400),
         'airplane_model' => $faker->swiftBicNumber,
-        'airport_id' => Airport::all()->random()->id,
         'airline_id' => Airline::all()->random()->id,
     ];
 });

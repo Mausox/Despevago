@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\UserHistory;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Seat;
 use App\Passenger;
 use App\Flight;
 use App\ClassType;
+use Illuminate\Support\Facades\Auth;
 
 class SeatController extends Controller
 {
@@ -25,9 +28,18 @@ class SeatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($flight_id)
     {
-        //
+        $class_types = ClassType::all();
+        $class_types_name = array();
+
+        foreach ($class_types as $class_type)
+        {
+            $class_types_name[$class_type->id] = $class_type->name;
+        }
+
+        return view('despevago.dashboard.air_flights.flight.seat.create',["flight_id" => $flight_id,"class_types_name" => $class_types_name]);
+
     }
 
     /**
@@ -38,7 +50,11 @@ class SeatController extends Controller
      */
     public function store(Request $request)
     {
-        return Seat::create($request->all());
+        $seat = (new Seat())->fill($request->all());
+        $seat->save();
+
+        UserHistory::create(['action_type' => "Create",'action' => 'Created the seat with id: '.$seat->id,'date' => Carbon::now(),'hour' => Carbon::now(),'user_id' => Auth::user()->id]);
+        return redirect()->route('flight.show', [$seat->flight_id])->with('status',"The seat with id: $seat->id has beeen created");
     }
 
     /**

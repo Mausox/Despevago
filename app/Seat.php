@@ -12,7 +12,7 @@ class Seat extends Model
      * @var array
      */
     protected $fillable = [
-        'number', 'status', 'price',
+        'number', 'status', 'price','passenger_id','class_type_id','flight_id'
     ];
 
     public function passenger()

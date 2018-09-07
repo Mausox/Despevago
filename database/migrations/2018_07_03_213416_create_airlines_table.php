@@ -31,6 +31,6 @@ class CreateAirlinesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('airlines');
+        Schema::dropIfExists('airline');
     }
 }
