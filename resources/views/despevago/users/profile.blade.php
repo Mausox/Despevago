@@ -26,6 +26,7 @@
                     <strong>Balance</strong> {{$user->current_balance}}<p></p>
                     <a class="btn btn-md btn-success" href="{{ route('payment_methods.create') }}">Add payment method</a>
                     <a class="btn btn-md btn-success" href="{{ route('paymentForm') }}">Add credit</a>
+                    <a class="btn btn-md btn-success" href="{{ route('user.history') }}">History</a>
                     <a class="btn btn-md btn-success" href="{{ route('/') }}">Back</a>
                 </div>
             </div>
