@@ -78,6 +78,7 @@ Route::resource('/user_types','UserTypeController');
 //<-------------------         User       --------------------->
 Route::get('user/profile', 'UserController@userProfile')->name('user.profile');
 Route::get('user/shopping_cart', 'ReservationController@shoppingCart')->name('user.shopping_cart');
+Route::delete('user/shopping_cart', 'ReservationController@removeReservation')->name('user.shopping_cart.destroy');
 Route::get('user/history', 'UserHistoryController@userHistory')->name('user.history');
 Route::post('user/shopping_cart', 'ReservationController@finishReservation')->name('user.finishReservation');
 Route::resource('/user_histories', 'UserHistoryController');

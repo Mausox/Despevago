@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\City;
 use App\Hotel;
-use App\HotelContact;
 use App\PaymentHistory;
 use App\UnavailableCar;
 use App\UnavailableRoom;
@@ -16,7 +15,7 @@ use App\Room;
 use App\Seat;
 use App\Car;
 use App\Activity;
-use App\ActivityReservation;
+use App\User;
 use App\CarFlightPackage;
 use App\RoomFlightPackage;
 use App\UserHistory;
@@ -254,7 +253,26 @@ class ReservationController extends Controller
         return redirect('user/profile')->with('status', 'You have ended your transaction succesfully');
     }
 
+    public function removeReservation(Request $request)
+    {
+        $service = $request->service;
 
+        $reservation = Reservation::where([
+            ['user_id', $request->user()->id],
+            ['closed', false],
+        ])->first();
+
+        if($service == 'activity') {
+            $reservation->activities()->detach($request->activity_id);
+            return redirect('user/shopping_cart')->with('status', 'Activity has been removed');
+        }elseif($service == 'room'){
+            UnavailableRoom::destroy($request->unavailable_room_id);
+            return redirect('user/shopping_cart')->with('status', 'Room has been removed');
+        }elseif($service == 'seat'){
+            $reservation->seat()->detach($request->seat_id);
+            return redirect('user/shopping_cart')->with('status', 'Seat has been removed');
+        }
+    }
     //Función que permite reservar una habitación
     //Entradas: room_id, adults_number, children_number, user_id, date (arreglo con fechas en las que será solicitada la habitación)
     //Tipo: POST

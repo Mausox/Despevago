@@ -10,6 +10,13 @@
 
 @section('content')
     <div class="container">
+
+        @if (session('status'))
+            <div class="alert alert-danger text-center">
+                <p>{{ session('status') }}</p>
+            </div>
+        @endif
+
         <table class="table table-bordered">
             <tr>
                 <th>Service</th>
@@ -27,6 +34,13 @@
                         Score: {{ $unaRoom->room()->first()->hotel()->first()->score}}<p></p>
                     </td>
                     <td>Price:{{ $unaRoom->room()->first()->adult_price}}</td>
+                    <td>
+                        {!! Form::open(['method' => 'DELETE', 'route' => 'user.shopping_cart.destroy']) !!}
+                        <button type="submit" class="red darken-4 waves-effect waves-light btn-small">Remove</button>
+                        {!! Form::hidden('service', 'room') !!}
+                        {!! Form::hidden('unavailable_room_id', $unaRoom->id) !!}
+                        {!! Form::close() !!}
+                    </td>
                 </tr>
             @endforeach
 
@@ -38,7 +52,14 @@
                     <td>Address: {{ $activity->address}}<p></p>
                         Description: {{ $activity->description }}
                     </td>
-                    <td>Price:{{ $activity->price}}</td>
+                    <td>{{ $activity->price_adult}}</td>
+                    <td>
+                        {!! Form::open(['method' => 'DELETE', 'route' => 'user.shopping_cart.destroy']) !!}
+                        <button type="submit" class="red darken-4 waves-effect waves-light btn-small">Remove</button>
+                        {!! Form::hidden('service', 'activity') !!}
+                        {!! Form::hidden('activity_id', $activity->id) !!}
+                    {!! Form::close() !!}
+                    </td>
                 </tr>
             @endforeach
 
@@ -56,14 +77,22 @@
                         Class type: {{ $seat->class_type()->first()->name }}<p></p>
                         Flight number: {{ $seat->flight()->first()->flight_number}}<p></p>
                     </td>
+                    <td>
+                        {!! Form::open(['method' => 'DELETE', 'route' => 'user.shopping_cart.destroy']) !!}
+                        <button type="submit" class="red darken-4 waves-effect waves-light btn-small">Remove</button>
+                        {!! Form::hidden('service', 'seat') !!}
+                        {!! Form::hidden('seat', $seat->id) !!}
+                        {!! Form::close() !!}
+                    </td>
                     <td>Price:{{ $seat->price}}</td>
                 </tr>
             @endforeach
         </table>
 
         {!! Form::open(['route' => 'user.finishReservation']) !!}
-        <button type="submit" class="btn btn-xs btn-primary">Buy</button>
+        <button type="submit" class=" blue darken-4 waves-effect waves-light btn-small">Buy</button>
         {!! Form::close() !!}
-        <a class="btn btn-md btn-success" href="{{ route('user.profile') }}">Back</a>
+        <p></p>
+        <a class=" blue darken-4 waves-effect waves-light btn-small" href="{{ route('user.profile') }}">Back</a>
     </div>
 @endsection

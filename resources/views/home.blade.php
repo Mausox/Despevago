@@ -1,14 +1,11 @@
-@extends('despevago.app')
+@extends('despevago.materialize')
 
 @section('title', 'Despevago')
 
-<<<<<<< HEAD
-@include('despevago.headers.headerAuth')
-=======
 @section('header')
     @include('despevago.headers.auth')
 @endsection
->>>>>>> transfer_flow
+
 
 @section('content')
 
