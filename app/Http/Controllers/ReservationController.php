@@ -146,6 +146,7 @@ class ReservationController extends Controller
             $user_history->hour = Carbon::now();
             $user_history->user_id = $request->user()->id;
             $user_history->action = 'User reserved a room';
+            $user_history->action_type = 'Purchase';
             $user_history->save();
 
             $unavailableRoom->closed = true;
@@ -162,6 +163,7 @@ class ReservationController extends Controller
             $user_history->hour = Carbon::now();
             $user_history->user_id = $request->user()->id;
             $user_history->action = 'User reserved an activity';
+            $user_history->action_type = 'Purchase';
             $user_history->save();
 
             $activity->pivot->closed = true;
@@ -177,6 +179,7 @@ class ReservationController extends Controller
             $user_history->hour = Carbon::now();
             $user_history->user_id = $request->user()->id;
             $user_history->action = 'User reserved a flight';
+            $user_history->action_type = 'Purchase';
             $user_history->save();
 
             $seat->pivot->closed = true;
@@ -192,6 +195,7 @@ class ReservationController extends Controller
             $user_history->hour = Carbon::now();
             $user_history->user_id = $request->user()->id;
             $user_history->action = 'User reserved a transfer';
+            $user_history->action_type = 'Purchase';
             $user_history->save();
 
             $transfer->pivot->closed = true;
@@ -207,6 +211,7 @@ class ReservationController extends Controller
             $user_history->hour = Carbon::now();
             $user_history->user_id = $request->user()->id;
             $user_history->action = 'User reserved a car flight package';
+            $user_history->action_type = 'Purchase';
             $user_history->save();
 
             $carFlightPackage->pivot->closed = true;
@@ -222,6 +227,7 @@ class ReservationController extends Controller
             $user_history->hour = Carbon::now();
             $user_history->user_id = $request->user()->id;
             $user_history->action = 'User reserved a room flight package';
+            $user_history->action_type = 'Purchase';
             $user_history->save();
 
             $roomFlightPackage->pivot->closed = true;
@@ -237,6 +243,7 @@ class ReservationController extends Controller
             $user_history->hour = Carbon::now();
             $user_history->user_id = $request->user()->id;
             $user_history->action = 'User reserved a car';
+            $user_history->action_type = 'Purchase';
             $user_history->save();
 
             $unavailableCar->closed = true;
@@ -289,7 +296,7 @@ class ReservationController extends Controller
         $reservation->save();
 
 
-        return "Your room was added to you reservation";
+        return redirect("/user/shopping_cart")->with('status',"Your room was added to you reservation");
 
     }
 

@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\City;
 use App\Hotel;
-use App\HotelContact;
+use App\Room;
+use App\UnavailableRoom;
 use App\UserHistory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -145,9 +146,31 @@ class HotelController extends Controller
     //Tipo: GET
     public function searchHotelByCity(Request $request)
     {
-        $hotels = Hotel::where('city_id',$city_id)->get();
-        return $hotels;
+        $cities = City::all();
+        $citiesName = array();
+        $number_adults = $request->number_adults;
+        $number_children = $request->number_children;
+        $number_room = $request->number_room;
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        foreach ($cities as  $city)
+        {
+            $citiesName[$city->id] = $city->name;
+        }
+
+        $hotels = Hotel::where('city_id',$request->city_id)->get();
+
+        return view('despevago.hotels.resultHotel',
+                ['hotels' => $hotels,
+                'cities' => $citiesName,
+                'start_date' => $start_date,
+                'end_date' => $end_date,
+                'number_children' => $number_children,
+                'number_adults' => $number_adults,
+                'number_room' => $number_room]);
     }
+
     //Search room of hotel according to user parameters
     public function searchHotelRoom(Request $request)
     {
@@ -160,7 +183,7 @@ class HotelController extends Controller
 
         $number_people = $number_adults + $number_children;
 
-        $result_rooms = Room::whereDoesntHave('unavailableRooms', function ($query) use ($start_date, $end_date){
+        $result_rooms = Room::whereDoesntHave('unavailable_rooms', function ($query) use ($start_date, $end_date){
             $query->where('date','>',$start_date)->where('date','<',$end_date);
         })->where([
             ['capacity','>=', $number_people],
@@ -169,14 +192,14 @@ class HotelController extends Controller
 
         if($result_rooms->count() >= $number_room){
             return view('despevago.hotels.resultHotelRooms',
-                ['hotel' => $hotel,
-                'start_date' => $start_date,
-                'end_date' => $end_date,
-                'number_children' => $number_children,
-                'number_adults' => $number_adults,
-                'rooms' => $result_rooms]);
+                    ['hotel' => $hotel,
+                    'start_date' => $start_date,
+                    'end_date' => $end_date,
+                    'number_children' => $number_children,
+                    'number_adults' => $number_adults,
+                    'rooms' => $result_rooms]);
         }else{
-            return view('despevago.hotels.resultHotelRooms', ['hotel' => $hotel, 'rooms' => $result_rooms])->with('message', 'There were no results');
+            return view('despevago.hotels.resultHotelRooms', ['hotel' => $hotel, 'rooms' => $result_rooms])->with('status', 'There were no results');
         }
 
     }

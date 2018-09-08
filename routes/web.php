@@ -37,6 +37,9 @@ Route::resource('/car_flight_packages', 'CarFlightPackageController');
 Route::resource('/countries', 'CountryController');
 
 //<-------------------         Hotel      --------------------->
+Route::get('/hotels/search/rooms', "HotelController@searchHotelRoom")->name('searchHotelRoom');
+Route::get('/hotels/search','HotelController@searchFormHotel')->name('searchFormHotel');
+Route::get('/hotels/search_results', "HotelController@searchHotelByCity")->name('searchHotel');
 Route::resource('dashboard/hotels', 'HotelController')->middleware('AuthAdmin');
 Route::get('dashboard/hotels/byCity/{city_id}', "HotelController@searchHotelByCity")->name('hotelsByCity');
 //<-------------------         Hotel      --------------------->

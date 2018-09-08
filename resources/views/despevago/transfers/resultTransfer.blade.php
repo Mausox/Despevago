@@ -16,14 +16,14 @@
                     <a class="mt-3 blue darken-4 waves-effect waves-light btn-small" href="{{ route('transfer.search')}}"><i class="material-icons left">keyboard_arrow_left</i>Back</a>
                 </div>
                 <div class="card-content">
-                    <span class="card-title valign center"><h5 class="mb-1 mt-0">Transfers from {{ $transfers->first()->airport()->first()->name }} to {{$transfers->first()->hotel()->first()->name}}</h5></span>
+                    <span class="card-title align center"><h5 class="mb-1 mt-0">Transfers from {{ $transfers->first()->airport()->first()->name }} to {{$transfers->first()->hotel()->first()->name}}</h5></span>
                     <div class="row 12">
                         @foreach ($transfers as $transfer)
 
                             <div class="col s12 m6 l4 xl4">
                                 <div class="card sticky-action">
                                     <div class="card-image waves-effect waves-block waves-light">
-                                        <img class="activator" src="{{ asset('img/castillo.jpg') }}">
+                                        <img class="activator" src="{{ asset('img/transfer.png') }}">
                                     </div>
                                     <div class="card-content">
                                         <span class="card-title activator grey-text text-darken-4">{{ $transfer->name }}<i class="material-icons right">more_vert</i></span>
@@ -38,7 +38,7 @@
                                         <br>
                                         <p><i class="left material-icons">attach_money</i> Price: {{$transfer->price}}</p>
                                         <br>
-                                        <p><i class="left material-icons">local_transfer</i> Capacity: {{ $transfer->transfer_car()->first()->capacity }}</p>
+                                        <p><i class="left material-icons">person</i> Capacity: {{ $transfer->transfer_car()->first()->capacity }}</p>
                                     </div>
                                     <div class="card-action">
                                         <div class="row mb-0">
