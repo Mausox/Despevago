@@ -162,8 +162,9 @@ class TransferController extends Controller
         return $transfers;
     }
 
-    public function searchTransfer(Request $request)
+    public function searchTransfer()
     {
+
         $airports = Airport::all();
         $airportsName = array();
 
@@ -183,6 +184,14 @@ class TransferController extends Controller
 
     public function resultTransfer(Request $request)
     {
+        request()->validate([
+            'airport_id' => 'required',
+            'hotel_id' => 'required',
+            'numberPeople' => 'required',
+            'route' => 'required',
+            'date' => 'required',
+            'hour' => 'required',
+        ]);
 
         $airport = Airport::find($request->airport_id);
         $hotel = Hotel::find($request->hotel_id);
@@ -192,7 +201,7 @@ class TransferController extends Controller
         $hour = $request->hour;
 
         $resultTransfer = Transfer::whereHas('transfer_car', function ($query) use ($numberPeople){
-            $query->where('capacity', '>', $numberPeople);
+            $query->where('capacity', '>=', $numberPeople);
         })->where([
                     ['start_date', $date],
                     ['start_hour','>',$hour],

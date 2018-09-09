@@ -16,7 +16,7 @@
                     <a class="mt-3 blue darken-4 waves-effect waves-light btn-small" href="{{ route('transfer.search')}}"><i class="material-icons left">keyboard_arrow_left</i>Back</a>
                 </div>
                 <div class="card-content">
-                    <span class="card-title align center"><h5 class="mb-1 mt-0">Transfers from {{ $transfers->first()->airport()->first()->name }} to {{$transfers->first()->hotel()->first()->name}}</h5></span>
+                    <span class="card-title align center"><h5 class="mb-1 mt-0">Transfers from {{ $transfers->first()->airport()->first()->name }} to {{$transfers->first()->hotel()->first()->name}} Hotel</h5></span>
                     <div class="row 12">
                         @foreach ($transfers as $transfer)
 
@@ -30,7 +30,7 @@
                                     </div>
                                     <div class="card-reveal valign-wrapper">
                                         <span class="card-title grey-text text-darken-4">{{ $transfer->name }}<i class="material-icons right">close</i></span>
-                                        <p>Description {{ $transfer->description }}</p>
+                                        <p><i class="left material-icons">star</i>Classification: {{ $transfer->transfer_car()->first()->classification }}</p>
                                         <br>
                                         <p><i class="left material-icons">date_range</i> Date: {{ $transfer->start_date }}</p>
                                         <br>

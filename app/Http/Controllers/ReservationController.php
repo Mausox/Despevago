@@ -111,11 +111,13 @@ class ReservationController extends Controller
         $SProoms = $reservation->unavailable_rooms;
         $SPactivities = $reservation->activities;
         $SPseats = $reservation->seats;
+        $SPtransfers = $reservation->transfers;
 
         return view('despevago.users.shoppingCart',
             ['unaRooms' => $SProoms,
             'activities' => $SPactivities,
             'seats' => $SPseats,
+            'transfers' => $SPtransfers,
             'user' => $request->user()]);
     }
 
@@ -269,8 +271,11 @@ class ReservationController extends Controller
             UnavailableRoom::destroy($request->unavailable_room_id);
             return redirect('user/shopping_cart')->with('status', 'Room has been removed');
         }elseif($service == 'seat'){
-            $reservation->seat()->detach($request->seat_id);
+            $reservation->seats()->detach($request->seat_id);
             return redirect('user/shopping_cart')->with('status', 'Seat has been removed');
+        }elseif($service == 'transfer'){
+            $reservation->transfers()->detach($request->transfer_id);
+            return redirect('user/shopping_cart')->with('status', 'Transfer has been removed');
         }
     }
     //Función que permite reservar una habitación
@@ -368,7 +373,7 @@ class ReservationController extends Controller
     public function transferReservation(Request $request)
     {
         $transfer_id = $request->transfer_id;
-        $user_id = $request->user_id;
+        $user_id = $request->User()->id;
         $number_people = $request->number_people;
 
         //To obtain the transfer
@@ -381,13 +386,13 @@ class ReservationController extends Controller
         ])->first();
 
         //In case the transfer was already reserved by the user
-        if($reservation->transfers()->where([['transfer_id',$transfer->id],['reservation_id',$reservation->id]])->exists())
+        if($number_people > $transfer->transfer_car->capacity or $number_people <= 0)
         {
-            return "You have already reserved this transfer.";
+            return back()->withErrors(['The amount of people is not available']);
         }
         else if ($transfer->reservations()->where('transfer_id',$transfer->id)->exists())
         {
-            return "This transfer is no longer available.";
+            return back()->withErrors(['You have already reserved this transfer']);
         }
         else{
 
@@ -402,7 +407,7 @@ class ReservationController extends Controller
             $reservation->current_balance = money_format('%i',$current_balance);
             $reservation->save();
 
-            return "Your transfer was added to your reservation";
+            return redirect()->route('user.shopping_cart');
         }
     }
 

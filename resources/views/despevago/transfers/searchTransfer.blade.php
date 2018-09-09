@@ -10,6 +10,18 @@
 
 @section('content')
     <div class="container">
+        @if(count($errors) > 0)
+            <div class="card red darken-1">
+            <div class="alert alert-danger">
+                <strong>Whooops!</strong> There were some problems with your input.<br>
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            </div>
+        @endif
         @if (session('status'))
             <div class="alert alert-success">
                 {{ session('status') }}
@@ -55,7 +67,7 @@
                         </div>
                     </div>
                     <div class="col-xs-12">
-                        <div class="form-group">
+                        <div class="form-group row">
                             <strong>Date: </strong>
                             <div>
                                 {!! Form::date('date', null, ['placeholder' => 'YYYY-MM-DD', 'class' => 'form-control']) !!}
@@ -70,18 +82,24 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-xs btn-primary">Submit</button>
+                    <div class="card-action">
+                        <div class="row mb-0">
+                            <button class="right blue darken-4 waves-effect waves-light btn" type="submit" name="action">Search Transfer<i class="material-icons left">search</i></button>
+                        </div>
+                    </div>
                     {!!Form::close()!!}
                 </div>
             </div>
         </div>
     </div>
+
 @endsection
 
-        @section('script')
-            <script>
-                $(document).ready(function(){
-                    $('select').formSelect();
-                });
-            </script>
-        @endsection
+
+@section('script')
+    <script>
+        $(document).ready(function(){
+            $('select').formSelect();
+        });
+    </script>
+@endsection

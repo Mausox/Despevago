@@ -18,6 +18,8 @@
         @endif
 
         <table class="table table-bordered">
+            <col width="80">
+            <col width="130">
             <tr>
                 <th>Service</th>
                 <th>Date & Time</th>
@@ -29,11 +31,11 @@
                 <tr>
                     <td>Room </td>
                     <td>{{ $unaRoom->date }} </td>
-                    <td>Hotel: {{ $unaRoom->room()->first()->hotel()->first()->name}}<p></p>
-                        Description: {{ $unaRoom->room()->first()->hotel()->first()->description}}<p></p>
-                        Score: {{ $unaRoom->room()->first()->hotel()->first()->score}}<p></p>
+                    <td><strong>Hotel:</strong> {{ $unaRoom->room()->first()->hotel()->first()->name}}<p></p>
+                        <strong>Description:</strong> {{ $unaRoom->room()->first()->hotel()->first()->description}}<p></p>
+                        <strong>Score:</strong> {{ $unaRoom->room()->first()->hotel()->first()->score}}<p></p>
                     </td>
-                    <td>Price:{{ $unaRoom->room()->first()->adult_price}}</td>
+                    <td>{{ $unaRoom->room()->first()->adult_price}}</td>
                     <td>
                         {!! Form::open(['method' => 'DELETE', 'route' => 'user.shopping_cart.destroy']) !!}
                         <button type="submit" class="red darken-4 waves-effect waves-light btn-small">Remove</button>
@@ -49,8 +51,8 @@
                     <td>Activity </td>
                     <td>{{ $activity->date}} <p></p>
                         {{ $activity->hour}}</td>
-                    <td>Address: {{ $activity->address}}<p></p>
-                        Description: {{ $activity->description }}
+                    <td><strong>Address:</strong> {{ $activity->address}}<p></p>
+                        <strong>Description:</strong> {{ $activity->description }}
                     </td>
                     <td>{{ $activity->price_adult}}</td>
                     <td>
@@ -85,6 +87,25 @@
                         {!! Form::close() !!}
                     </td>
                     <td>Price:{{ $seat->price}}</td>
+                </tr>
+            @endforeach
+            @foreach($transfers as $transfer)
+                <tr>
+                    <td>Transfer </td>
+                    <td>{{ $transfer->start_date}} <p></p>
+                        {{ $transfer->start_hour}}</td>
+                    <td><strong>Hotel:</strong> {{ $transfer->Hotel()->first()->name}}<p></p>
+                        <strong>Airport:</strong> {{ $transfer->Airport()->first()->name }}<p></p>
+                        <strong>Route:</strong> {{ $transfer->route}}<p></p>
+                    </td>
+                    <td>{{ $transfer->price}}</td>
+                    <td>
+                        {!! Form::open(['method' => 'DELETE', 'route' => 'user.shopping_cart.destroy']) !!}
+                        <button type="submit" class="red darken-4 waves-effect waves-light btn-small">Remove</button>
+                        {!! Form::hidden('service', 'transfer') !!}
+                        {!! Form::hidden('transfer_id', $transfer->id) !!}
+                        {!! Form::close() !!}
+                    </td>
                 </tr>
             @endforeach
         </table>

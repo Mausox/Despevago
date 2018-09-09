@@ -11,6 +11,13 @@
 
 @section('content')
 <div class="container">
+    @if(Session::has('status'))
+        <div class="alert alert-success">
+            <div class="card green darken-1">
+                <p>{{ session('status')}}</p>
+            </div>
+        </div>
+    @endif
     <div class="row mt-5">
         <div class="col s12 m6 l3">
             <div class="card-panel valign-wrapper center-align ">
@@ -25,10 +32,12 @@
                     <h5>{{$user->first_name}} {{$user->last_name}}</h5>
                     <strong>Email: </strong> {{$user->email}}<p></p>
                     <strong>Telephone:</strong> {{$user->telephone}}<p></p>
+                    <strong>Address:</strong> {{$user->address}}<p></p>
                     <strong>Balance</strong> {{$user->current_balance}}<p></p>
                     <a class=" blue darken-4 waves-effect waves-light btn-small" href="{{ route('payment_methods.create') }}">Add payment method</a>
                     <a class=" blue darken-4 waves-effect waves-light btn-small" href="{{ route('paymentForm') }}">Add credit</a>
                     <a class=" blue darken-4 waves-effect waves-light btn-small" href="{{ route('user.history') }}">History</a>
+                    <a class=" blue darken-4 waves-effect waves-light btn-small" href="{{ route('users.edit', $user->id) }}">Edit profile</a>
                     <a class=" blue darken-4 waves-effect waves-light btn-small" href="{{ route('/') }}">Back</a>
                 </div>
             </div>    

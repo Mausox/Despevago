@@ -63,7 +63,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        return view('despevago.users.profileEdit', ['user' => $user]);
     }
 
     /**
@@ -75,8 +76,16 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        request()->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'telephone' => 'required',
+            'address' => 'required',
+        ]);
         User::find($id)->update($request->all());
-        return "The User ID: {$id} was updated!";
+        return redirect('/user/profile')->with('status', 'Your profile has been updated!');
     }
 
     /**
