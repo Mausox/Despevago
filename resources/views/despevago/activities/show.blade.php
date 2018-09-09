@@ -46,9 +46,10 @@
     
         
     <div class="row">
-        {!! Form::open(['method' => 'POST', 'route'=>['activityReservation']]) !!}
         <div class="card-panel">
-                <span class="card-title activator grey-text text-darken-4"><h5>Reservation</h5></span>
+            {!! Form::open(['method' => 'POST', 'route'=>['activityReservation']]) !!}
+
+            <span class="card-title activator grey-text text-darken-4"><h5>Reservation</h5></span>
 
                 <div class="row">
 
@@ -72,20 +73,26 @@
                     </div>
                 </div>
             </div>
-            <div class="row ">
-                <div class="col right">
-                        {!! Form::button('Reservar', ['type' => 'submit', 'class' => 'blue darken-4 waves-effect waves-light btn']) !!}
-                        {!! Form::close() !!}
+                @if(Auth::check())
+                <div class="row ">
+                    <div class="col right">
+                            {!! Form::button('Add to cart!', ['type' => 'submit', 'class' => 'blue darken-4 waves-effect waves-light btn']) !!}
+                            {!! Form::close() !!}
+                    </div>
                 </div>
-                    
-            </div>
         </div>
-            
     </div>
 
+        @else
+            {!! Form::close() !!}
+            <div  class="row">
+                <div class="col right">
+                    <a href="{!! url('/login') !!}"><button class="blue darken-4 waves-effect waves-light btn"> Sing in first</button></a>
+                </div>
+            </div>
 
-        
-    </div>
+        @endif
+
 </div>
 @endsection
 @section('script')

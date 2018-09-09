@@ -42,10 +42,20 @@
                                 {!!Form::hidden('end_date', $end_date)!!}
                                 {!!Form::hidden('number_adults', $number_adults)!!}
                                 {!!Form::hidden('number_children', $number_children)!!}
-                                <div class="col right">
-                                    <button type="submit" class="blue darken-4 waves-effect waves-light btn">Add to cart!</button>
-                                </div>
-                                {!!Form::close()!!}
+                                @if(Auth::check())
+                                    <div class="col right">
+                                        <button type="submit" class="blue darken-4 waves-effect waves-light btn">Add to cart!</button>
+                                        {!!Form::close()!!}
+                                    </div>
+
+
+                                @else
+                                    {!!Form::close()!!}
+                                        <div class="col right">
+
+                                        <a href="{!! url('/login') !!}"><button class="blue darken-4 waves-effect waves-light btn"> Sing in first</button></a>
+                                        </div>
+                                @endif
                             </div>
                         </div>
                     </div>

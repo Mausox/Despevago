@@ -131,14 +131,17 @@ class HotelController extends Controller
 
 
     public function searchFormHotel(){
-        $cities = City::all();
-        $citiesName = array();
-
-        foreach ($cities as  $city)
+        $cities = City::all()->sortBy('name');
+        $citiesName = collect([]);
+        foreach ($cities as $city)
         {
-            $citiesName[$city->id] = $city->name;
+            $citiesName = $citiesName->merge([$city->name => null]);
         }
-        return view('despevago.hotels.searchHotel', ['cities' => $citiesName]);
+
+        $yyyy = Carbon::now()->year;
+        $mm = Carbon::now()->addMonths(-1)->month;
+        $dd = Carbon::now()->day;
+        return view('despevago.hotels.searchHotel', compact('citiesName','yyyy','mm','dd'));
     }
 
     //Función que permite la búsqueda de un hotel y su contacto en una ciudad en específico.
@@ -156,10 +159,16 @@ class HotelController extends Controller
 
         foreach ($cities as  $city)
         {
-            $citiesName[$city->id] = $city->name;
+                $citiesName[$city->id] = $city->name;
         }
 
-        $hotels = Hotel::where('city_id',$request->city_id)->get();
+        $city = City::where('name', $request->city)->first();
+        $hotels = Hotel::where('city_id',$city->id)->get();
+
+        if($hotels->isEmpty() )
+        {
+            return redirect()->route('searchFormHotel')->with('status','Hotels not found in city: '.$city->name);
+        }
 
         return view('despevago.hotels.resultHotel',
                 ['hotels' => $hotels,

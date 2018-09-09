@@ -104,7 +104,7 @@ class ReservationController extends Controller
     public function shoppingCart(Request $request)
     {
         $reservation = Reservation::where([
-            ['user_id', $request->user()->id],
+            ['user_id', Auth::user()->id],
             ['closed', false],
         ])->first();
 
@@ -126,7 +126,7 @@ class ReservationController extends Controller
     public function finishReservation(Request $request)
     {
         $reservation = Reservation::where([
-            ['user_id', $request->user()->id],
+            ['user_id', Auth::user()->id],
             ['closed', false],
         ])->first();
 
@@ -143,7 +143,7 @@ class ReservationController extends Controller
             $user_history = new UserHistory();
             $user_history->date = Carbon::now();
             $user_history->hour = Carbon::now();
-            $user_history->user_id = $request->user()->id;
+            $user_history->user_id = Auth::user()->id;
             $user_history->action = 'User reserved a room';
             $user_history->action_type = 'Purchase';
             $user_history->save();
@@ -160,7 +160,7 @@ class ReservationController extends Controller
             $user_history = new UserHistory();
             $user_history->date = Carbon::now();
             $user_history->hour = Carbon::now();
-            $user_history->user_id = $request->user()->id;
+            $user_history->user_id = Auth::user()->id;
             $user_history->action = 'User reserved an activity';
             $user_history->action_type = 'Purchase';
             $user_history->save();
@@ -176,7 +176,7 @@ class ReservationController extends Controller
             $user_history = new UserHistory();
             $user_history->date = Carbon::now();
             $user_history->hour = Carbon::now();
-            $user_history->user_id = $request->user()->id;
+            $user_history->user_id = Auth::user()->id;
             $user_history->action = 'User reserved a flight';
             $user_history->action_type = 'Purchase';
             $user_history->save();
@@ -192,7 +192,7 @@ class ReservationController extends Controller
             $user_history = new UserHistory();
             $user_history->date = Carbon::now();
             $user_history->hour = Carbon::now();
-            $user_history->user_id = $request->user()->id;
+            $user_history->user_id = Auth::user()->id;
             $user_history->action = 'User reserved a transfer';
             $user_history->action_type = 'Purchase';
             $user_history->save();
@@ -208,7 +208,7 @@ class ReservationController extends Controller
             $user_history = new UserHistory();
             $user_history->date = Carbon::now();
             $user_history->hour = Carbon::now();
-            $user_history->user_id = $request->user()->id;
+            $user_history->user_id = Auth::user()->id;
             $user_history->action = 'User reserved a car flight package';
             $user_history->action_type = 'Purchase';
             $user_history->save();
@@ -224,7 +224,7 @@ class ReservationController extends Controller
             $user_history = new UserHistory();
             $user_history->date = Carbon::now();
             $user_history->hour = Carbon::now();
-            $user_history->user_id = $request->user()->id;
+            $user_history->user_id = Auth::user()->id;
             $user_history->action = 'User reserved a room flight package';
             $user_history->action_type = 'Purchase';
             $user_history->save();
@@ -240,7 +240,7 @@ class ReservationController extends Controller
             $user_history = new UserHistory();
             $user_history->date = Carbon::now();
             $user_history->hour = Carbon::now();
-            $user_history->user_id = $request->user()->id;
+            $user_history->user_id = Auth::user()->id;
             $user_history->action = 'User reserved a car';
             $user_history->action_type = 'Purchase';
             $user_history->save();
@@ -258,7 +258,7 @@ class ReservationController extends Controller
         $service = $request->service;
 
         $reservation = Reservation::where([
-            ['user_id', $request->user()->id],
+            ['user_id', Auth::user()->id],
             ['closed', false],
         ])->first();
 
@@ -283,7 +283,7 @@ class ReservationController extends Controller
         $children_number = $request->children_number;
         $start_date = $request->start_date;
         $end_date = $request->end_date;
-        $user_id = $request->user()->id;
+        $user_id = Auth::user()->id;
 
         $room = Room::find($room_id);
         //To obtain the open reservation of the user
