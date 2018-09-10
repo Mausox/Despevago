@@ -77,7 +77,7 @@
                 <h3 class="text-center">Company's branch offices </h3>
                 <hr style="color:red;">
                     <div style="margin:1.5em;">
-                        <a href="{!! url('dashboard/companies/'.$company->id.'/branch_offices/create') !!}"> <button type="button" class="btn btn-success">+ Crear nueva branch office</button></a>
+                        <a href="{!! url('dashboard/companies/'.$company->id.'/branch_offices/create') !!}"> <button type="button" class="btn btn-success">+ Create new branch office</button></a>
                     </div>
 
 
@@ -129,20 +129,6 @@
     <script>
         $(document).ready(function() {
             $('#example2').DataTable( {
-                "language": {
-                    "lengthMenu": "Mostrar _MENU_ filas por página",
-                    "zeroRecords": "Nada encontrado - Lo sentimos",
-                    "info": "Mostrando Página _PAGE_ of _PAGES_",
-                    "infoEmpty": "Tabla vacía",
-                    "infoFiltered": "(filtered from _MAX_ total records)",
-                    "search": "Buscar",
-                    "paginate": {
-                        "first":      "Primero",
-                        "last":       "Último",
-                        "next":       "Siguiente",
-                        "previous":   "Anterior"
-                    }
-                }
             } );
         } );
     </script>

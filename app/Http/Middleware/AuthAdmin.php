@@ -24,7 +24,7 @@ class AuthAdmin
 
         else if(!Auth::user()->has_user_type('admin'))
         {
-            return redirect('/home')->with('status', 'You shall not pass!');
+            return redirect('/')->with('status', 'You shall not pass!');
         }
 
         return $next($request);

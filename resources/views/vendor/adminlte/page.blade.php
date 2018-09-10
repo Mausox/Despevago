@@ -21,7 +21,7 @@
             <nav class="navbar navbar-static-top">
                 <div class="container">
                     <div class="navbar-header">
-                        <a href="{{ url(config('adminlte.dashboard_url', 'home')) }}" class="navbar-brand">
+                        <a href="{{ url(config('adminlte.dashboard_url', '/')) }}" class="navbar-brand">
                             <img src="{{ asset('img/logo/logo_brand.png')}}" class="d-block img-fluid logo-header" width="280px" alt="Despevago">
                         </a>
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
@@ -38,7 +38,7 @@
                     <!-- /.navbar-collapse -->
             @else
             <!-- Logo -->
-            <a href="{{ url(config('adminlte.dashboard_url', 'home')) }}" class="logo">
+            <a href="{{ url(config('adminlte.dashboard_url', '/')) }}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini">{!! config('adminlte.logo_mini', '<b>D</b>PV') !!}</span>
                 <!-- logo for regular state and mobile devices -->
@@ -71,7 +71,7 @@
                                     <p>
                                         {!! Auth::user()->first_name  !!} {!! Auth::user()->last_name; !!}
 
-                                        <small>Administrador</small>
+                                        <small>Administrator</small>
                                     </p>
                                 </li>
                                 <!-- Menu Body -->
@@ -103,13 +103,13 @@
                         <li>
                             @if(config('adminlte.logout_method') == 'GET' || !config('adminlte.logout_method') && version_compare(\Illuminate\Foundation\Application::VERSION, '5.3.0', '<'))
                                 <a href="{{ url(config('adminlte.logout_url', 'auth/logout')) }}">
-                                    <i class="fa fa-fw fa-power-off"></i> Salir
+                                    <i class="fa fa-fw fa-power-off"></i> Sign out
                                 </a>
                             @else
                                 <a href="#"
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                 >
-                                    <i class="fa fa-fw fa-power-off"></i> Salir
+                                    <i class="fa fa-fw fa-power-off"></i> Sign out
                                 </a>
                                 <form id="logout-form" action="{{ url(config('adminlte.logout_url', 'auth/logout')) }}" method="POST" style="display: none;">
                                     @if(config('adminlte.logout_method'))

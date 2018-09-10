@@ -19,12 +19,12 @@
             <table id="example" class="table table-striped table-bordered" style="width:100%">
                 <thead>
                 <tr>
-                    <th>Tipo de acción</th>
-                    <th>Acción</th>
-                    <th>Fecha</th>
-                    <th>Hora</th>
-                    <th>Usuario</th>
-                    <th>Tipo Usuario</th>
+                    <th>Action Type</th>
+                    <th>Action</th>
+                    <th>Date</th>
+                    <th>Hour</th>
+                    <th>User</th>
+                    <th>User Type</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -48,9 +48,9 @@
                         </td>
                         <td>
                             @if($user_histories->user->has_user_type('admin'))
-                                Administrador
+                                Administrator
                             @else
-                                Usuario
+                                User
                             @endif
                         </td>
                     </tr>
@@ -68,20 +68,6 @@
     <script>
         $(document).ready(function() {
             $('#example').DataTable( {
-                "language": {
-                    "lengthMenu": "Mostrar _MENU_ filas por página",
-                    "zeroRecords": "Nada encontrado - Lo sentimos",
-                    "info": "Mostrando Página _PAGE_ of _PAGES_",
-                    "infoEmpty": "Tabla vacía",
-                    "infoFiltered": "(filtered from _MAX_ total records)",
-                    "search": "Buscar",
-                    "paginate": {
-                        "first":      "Primero",
-                        "last":       "Último",
-                        "next":       "Siguiente",
-                        "previous":   "Anterior"
-                    }
-                }
             } );
         } );
     </script>

@@ -5,7 +5,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Vista Hotel
+            Hotel View
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -26,14 +26,14 @@
         <div class="col-md-12" style="margin-top:20px">
             <div style="margin-left:1.5em; display:inline-flex" >
 
-                    <a href="{{ url('/dashboard/hotels/'.($hotel->id).'/edit') }}" style="margin-right:10px"> <button type="button" class="btn btn-primary">Editar</button></a>
+                    <a href="{{ url('/dashboard/hotels/'.($hotel->id).'/edit') }}" style="margin-right:10px"> <button type="button" class="btn btn-primary">Edit</button></a>
                     <form method="post" action="{{ url('/dashboard/hotels/'.($hotel->id)) }}">
                          @csrf
                         {{ csrf_field() }}
 
                         {{ method_field('DELETE') }}
 
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
             </div>
         </div>
@@ -55,25 +55,25 @@
                         <table id="example" class="table table-striped table-bordered" style="width:100%">
                             <tbody>
                             <tr>
-                                <th>Nombre</th>
+                                <th>Name</th>
                                 <td>{!! $hotel->name !!}</td>
                             </tr>
                             <tr>
-                                <th>Correo</th>
+                                <th>E-mail</th>
                                 <td>{!! $hotel->email !!}</td>
 
                             </tr>
                             <tr>
-                                <th>Puntuación</th>
+                                <th>Score</th>
                                 <td>{!! $hotel->score !!}</td>
                             </tr>
                             <tr>
-                                <th>Descripción</th>
+                                <th>Description</th>
                                 <td>{!! $hotel->description !!}</td>
                             </tr>
 
                             <tr>
-                                <th>Teléfonos de contacto <i class="fa fa-phone"></i></th>
+                                <th>Contact Phone <i class="fa fa-phone"></i></th>
                                 <td>
                                     {!! $hotel->telephone !!}
                                 </td>
@@ -81,13 +81,13 @@
 
                             <tr>
 
-                                <th>Dirección</th>
+                                <th>Address</th>
 
                                 <td>{!! $hotel->address !!}</td>
                             </tr>
 
                             <tr>
-                                <th>Capacidad habitaciones</th>
+                                <th>Rooms Capacity</th>
                                 <td>{!! $hotel->rooms_capacity !!}</td>
                             </tr>
                             </tbody>
@@ -101,10 +101,10 @@
     <div class="row">
         <div class="col-md-12" style="margin-top:20px">
             <div style="margin-left:1.5em;">
-                <h3 class="text-center">Habitaciones del hotel</h3>
+                <h3 class="text-center">Hotel Rooms</h3>
                 <hr style="color:red;">
                     <div style="margin:1.5em;">
-                        <a href="{!! url('dashboard/hotels/'.$hotel->id.'/rooms/create') !!}"> <button type="button" class="btn btn-success">+ Crear nueva habitación</button></a>
+                        <a href="{!! url('dashboard/hotels/'.$hotel->id.'/rooms/create') !!}"> <button type="button" class="btn btn-success">+ Create new room</button></a>
                     </div>
 
 
@@ -112,12 +112,12 @@
                 <table id="example2" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Numeración</th>
-                            <th>Capacidad</th>
-                            <th>Precio Adulto</th>
-                            <th>Precio Niño</th>
-                            <th>Descripción</th>
-                            <th>Ver habitación</th>
+                            <th>Numeration</th>
+                            <th>Capacity</th>
+                            <th>Adult Price</th>
+                            <th>Child Price</th>
+                            <th>Description</th>
+                            <th>Show</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -160,20 +160,6 @@
     <script>
         $(document).ready(function() {
             $('#example2').DataTable( {
-                "language": {
-                    "lengthMenu": "Mostrar _MENU_ filas por página",
-                    "zeroRecords": "Nada encontrado - Lo sentimos",
-                    "info": "Mostrando Página _PAGE_ of _PAGES_",
-                    "infoEmpty": "Tabla vacía",
-                    "infoFiltered": "(filtered from _MAX_ total records)",
-                    "search": "Buscar",
-                    "paginate": {
-                        "first":      "Primero",
-                        "last":       "Último",
-                        "next":       "Siguiente",
-                        "previous":   "Anterior"
-                    }
-                }
             } );
         } );
     </script>

@@ -143,20 +143,6 @@
     <script>
         $(document).ready(function() {
             $('#example2').DataTable( {
-                "language": {
-                    "lengthMenu": "Mostrar _MENU_ filas por página",
-                    "zeroRecords": "Nada encontrado - Lo sentimos",
-                    "info": "Mostrando Página _PAGE_ of _PAGES_",
-                    "infoEmpty": "Tabla vacía",
-                    "infoFiltered": "(filtered from _MAX_ total records)",
-                    "search": "Buscar",
-                    "paginate": {
-                        "first":      "Primero",
-                        "last":       "Último",
-                        "next":       "Siguiente",
-                        "previous":   "Anterior"
-                    }
-                }
             } );
         } );
     </script>

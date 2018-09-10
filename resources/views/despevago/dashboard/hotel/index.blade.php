@@ -27,7 +27,7 @@
     <div class="row">
         <div class="col-md-12" style="margin-top:20px">
             <div style="margin-left:1.5em;">
-                <a href="{!! url('dashboard/hotels/create') !!}"> <button type="button" class="btn btn-success">+ Crear nuevo hotel</button></a>
+                <a href="{!! url('dashboard/hotels/create') !!}"> <button type="button" class="btn btn-success">+ Create new hotel</button></a>
             </div>
         </div>
     </div>
@@ -38,14 +38,14 @@
                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Nombre</th>
-                            <th>Correo</th>
-                            <th>Puntuación</th>
-                            <th>Descripción</th>
-                            <th>Ciudad</th>
-                            <th>Capacidad de habitaciones</th>
-                            <th>Dirección</th>
-                            <th>Ver Hotel</th>
+                            <th>Name</th>
+                            <th>E-mail</th>
+                            <th>Score</th>
+                            <th>Description</th>
+                            <th>City</th>
+                            <th>Rooms capacity</th>
+                            <th>Address</th>
+                            <th>View Hotel</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -74,7 +74,7 @@
                             </td>
 
                             <td>
-                                <a href="{!! url('dashboard/hotels/'.$hotel->id) !!}"> <button type="button" class="btn btn-info">Ver</button></a>
+                                <a href="{!! url('dashboard/hotels/'.$hotel->id) !!}"> <button type="button" class="btn btn-info">View</button></a>
                             </td>
                         </tr>
                     @endforeach
@@ -93,20 +93,6 @@
     <script>
         $(document).ready(function() {
             $('#example').DataTable( {
-                "language": {
-                    "lengthMenu": "Mostrar _MENU_ filas por página",
-                    "zeroRecords": "Nada encontrado - Lo sentimos",
-                    "info": "Mostrando Página _PAGE_ of _PAGES_",
-                    "infoEmpty": "Tabla vacía",
-                    "infoFiltered": "(filtered from _MAX_ total records)",
-                    "search": "Buscar",
-                    "paginate": {
-                        "first":      "Primero",
-                        "last":       "Último",
-                        "next":       "Siguiente",
-                        "previous":   "Anterior"
-                    }
-                }
             } );
         } );
     </script>
