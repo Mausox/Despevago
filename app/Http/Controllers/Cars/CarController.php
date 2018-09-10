@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\BranchOffice;
 use App\Car;
 use App\CarOption;
+use App\City;
 use App\UserHistory;
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Support\Facades\Auth;
@@ -183,25 +185,5 @@ class CarController extends Controller
         return $cars;
     }
 
-    public function search()
-    {
-        /*$branch_office_all = BranchOffice::all();
-        $branch_offices = $branch_office_all->pluck('address')->toArray();
-
-
-        return view('despevago.cars.search', compact('branch_offices'));
-        */
-
-        $cities = City::all();
-        $citiesName = array();
-
-        foreach ($cities as  $city)
-        {
-            $citiesName[$city->id] = $city->name;
-        }
-        return view('despevago.cars.search', compact('citiesName'));
-
-          
-    }
 
 }

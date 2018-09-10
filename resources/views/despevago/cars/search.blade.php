@@ -1,100 +1,97 @@
-@extends('despevago.app')
+@extends('despevago.materialize')
 
-@section('title', 'Search a car')
+@section('title', 'Cars Search')
 
-@include('despevago.headers.headerAuth')
-@include('despevago.headers.headerMV')
+@section('header')
+    @include('despevago.headers.auth')
+    @include('despevago.headers.middle-logo')
+    @include('despevago.headers.menu ')
+@endsection
 
 @section('content')
 
-<div class="container">
-    <div class="row">
-        <h3>Search a car</h3>
-    </div>
-
-
-    @if(count($errors) > 0)
-            <div class="alert alert-danger">
-                <strong>Whooops!</strong> There were some problems with your input.<br>
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
+    @if (session('status'))
+        <div class="alert alert-primary" role="alert">
+            <p>{{ session('status') }}</p>
+        </div>
     @endif
-</div>
 
-<div class="container">
-    <div class="form-group col-lg-4 col-sm-6">
-        {!! Form::open(['method' => 'POST','route'=>['branchOfficesByCity']]) !!}
-
-        <label for="pick_up_location">Pickup Location</label>
-        <br>
-        <div class="form-group">
-            {!! Form::select('city_id', ["Cities" => $citiesName], null, array('class' => 'form-control', 'placeholder' => "Select a city")) !!}
-        </div>
-        
-        <div class="row">
-            <div class="form-group col-lg-12">
-                <label for="pick_up_date">Pick up date</label>
-                <br>
-                <div class='col-sm-8'>
+    <div class="container">
+        <div class="col 12">
+            <div class="card mt-5">
+                <div class="card-content">
+                    <span class="card-title align center"><h5 class="mb-1 mt-0">Search for a car</h5></span>
                     <div class="form-group">
-                        <div class='input-group date' id='pick_up_date'>
-                            <input type='date' name="pick_up_date" class="form-control" />
+                        {!!Form::open(['method' => 'get', 'route' => ['companiesSearch']])!!}
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <div class="input-field col s6">
+                                    <input placeholder="Enter a city" type="text" id="departure_city" class="autocomplete" name="city">
+                                    <label for="departure_city">City</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">date_range</i>
+                                <label for="departure_date">Start Date</label>
+                                <input type="text" class="datepicker" name="start_date" id="departure_date">
+                            </div>
+
+                            <div class="input-field col s6">
+                                {!! Form::select('start_hour',['Start Hours' => $timeInterval], null, ['class' => 'form-control']) !!}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6" id="one-way-div">
+                                <i class="material-icons prefix">date_range</i>
+                                <input type="text" class="datepicker" name="end_date" id="arrival_date">
+                                <label for="arrival_date">End Date</label>
+                            </div>
+
+                            <div class="input-field col s6">
+                                {!! Form::select('end_hour',['End Hours' => $timeInterval], null, ['class' => 'form-control']) !!}
+                            </div>
+                        </div>
+
+                        <div class="card-action">
+                            <div class="row mb-0">
+                                <button class="right blue darken-4 waves-effect waves-light btn" type="submit" name="action">Search Hotel<i class="material-icons left">search</i></button>
+                                {!!Form::close()!!}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-                
-
-        <div class="row">
-            <div class="form-group col-lg-12">
-                <label for="return_date">Return date</label>
-                <br>
-                <div class='col-sm-8'>
-                    <div class="form-group">
-                        <div class='input-group date' id='return_date'>
-                            <input type="date" name="return_date" class="form-control" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="form-group col-lg-12">
-                <label for="pick_up_time">Pick up time</label>
-                <br>
-                <div class='col-sm-8'>
-                    <div class="form-group">
-                        <div class='input-group time' id='pick_up_time'>
-                            <input type='time' name="pick_up_time" class="form-control" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="form-group col-lg-12">
-                <label for="return_time">Return time</label>
-                <br>
-                <div class='col-sm-8'>
-                    <div class="form-group">
-                        <div class='input-group time' id='return_time'>
-                            <input type='time' name="return_time" class="form-control" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {!! Form::button('Search', ['type' => 'submit', 'class' => 'btn btn-sm btn-primary']) !!}
-        {!! Form::close() !!}
     </div>
-</div>
+    </div>
+
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready(function(){
+            $('select').formSelect();
+        });
+
+        $(document).ready(function(){
+
+            $('input.autocomplete').autocomplete(
+                {
+                    data: {!! $citiesName !!},
+                });
+            $('select').formSelect();
+            $('.datepicker').datepicker(
+                {
+                    format: 'yyyy-mm-dd',
+                    minDate: new Date({{ $yyyy }},{{ $mm }}, {{$dd}}),
+                });
+        });
 
 
-@endsection   
+
+    </script>
+
+
+@endsection

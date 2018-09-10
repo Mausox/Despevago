@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\BranchOffice;
 use App\Company;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use App\Car;
 use App\City;
@@ -157,5 +159,13 @@ class CompanyController extends Controller
         $companies = Company::where('city_id', $city_id)->get();
         return $companies;
     }
+
+    public function searchCompanies(Request $request)
+    {
+        $city = City::where('name',$request->city)->first();
+        $branch_offices = BranchOffice::where('city_id', $city->id)->get();
+        return view('despevago.cars.search', compact('citiesName','yyyy','mm','dd','timeInterval'));
+    }
+
 
 }

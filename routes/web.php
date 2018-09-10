@@ -45,8 +45,11 @@ Route::get('dashboard/hotels/byCity/{city_id}', "HotelController@searchHotelByCi
 //<-------------------         Hotel      --------------------->
 
 //<----------------------    Company    ----------------------->
-Route::resource('dashboard/companies', 'CompanyController')->middleware('AuthAdmin');
+Route::resource('/dashboard/companies', 'CompanyController')->middleware('AuthAdmin');
 Route::get('dashboard/companies/byCity/{city_id}', "CompanyController@searchCompanyByCity")->name('companiesByCity');
+//Route::get('companies/search/cars', "CompanyController@searchCompanyByCity")->name('companiesByCity');
+Route::get('/companies/search', "CompanyController@searchCompanies")->name('companiesSearch');
+
 //<----------------------    Company    ----------------------->
 
 //<-------------------         BranchOffice       --------------------->
@@ -107,7 +110,7 @@ Route::resource('/reservations','ReservationController');
 
 //Cars
 Route::resource('/cars', 'CarController');
-Route::get('/searchCar', 'CarController@search');
+Route::get('/searchCar', 'SearchController@searchCar');
 Route::resource('/car_options', 'CarOptionController');
 Route::resource('/branch_offices', 'BranchOfficeController');
 Route::resource('/companies', 'CompanyController');
