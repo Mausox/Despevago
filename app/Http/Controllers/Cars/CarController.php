@@ -89,7 +89,7 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Car $car)
+    public function edit($id)
     {
         $car = Car::find($id);
         $car_options = CarOption::all();
@@ -114,18 +114,26 @@ class CarController extends Controller
      */
     public function update(Request $request, $id)
     {
-        /*Car::find($id)->update($request->all());
-        return "The car ID:{$id} was updated!";*/
-        request()->validate([
-            'brand' => 'required',
-            'model' => 'required',
-            'type' => 'required',
-            'capacity' => 'required|integer|min:0',
-            'price' => 'required|integer|min:0',
-            'branch_office_id' => 'required',
-        ]);
-        Car::find($id)->update($request->all());
-        return redirect()->route('cars.index')->with('success', 'Car updated successfully!');
+        $car = Car::find($id)->fill($request->all());
+        /*if ($request->file())
+        {
+            $car->car_image = $request->file('car_image')->store('public/cars');
+        }*/
+
+        $car->save();
+
+        foreach ($request->car_options as $car_option)
+        {
+            $car->car_options()->detach($car_option);
+        }
+
+        foreach ($request->car_options as $car_option)
+        {
+            $car->car_options()->attach($car_option);
+        }
+
+        UserHistory::create(['action_type' => "Update",'action' => 'Updated the car with ID: '.$car->id,'date' => Carbon::now(),'hour' => Carbon::now(),'user_id' => Auth::user()->id]);
+        return redirect()->route('cars.show', [$car->id])->with('status',"The car ID: $car->id has been updated!");
 
     }
 

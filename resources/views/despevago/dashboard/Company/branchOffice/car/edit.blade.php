@@ -35,13 +35,13 @@
 
                 <div class="form-group">
                     {!! Form::label('model', 'Model'); !!}
-                    {!! Form::text('model', null, array('class' => 'form-control', 'required' => 'required')); !!}
+                    {!! Form::text('model', $car->model, array('class' => 'form-control', 'required' => 'required')); !!}
                     @include('common.errors', ['name' => 'model'])
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('type', 'Type'); !!}
-                    {!! Form::text('type', null, array('class' => 'form-control', 'required' => 'required')); !!}
+                    {!! Form::text('type', $car->type, array('class' => 'form-control', 'required' => 'required')); !!}
                     @include('common.errors', ['name' => 'type'])
                 </div>
 
@@ -52,21 +52,14 @@
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('price', 'Price'); !!}
-                    {!! Form::text('price', null, array('class' => 'form-control','required' => 'required')); !!}
+                    {!! Form::label('price', 'Price '); !!}
+                    {!! Form::text('price', $car->price, array('class' => 'form-control','required' => 'required')); !!}
                     @include('common.errors', ['name' => 'price'])
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('car_options', 'Seleccione las opciones de la habitación'); !!}
-                    {!! Form::select('car_option_id', ["Opciones habitación" => $car_options_name],$actual_room_options, array('class' => 'js-example-basic-multiple form-control', 'name' => 'room_options[]', 'multiple' => 'multiple')) !!}
-
-                    <div class="form-group">
-                        {!! Form::label('room_image', 'Imagen de la habitación'); !!}
-                        {!! Form::file('room_image', array('class' => 'form-control'));!!}
-                        @include('common.errors', ['name' => 'room_image'])
-                    </div>
-
+                    {!! Form::label('car_options', 'Select the car options'); !!}
+                    {!! Form::select('car_option_id', ["Car Options" => $car_options_name],$actual_car_options, array('class' => 'js-example-basic-multiple form-control', 'name' => 'car_options[]', 'multiple' => 'multiple')) !!}
 
                 </div>
 
@@ -76,7 +69,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div style="margin-top:20px" class="text-center mb-3">
-                        {!! Form::button('Modificar Habitación', array('class' => 'btn btn-primary', 'type' => 'submit')); !!}
+                        {!! Form::button('Update car', array('class' => 'btn btn-primary', 'type' => 'submit')); !!}
                         {!! Form::close() !!}
 
                     </div>
