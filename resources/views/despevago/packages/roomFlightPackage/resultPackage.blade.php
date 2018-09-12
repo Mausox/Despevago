@@ -1,6 +1,6 @@
 @extends('despevago.materialize')
 
-@section('title', 'Car Flight Packages')
+@section('title', 'Room Flight Packages')
 
 @section('header')
     @include('despevago.headers.auth')
@@ -16,7 +16,7 @@
                 <a class="mt-3 blue darken-4 waves-effect waves-light btn-small" href="{{ route('packages')}}"><i class="material-icons left">keyboard_arrow_left</i>Back</a>
             </div>          
                 <div class="card-content">
-                    <span class="card-title valign center"><h5 class="mb-1 mt-0">Packages in {{ $city }}</h5></span>
+                    <span class="card-title valign center"><h5 class="mb-1 mt-0">Packages in {{ $city->name }}</h5></span>
                     <div class="row 12">
                         @foreach ($packages as $package)
 
@@ -34,11 +34,11 @@
                                     <br>
                                     <p><i class="left material-icons">date_range</i> To: {{ $package->end_date }}</p>
                                     <br>
-                                    <p><i class="left material-icons">attach_money</i> Discount: {{ $package->discount }} % off</p>
+                                    <p><i class="left material-icons">attach_money</i> Discount: {{ $package->discount }} off</p>
                                 </div>
                                 <div class="card-action">
                                     <div class="row mb-0">
-                                        <a class="mt-3 blue darken-4 waves-effect waves-light btn-small"  href="{{ route('car_flight_packages.show', $package->id) }}"><i class="material-icons right">add</i>Buy</a>
+                                        <a class="mt-3 blue darken-4 waves-effect waves-light btn-small"  href="{{ route('room_flight_packages.show', $package->id) }}"><i class="material-icons right">add</i>Buy</a>
                                     </div>
                                 </div>
                             </div>

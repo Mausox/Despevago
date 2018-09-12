@@ -83,12 +83,15 @@ class PackageController extends Controller
         //
     }
 
-    public function searchPackagesByCity(Request $request)
+    public function searchPackagesCarByCity(Request $request)
     {
-        $city_id = $request->city_id;
-        $radio = $request->option;
-        $city = City::find($city_id)->name;
-
+        //$radio = $request->option;
+        $city = City::where('name',$request->arrival_city)->first();
+        $city_id = $city->id;
+        $packages = City::find($city_id)->car_flight_packages;
+        return view('despevago.packages.carFlightPackage.resultPackage', compact('packages', 'city'));
+        
+        /*
         if($request->option == 0)
         {
             //Vuelo+Auto
@@ -101,15 +104,17 @@ class PackageController extends Controller
             $packages = City::find($city_id)->room_flight_packages;
             return "vuelo+hotel";
             //return view('despevago.packages.roomFlightPackage.index', compact('packages', 'city'));   
-        }
-        
+        }*/
+    }
 
-        
-        
-        
-        //$activities = City::find($city_id)->activities;
-        //$city = City::find($city_id)->name;
-        //return view('despevago.activities.index', compact('activities', 'city'));
-        //return $activity->all();
+    public function searchPackagesRoomByCity(Request $request)
+    {
+        $city = City::where('name',$request->arrival_city)->first();
+        $city_id = $city->id;
+        $packages = City::find($city_id)->car_flight_packages;
+        return view('despevago.packages.roomFlightPackage.resultPackage', compact('packages', 'city')); 
+
+
+
     }
 }
