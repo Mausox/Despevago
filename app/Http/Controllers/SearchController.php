@@ -100,11 +100,12 @@ class SearchController extends Controller
         ])->get();
 
         $branch_office = BranchOffice::find($branch_office_id);
-
+        $branch_offices = BranchOffice::where('city_id',$branch_office->city_id)->get();
         $city = $branch_office->city;
 
         if ($cars->isEmpty())
         {
+            $request->session()->flash('status', "All the cars of this company has been used, please, try other");
             return view('despevago.cars.companiesResult',
                 compact('branch_offices','city','start_date','end_date','start_hour','end_hour'))
                 ->with('status', "All the cars of this company has been used, please, try other");

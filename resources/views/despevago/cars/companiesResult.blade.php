@@ -12,6 +12,11 @@
     <div class="container">
         <div class="col 12">
             <div class="card mt-5">
+                @if (session('status'))
+                    <div class="alert alert-warning" role="alert">
+                        <p>{{ session('status') }}</p>
+                    </div>
+                @endif
                 <div class="row mb-0 pad-5">
                     <a class="mt-3 blue darken-4 waves-effect waves-light btn-small" href="{{ route('searchCarsForm')}}"><i class="material-icons left">keyboard_arrow_left</i>Back</a>
                 </div>
@@ -19,12 +24,15 @@
                     <span class="card-title align center"><h5 class="mb-1 mt-0">Cars Companies in {{ $city->name }}</h5></span>
                     <div class="row 12">
 
+
+
                     @foreach ($branch_offices as $branch_office)
                             <div class="col s12 m6 l4 xl4">
                                 <div class="card sticky-action">
                                     <div class="card-image waves-effect waves-block waves-light">
                                         <img class="activator" src="{{asset('img/default/companies_default.png')}}">
                                     </div>
+
                                     <div class="card-content">
                                         <span class="card-title activator grey-text text-darken-4">{{ $branch_office->company->name }}<i class="material-icons right">more_vert</i></span>
                                     </div>
