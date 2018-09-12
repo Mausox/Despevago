@@ -22,11 +22,12 @@
         <div class="col s12 m5 l6">
             <div class="card-panel">
                 <div class="card-image waves-effect waves-block waves-light">
-                    <img class="materialboxed" width="480" src="{{ asset('img/castillo.jpg') }}">
+                    <img class="materialboxed" width="480" src="{{ asset('img/default/activities_default.png') }}">
                 </div>
             </div>
         </div>
-        <div class="col s12 m5 l6">
+
+      <div class="col s12 m5 l6">
             <div class="card-panel">
                     <span class="card-title activator grey-text text-darken-4"><h4>{{ $activity->name }}</h4></span>
                     <p>Description {{ $activity->description }}</p>
@@ -59,7 +60,7 @@
                         <input type='hidden' name="activity_id" value = "{{$activity->id}}" class="form-control" />
                         <strong> Adult number</strong>
                         <div class='input-group date' id='adult_number'>
-                                <input type='number' name="adult_number" class="form-control" /> 
+                                <input type='number' min="0" max="{{$activity->capacity}}" name="adult_number" class="form-control" />
                         </div>
                     </div>
                 </div>
@@ -68,7 +69,7 @@
                     <div class="form-group">
                         <strong> Child number</strong>
                         <div class='input-group date' id='child_number'>
-                                <input type='number' name="child_number" class="form-control" />
+                                <input type='number' min="0" max="{{$activity->capacity}}" name="child_number" class="form-control" />
                         </div>
                     </div>
                 </div>

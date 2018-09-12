@@ -28,13 +28,13 @@ class SearchController extends Controller
 
     public function searchActivities()
     {
-        $cities = City::all();
-        $citiesName = array();
-
-        foreach ($cities as  $city)
+        $cities = City::all()->sortBy('name');
+        $citiesName = collect([]);
+        foreach ($cities as $city)
         {
-            $citiesName[$city->id] = $city->name;
+            $citiesName = $citiesName->merge([$city->name => null]);
         }
+
         return view('despevago.activities.search', compact('citiesName'));
     }
 
@@ -100,15 +100,14 @@ class SearchController extends Controller
         ])->get();
 
         $branch_office = BranchOffice::find($branch_office_id);
-        $branch_offices = BranchOffice::where('city_id',$branch_office->city_id)->get();
         $city = $branch_office->city;
 
         if ($cars->isEmpty())
         {
+            $branch_offices = BranchOffice::where('city_id',$branch_office->city_id)->get();
             $request->session()->flash('status', "All the cars of this company has been used, please, try other");
             return view('despevago.cars.companiesResult',
-                compact('branch_offices','city','start_date','end_date','start_hour','end_hour'))
-                ->with('status', "All the cars of this company has been used, please, try other");
+                compact('branch_offices','city','start_date','end_date','start_hour','end_hour'));
         }
 
         return view('despevago.cars.carsResults',

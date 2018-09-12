@@ -27,7 +27,6 @@ Route::get('/admin-home', 'HomeController@index')->middleware('AuthAdmin');
 
 //<-------------------      Activities     --------------------->
 Route::resource('/activity','ActivityController');
-
 Route::post('/activities/byCity', 'ActivityController@searchActivitiesByCity')->name('activitiesByCity');
 Route::get('/activities/byDate/{date}', 'ActivityController@searchActivitiesByDate')->name('activitiesByDate');
 //<-------------------      Activities     --------------------->
@@ -37,7 +36,7 @@ Route::resource('/car_flight_packages', 'CarFlightPackageController');
 Route::resource('/countries', 'CountryController');
 
 //<-------------------         Hotel      --------------------->
-Route::get('/hotels/search/rooms', "HotelController@searchHotelRoom")->name('searchHotelRoom');
+Route::get('/hotels/search/room', "HotelController@searchHotelRoom")->name('searchHotelRoom');
 Route::get('/hotels/search','HotelController@searchFormHotel')->name('searchFormHotel');
 Route::get('/hotels/search_results', "HotelController@searchHotelByCity")->name('searchHotel');
 Route::resource('dashboard/hotels', 'HotelController')->middleware('AuthAdmin');
@@ -68,8 +67,8 @@ Route::get('/cars/byBranchOffices/{branch_office_id}', 'CarController@searchCars
 Route::resource('/passenger', 'PassengerController');
 
 //<-------------------         Room       --------------------->
-Route::resource('/dashboard/hotels/rooms', 'RoomController')->middleware('AuthAdmin');
-Route::get('/dashboard/hotels/{hotel_id}/rooms/create', 'RoomController@create')->middleware('AuthAdmin');
+Route::resource('/dashboard/hotels/room', 'RoomController')->middleware('AuthAdmin');
+Route::get('/dashboard/hotels/{hotel_id}/room/create', 'RoomController@create')->middleware('AuthAdmin');
 Route::get('/room/byHotel/{hotel_id}', 'RoomController@searchRoomsByHotel')->name('roomsByHotel');
 //<-------------------         Room       --------------------->
 

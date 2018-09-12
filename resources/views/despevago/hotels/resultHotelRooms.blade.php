@@ -10,23 +10,28 @@
 
 @section('content')
     <div class="container">
-        <h1>Hotel {{$hotel->name}}</h1>
+
         {!!Form::open(['method' => 'GET', 'route' => ['searchHotel']])!!}
-        {!!Form::hidden('city_id', $rooms->first()->hotel()->first()->id)!!}
+        {!!Form::hidden('city', $rooms->first()->hotel()->first()->city->name)!!}
         {!!Form::hidden('start_date', $start_date)!!}
         {!!Form::hidden('end_date', $end_date)!!}
         {!!Form::hidden('number_adults', $number_adults)!!}
         {!!Form::hidden('number_children', $number_children)!!}
-        {!!Form::hidden('number_room', $rooms->count())!!}
+        {!!Form::hidden('number_room', $number_room)!!}
         <button type="submit" class="mt-3 blue darken-4 waves-effect waves-light btn-small"><i class="material-icons left">keyboard_arrow_left</i>Back</button>
         {!!Form::close()!!}
+
+        <h5 class="mt-5">Hotel {{$hotel->name}}</h5>
+        <hr class="mb-5">
+
         <div class="row">
             @foreach($rooms as $room)
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
                             <div class="row ">
-                                <img class="activator" src="{{ asset('img/room.jpg')}}" width="300px" height="300px" align="left">
+                                <img class="activator" src="{{ Storage::url($room->room_image)}}" width="300px" height="300px" align="left">
+                                <br>
                                 <p><i class="left material-icons">person</i> Capacity: {{ $room->capacity }}</p>
                                 <p><i class="left material-icons">attach_money</i> Adult price: {{$room->adult_price}}</p>
                                 <p><i class="left material-icons">attach_money</i> Children price: {{$room->child_price}}</p>

@@ -10,15 +10,16 @@
 
 @section('content')
 
-    @if (session('status'))
-        <div class="alert alert-primary" role="alert">
-            <p>{{ session('status') }}</p>
-        </div>
-    @endif
 
     <div class="container">
         <div class="col 12">
             <div class="card mt-5">
+
+                @if (session('status'))
+                    <div class="alert alert-warning" role="alert">
+                        <p>{{ session('status') }}</p>
+                    </div>
+                @endif
                 <div class="card-content">
                     <span class="card-title align center"><h5 class="mb-1 mt-0">Search for an hotel</h5></span>
                         <div class="form-group">
@@ -26,7 +27,7 @@
                             <div class="col-xs-12">
                                 <div class="form-group">
                                     <div class="input-field col s6">
-                                        <input onblur="if(this.value != '') { this.value = ''; }" placeholder="Enter a city" type="text" id="departure_city" class="autocomplete" name="city">
+                                        <input onblur="if(this.value != '') { this.value = ''; }" placeholder="Enter a city" type="text" id="departure_city" class="autocomplete" name="city" required>
                                         <label for="departure_city">City</label>
                                     </div>
                                 </div>
@@ -34,44 +35,47 @@
                             <div class="row">
                                 <div class="input-field col s6">
                                     <i class="material-icons prefix">date_range</i>
-                                    <input type="text" class="datepicker" name="start_date" id="departure_date">
+                                    <input type="text" class="datepicker" name="start_date" id="departure_date" required>
                                     <label for="departure_date">Start Date</label>
                                 </div>
 
                                 <div class="input-field col s6" id="one-way-div">
                                     <i class="material-icons prefix">date_range</i>
-                                    <input type="text" class="datepicker" name="end_date" id="arrival_date">
+                                    <input type="text" class="datepicker" name="end_date" id="arrival_date" required>
                                     <label for="arrival_date">End Date</label>
                                 </div>
                             </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <strong>Number of adults: </strong>
-                                    <div>
-                                        {!! Form::number('number_adults', null, ['class' => 'form-control']) !!}
+                            <div class="row">
+                                <div class="col m6 l6">
+                                    <div class="form-group">
+                                        <strong>Number of adults: </strong>
+                                        <div>
+                                            {!! Form::number('number_adults', null, ['class' => 'form-control','max' => '8', 'min' => '0', 'required' => 'required']) !!}
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col m6 l6">
+                                        <strong>Number of children: </strong>
+                                        <div>
+                                            {!! Form::number('number_children', null, ['class' => 'form-control','max' => '8', 'min' => '0', 'required' => 'required']) !!}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <strong>Number of children: </strong>
-                                    <div>
-                                        {!! Form::number('number_children', null, ['class' => 'form-control']) !!}
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <strong>Number of rooms: </strong>
+                                        <div>
+                                            {!! Form::number('number_room', null, ['class' => 'form-control','max' => '8', 'min' => '0', 'required' => 'required']) !!}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <strong>Number of rooms: </strong>
-                                    <div>
-                                        {!! Form::number('number_room', null, ['class' => 'form-control']) !!}
+                                <div class="card-action">
+                                    <div class="row mb-0">
+                                        <button class="right blue darken-4 waves-effect waves-light btn" type="submit" name="action">Search Hotel<i class="material-icons left">search</i></button>
+                                        {!!Form::close()!!}
                                     </div>
-                                </div>
-                            </div>
-                            <div class="card-action">
-                                <div class="row mb-0">
-                                    <button class="right blue darken-4 waves-effect waves-light btn" type="submit" name="action">Search Hotel<i class="material-icons left">search</i></button>
-                                    {!!Form::close()!!}
                                 </div>
                             </div>
                         </div>

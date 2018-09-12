@@ -139,7 +139,7 @@
                                 {!! $room->description !!}
                             </td>
                             <td class="text-center">
-                                <a href="{!! url('dashboard/hotels/rooms/'.$room->id) !!}"> <button type="button" class="btn btn-info">Ver</button></a>
+                                <a href="{!! url('room'.$room->id) !!}"> <button type="button" class="btn btn-info">Ver</button></a>
                             </td>
                         </tr>
                     @endforeach

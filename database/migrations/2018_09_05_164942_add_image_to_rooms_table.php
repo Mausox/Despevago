@@ -13,7 +13,7 @@ class AddImageToRoomsTable extends Migration
      */
     public function up()
     {
-        Schema::table('rooms', function (Blueprint $table) {
+        Schema::table('room', function (Blueprint $table) {
             $table->string('room_image')->default('public/room/room_default.png');
         });
     }
@@ -25,7 +25,7 @@ class AddImageToRoomsTable extends Migration
      */
     public function down()
     {
-        Schema::table('rooms', function (Blueprint $table) {
+        Schema::table('room', function (Blueprint $table) {
             $table->dropColumn('room_image');
         });
     }
