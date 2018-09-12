@@ -11,7 +11,7 @@
 |
 */
 Route::get('/flights', 'SearchController@searchFlight');
-Route::get('/activities', 'SearchController@searchActivities')->name('activities');
+
 
 
 Route::get('/', function()
@@ -27,12 +27,19 @@ Route::get('/admin-home', 'HomeController@index')->middleware('AuthAdmin');
 
 //<-------------------      Activities     --------------------->
 Route::resource('/activity','ActivityController');
-
+Route::get('/activities', 'SearchController@searchActivities')->name('activities');
 Route::post('/activities/byCity', 'ActivityController@searchActivitiesByCity')->name('activitiesByCity');
 Route::get('/activities/byDate/{date}', 'ActivityController@searchActivitiesByDate')->name('activitiesByDate');
 //<-------------------      Activities     --------------------->
 
+
+
+//<-------------------      Packages     --------------------->
+Route::get('/packages', 'SearchController@searchPackages')->name('packages');
+Route::post('/packages/byCity', 'PackageController@searchPackagesByCity')->name('packagesByCity');
 Route::resource('/car_flight_packages', 'CarFlightPackageController');
+
+//<-------------------      Packages     --------------------->
 
 Route::resource('/countries', 'CountryController');
 

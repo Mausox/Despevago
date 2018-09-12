@@ -33,4 +33,17 @@ class SearchController extends Controller
         }
         return view('despevago.activities.search', compact('citiesName'));
     }
+
+    public function searchPackages()
+    {
+        $cities = City::all();
+        $citiesName = array();
+
+        foreach ($cities as  $city)
+        {
+            $citiesName[$city->id] = $city->name;
+        }
+        return view('despevago.packages.search', compact('citiesName'));
+    }
+    
 }
