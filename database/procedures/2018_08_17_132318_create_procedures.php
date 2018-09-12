@@ -55,6 +55,43 @@ class CreateProcedures extends Migration
         $$
         LANGUAGE plpgsql;");
 
+
+        DB::unprepared("
+        CREATE OR REPLACE FUNCTION add_empty_room_package()
+        RETURNS trigger AS $$
+            BEGIN
+        INSERT INTO room_flight_packages ( 
+   name, start_date, start_hour, end_date, 
+   end_hour, discount, city_id, room_id, 
+   seat_id, created_at, updated_at
+    )
+        SELECT name, start_date, start_hour, end_date, 
+    end_hour, discount, city_id, null, 
+    null, NOW()::timestamp - INTERVAL '3 hours', NOW()::timestamp - INTERVAL '3 hours'
+    FROM room_flight_packages WHERE id=NEW.room_flight_package_id AND end_date > NOW()::timestamp - INTERVAL '3 hours';
+        RETURN NULL;
+        END;
+        $$
+        LANGUAGE plpgsql;");
+
+        DB::unprepared("
+        CREATE OR REPLACE FUNCTION add_empty_car_package()
+        RETURNS trigger AS $$
+            BEGIN
+        INSERT INTO car_flight_packages ( 
+   name, start_date, start_hour, end_date, 
+   end_hour, discount, city_id, car_id, 
+   seat_id, created_at, updated_at
+    )
+        SELECT name, start_date, start_hour, end_date, 
+    end_hour, discount, city_id, null, 
+    null, NOW()::timestamp - INTERVAL '3 hours', NOW()::timestamp - INTERVAL '3 hours'
+    FROM car_flight_packages WHERE id=NEW.car_flight_package_id AND end_date > NOW()::timestamp - INTERVAL '3 hours';
+        RETURN NULL;
+        END;
+        $$
+        LANGUAGE plpgsql;");
+
     }
 
     /**
