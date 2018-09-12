@@ -13,10 +13,10 @@
         <div class="col 12">
             <div class="card mt-5">
                 <div class="row mb-0 pad-5">
-                    <a class="mt-3 blue darken-4 waves-effect waves-light btn-small" href="{{ route('searchCarCompanies')}}"><i class="material-icons left">keyboard_arrow_left</i>Back</a>
+                    <a class="mt-3 blue darken-4 waves-effect waves-light btn-small" href="{{ route('searchCarsForm')}}"><i class="material-icons left">keyboard_arrow_left</i>Back</a>
                 </div>
                 <div class="card-content">
-                    <span class="card-title align center"><h5 class="mb-1 mt-0">Cars Companies in {{ $branch_offices->first()->city()->first()->name }}</h5></span>
+                    <span class="card-title align center"><h5 class="mb-1 mt-0">Cars Companies in {{ $city->name }}</h5></span>
                     <div class="row 12">
 
                     @foreach ($branch_offices as $branch_office)
@@ -42,7 +42,7 @@
                                     </div>
                                     <div class="card-action">
                                         <div class="row mb-0">
-                                            {!!Form::open(['method' => 'GET', 'route' => ['searchCar']])!!}
+                                            {!!Form::open(['method' => 'GET', 'route' => ['searchCars']])!!}
                                             {!!Form::hidden('branch_office_id', $branch_office->id)!!}
                                             {!!Form::hidden('start_date', $start_date)!!}
                                             {!!Form::hidden('end_date', $end_date)!!}

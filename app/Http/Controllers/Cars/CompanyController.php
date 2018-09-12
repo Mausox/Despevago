@@ -174,7 +174,7 @@ class CompanyController extends Controller
 
         if ($branch_offices->isEmpty())
         {
-            return redirect()->route('searchCarCompanies')->with('status', "There is no companies in the city: ".$request->city);
+            return redirect()->route('searchCarsForm')->with('status', "There is no car companies in ".$request->city);
         }
 
         return view('despevago.cars.companiesResult',

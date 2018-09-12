@@ -10,19 +10,20 @@
 
 @section('content')
 
-    @if (session('status'))
-        <div class="alert alert-primary" role="alert">
-            <p>{{ session('status') }}</p>
-        </div>
-    @endif
+
 
     <div class="container">
         <div class="col 12">
             <div class="card mt-5">
+                @if (session('status'))
+                    <div class="alert alert-warning" role="alert">
+                        <p>{{ session('status') }}</p>
+                    </div>
+                @endif
                 <div class="card-content">
                     <span class="card-title align center"><h5 class="mb-1 mt-0">Search for a car</h5></span>
                     <div class="form-group">
-                        {!!Form::open(['method' => 'get', 'route' => ['companiesSearch'], "autocomplete" => "off"])!!}
+                        {!!Form::open(['method' => 'get', 'route' => ['searchCarCompanies'], "autocomplete" => "off"])!!}
                         <div class="col-xs-12">
                             <div class="form-group">
                                 <div class="input-field col s6">

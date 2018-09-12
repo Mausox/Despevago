@@ -12,7 +12,7 @@
     <div class="container">
 
         @if (session('status'))
-            <div class="alert alert-danger text-center">
+            <div class="alert alert-success text-center">
                 <p>{{ session('status') }}</p>
             </div>
         @endif
@@ -61,6 +61,25 @@
                         {!! Form::hidden('service', 'activity') !!}
                         {!! Form::hidden('activity_id', $activity->id) !!}
                     {!! Form::close() !!}
+                    </td>
+                </tr>
+            @endforeach
+
+            @foreach($unaCars as $unaCar)
+                <tr>
+                    <td>Car </td>
+                    <td>{{ $unaCar->pick_up_date}} <p></p>
+                        {{ $unaCar->return_date}}</td>
+                    <td><strong>City to pick up:</strong> {{ $unaCar->car->branch_office->city->name}}<p></p>
+                        <strong>Address :</strong> {{ $unaCar->car->branch_office->address }}
+                    </td>
+                    <td>{{  $unaCar->car->price}}</td>
+                    <td>
+                        {!! Form::open(['method' => 'DELETE', 'route' => 'user.shopping_cart.destroy']) !!}
+                        <button type="submit" class="red darken-4 waves-effect waves-light btn-small">Remove</button>
+                        {!! Form::hidden('service', 'car') !!}
+                        {!! Form::hidden('unavailable_car_id', $unaCar->id) !!}
+                        {!! Form::close() !!}
                     </td>
                 </tr>
             @endforeach

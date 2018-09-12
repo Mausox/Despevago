@@ -14,6 +14,7 @@
         <h1>Company {{$branch_office->company->name}}</h1>
         {!!Form::open(['method' => 'GET', 'route' => ['searchCarCompanies']])!!}
         {!!Form::hidden('branch_office_id', $branch_office->id)!!}
+        {!!Form::hidden('city', $city->name)!!}
         {!!Form::hidden('start_date', $start_date)!!}
         {!!Form::hidden('end_date', $end_date)!!}
         {!!Form::hidden('start_hour', $start_hour)!!}
@@ -39,7 +40,6 @@
                                     {!!Form::hidden('car_id', $car->id)!!}
                                     {!!Form::hidden('pick_up_date', $pick_up_date)!!}
                                     {!!Form::hidden('return_date', $return_date)!!}
-
                                     @if(Auth::check())
                                         <div class="col right">
                                             <button type="submit" class="blue darken-4 waves-effect waves-light btn">Add to cart!</button>

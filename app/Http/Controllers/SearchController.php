@@ -37,7 +37,7 @@ class SearchController extends Controller
         return view('despevago.activities.search', compact('citiesName'));
     }
 
-    public function searchCarForm()
+    public function searchCarsForm()
     {
         /*$branch_office_all = BranchOffice::all();
         $branch_offices = $branch_office_all->pluck('address')->toArray();
@@ -81,16 +81,17 @@ class SearchController extends Controller
         return $times;
     }
 
-    public function searchCar(Request $request)
+    public function searchCars(Request $request)
     {
         $branch_office_id = $request->branch_office_id;
         $start_date = $request->start_date;
         $end_date = $request->end_date;
-        $start_hour = $request->start_hour;
+
+        $start_hour = ($request->start_hour);
         $end_hour = $request->end_hour;
 
-        $pick_up_date = new Carbon($start_date.' '.$start_hour);
-        $return_date = new Carbon($end_date.' '.$end_hour);
+        $pick_up_date = (new Carbon($start_date.$start_hour))->toDateTimeString();
+        $return_date = (new Carbon($end_date.$end_hour))->toDateTimeString();
 
         $cars = Car::whereDoesntHave('unavailable_cars', function ($query) use ($pick_up_date, $return_date){
             $query->where('pick_up_date','>',$pick_up_date)->where('return_date','<',$return_date);
@@ -99,6 +100,9 @@ class SearchController extends Controller
         ])->get();
 
         $branch_office = BranchOffice::find($branch_office_id);
+
+        $city = $branch_office->city;
+
         if ($cars->isEmpty())
         {
             return view('despevago.cars.companiesResult',
@@ -107,7 +111,7 @@ class SearchController extends Controller
         }
 
         return view('despevago.cars.carsResults',
-            compact('cars','pick_up_date','return_date','branch_office','start_hour','start_date','end_hour','end_date'));
+            compact('cars','pick_up_date','city','return_date','branch_office','start_hour','start_date','end_hour','end_date'));
 
 
     }

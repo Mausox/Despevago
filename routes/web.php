@@ -48,7 +48,6 @@ Route::get('dashboard/hotels/byCity/{city_id}', "HotelController@searchHotelByCi
 Route::resource('/dashboard/companies', 'CompanyController')->middleware('AuthAdmin');
 Route::get('dashboard/companies/byCity/{city_id}', "CompanyController@searchCompanyByCity")->name('companiesByCity');
 //Route::get('companies/search/cars', "CompanyController@searchCompanyByCity")->name('companiesByCity');
-Route::get('/companies/search', "CompanyController@searchCompanies")->name('companiesSearch');
 
 //<----------------------    Company    ----------------------->
 
@@ -107,11 +106,17 @@ Route::post('/reservation/room_flight_package', 'ReservationController@roomFligh
 Route::post('/reservation/finish', "ReservationController@finishReservation")->name('finishReservations');
 Route::resource('/reservations','ReservationController');
 
+//<-------------------     Car Search    --------------------->
+
+Route::get('/search/cars/form', 'SearchController@searchCarsForm')->name('searchCarsForm');
+Route::get('/search/cars','SearchController@searchCars')->name('searchCars');
+Route::get('/search/cars/companies', "CompanyController@searchCompanies")->name('searchCarCompanies');
+
+//<-------------------     Car Search    --------------------->
+
 
 //Cars
 Route::resource('/cars', 'CarController');
-Route::get('/searchCarCompanies', 'CompanyController@searchCompanies')->name('searchCarCompanies');
-Route::get('/searchCar','SearchController@searchCar')->name('searchCar');
 Route::resource('/car_options', 'CarOptionController');
 Route::resource('/branch_offices', 'BranchOfficeController');
 Route::resource('/companies', 'CompanyController');
