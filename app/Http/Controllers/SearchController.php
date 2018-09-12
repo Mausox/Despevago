@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\BranchOffice;
 use App\Car;
+use App\UnavailableCar;
 use DateTime;
 use Illuminate\Http\Request;
 use App\City;
@@ -92,9 +93,8 @@ class SearchController extends Controller
 
         $pick_up_date = (new Carbon($start_date.$start_hour))->toDateTimeString();
         $return_date = (new Carbon($end_date.$end_hour))->toDateTimeString();
-
         $cars = Car::whereDoesntHave('unavailable_cars', function ($query) use ($pick_up_date, $return_date){
-            $query->where('pick_up_date','>',$pick_up_date)->where('return_date','<',$return_date);
+            $query->where('pick_up_date','>=',$pick_up_date)->where('return_date','<=',$return_date);
         })->where([
             ['branch_office_id', $branch_office_id]
         ])->get();
