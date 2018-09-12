@@ -549,7 +549,7 @@ class ReservationController extends Controller
     public function carReservation(Request $request)
     {
         $car_id = $request->car_id;
-        $user_id = $request->user_id;
+        $user_id = Auth::user()->id;
         $pick_up_date = $request->pick_up_date;
         $return_date = $request->return_date;
 

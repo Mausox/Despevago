@@ -163,8 +163,22 @@ class CompanyController extends Controller
     public function searchCompanies(Request $request)
     {
         $city = City::where('name',$request->city)->first();
+
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+        $start_hour = $request->start_hour;
+        $end_hour = $request->end_hour;
+
+
         $branch_offices = BranchOffice::where('city_id', $city->id)->get();
-        return view('despevago.cars.search', compact('citiesName','yyyy','mm','dd','timeInterval'));
+
+        if ($branch_offices->isEmpty())
+        {
+            return redirect()->route('searchCarCompanies')->with('status', "There is no companies in the city: ".$request->city);
+        }
+
+        return view('despevago.cars.companiesResult',
+            compact('branch_offices','city','start_date','end_date','start_hour','end_hour'));
     }
 
 

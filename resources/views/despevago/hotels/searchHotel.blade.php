@@ -22,11 +22,11 @@
                 <div class="card-content">
                     <span class="card-title align center"><h5 class="mb-1 mt-0">Search for an hotel</h5></span>
                         <div class="form-group">
-                            {!!Form::open(['method' => 'GET', 'route' => ['searchHotel']])!!}
+                            {!!Form::open(['method' => 'GET', 'route' => ['searchHotel'], "autocomplete" => "off"])!!}
                             <div class="col-xs-12">
                                 <div class="form-group">
                                     <div class="input-field col s6">
-                                        <input placeholder="Enter a city" type="text" id="departure_city" class="autocomplete" name="city">
+                                        <input onblur="if(this.value != '') { this.value = ''; }" placeholder="Enter a city" type="text" id="departure_city" class="autocomplete" name="city">
                                         <label for="departure_city">City</label>
                                     </div>
                                 </div>

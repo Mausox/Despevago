@@ -110,7 +110,8 @@ Route::resource('/reservations','ReservationController');
 
 //Cars
 Route::resource('/cars', 'CarController');
-Route::get('/searchCar', 'SearchController@searchCar');
+Route::get('/searchCarCompanies', 'CompanyController@searchCompanies')->name('searchCarCompanies');
+Route::get('/searchCar','SearchController@searchCar')->name('searchCar');
 Route::resource('/car_options', 'CarOptionController');
 Route::resource('/branch_offices', 'BranchOfficeController');
 Route::resource('/companies', 'CompanyController');
