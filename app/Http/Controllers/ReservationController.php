@@ -129,11 +129,14 @@ class ReservationController extends Controller
     public function finishReservation(Request $request)
     {
         $reservation = Reservation::where([
-            ['user_id', Auth::user()->id],
+            ['user_id', $request->User()->id],
             ['closed', false],
         ])->first();
 
-        if($reservation->current_balance > $request->User()->current_balance){
+        $user_balance = floatval(preg_replace('/[^\d\.]/', '', $request->User()->current_balance));
+        $reservation_balance = floatval(preg_replace('/[^\d\.]/', '', $reservation->current_balance ));
+
+        if($reservation_balance > $user_balance ){
             return redirect("/user/shopping_cart")->with('error',"Out of money, please, add more money to your account");
         }
         $reservation->date = Carbon::now();
@@ -335,6 +338,11 @@ class ReservationController extends Controller
     //Tipo: POST
     public function activityReservation(Request $request)
     {
+        request()->validate([
+            'adult_number' => 'required',
+            'child_number' => 'required',
+        ]);
+
         $activity_id = $request->activity_id;
         $activity = Activity::find($activity_id);
         $user_id = Auth::user()->id;
@@ -347,7 +355,7 @@ class ReservationController extends Controller
         $child_price = floatval(preg_replace('/[^\d\.]/', '', $activity->price_child));
 
 
-        if($activity->capacity - $people_number > 0)
+        if($activity->capacity - $people_number >= 0)
         {
             $reservation = Reservation::where('user_id',$user_id)->where('closed',false)->first();
 
@@ -379,6 +387,10 @@ class ReservationController extends Controller
     //POST
     public function transferReservation(Request $request)
     {
+        request()->validate([
+            'number_people' => 'required',
+        ]);
+        
         $transfer_id = $request->transfer_id;
         $user_id = $request->User()->id;
         $number_people = $request->number_people;
