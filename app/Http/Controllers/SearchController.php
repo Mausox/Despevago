@@ -33,4 +33,20 @@ class SearchController extends Controller
         }
         return view('despevago.activities.search', compact('citiesName'));
     }
+
+    public function searchPackages()
+    {
+        $cities = City::all()->sortBy('name');
+        $citiesName = collect([]);
+        foreach ($cities as $city)
+        {
+            $citiesName = $citiesName->merge([$city->name => null]);
+        }
+
+        $yyyy = Carbon::now()->year;
+        $mm = Carbon::now()->addMonths(-1)->month;
+        $dd = Carbon::now()->day;
+        return view('despevago.packages.search', compact('citiesName','yyyy','mm','dd'));
+    }
+    
 }

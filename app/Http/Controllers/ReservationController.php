@@ -456,7 +456,7 @@ class ReservationController extends Controller
     {
         $seat_id = $request->seat_id;
         $car_id = $request->car_id;
-        $user_id = $request->user_id;
+        $user_id = $request->User()->id;
         $package_id = $request->car_flight_package_id;
 
         //To obtain the open reservation of the user
@@ -506,7 +506,7 @@ class ReservationController extends Controller
     {
         $seat_id = $request->seat_id;
         $room_id = $request->room_id;
-        $user_id = $request->user_id;
+        $user_id = $request->User()->id;
         $package_id = $request->room_flight_package_id;
 
         //To obtain the open reservation of the user

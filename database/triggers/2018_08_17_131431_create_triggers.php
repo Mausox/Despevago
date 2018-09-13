@@ -25,6 +25,11 @@ class CreateTriggers extends Migration
 
         //User empty reservation
         DB::unprepared('CREATE TRIGGER tr_reservation_user_empty_reservation AFTER INSERT ON users FOR EACH ROW EXECUTE PROCEDURE user_empty_reservation();');
+
+        DB::unprepared('CREATE TRIGGER tr_add_empty_room_package AFTER UPDATE OF closed ON reservation_room_flight_package FOR EACH ROW EXECUTE PROCEDURE add_empty_room_package();');
+
+        DB::unprepared('CREATE TRIGGER tr_add_empty_car_package AFTER UPDATE OF closed ON car_flight_package_reservation FOR EACH ROW EXECUTE PROCEDURE add_empty_car_package();');
+
     }
 
     /**
