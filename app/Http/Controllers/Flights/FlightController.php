@@ -172,4 +172,9 @@ class FlightController extends Controller
         $flight = Journey::find($journey_id)->flight;
         return $flight;
     }
+
+    public function searchDepartureFlights(Request $request)
+    {
+        return $request;
+    }
 }

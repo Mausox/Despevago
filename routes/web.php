@@ -168,6 +168,7 @@ Route::get('/flight/by-seat/{seat_id}', 'FlightController@searchFlightBySeat');
 Route::get('/flights/by-airline/{airline_id}', 'FlightController@searchFlightsByAirline');
 Route::get('/flights/by-airport/{airport_id}', 'FlightController@searchFlightsByAirport');
 Route::get('/flight/by-journey/{journey_id}', 'FlightController@searchFlightByJourney');
+Route::get('/flight/search', 'FlightController@searchDepartureFlights')->name('departureFlights');
 
 // -- Journey
 Route::resource('/journey', 'JourneyController');
