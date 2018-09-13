@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\PaymentHistory;
 use App\User;
 use App\Http\Controllers\Controller;
+use App\UserHistory;
+use App\UserType;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+
+use Carbon\Carbon;
 
 class RegisterController extends Controller
 {
@@ -28,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -49,9 +54,12 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'telephone' => 'required|string|max:13|unique:users',
+            'address' => 'required|string|max:255',
         ]);
     }
 
@@ -63,10 +71,33 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
+        $user = User::create([
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'telephone' => $data['telephone'],
+            'address' => $data['address'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'current_balance' =>$data['current_balance'],
         ]);
+
+        $user->user_histories()->create([
+            'date' => Carbon::now()->toDateString(),
+            'hour' => Carbon::now()->toTimeString(),
+            'action' => 'Register',
+        ]);
+
+        $user->payment_histories()->create([
+            'bank_name' => 'Not assigned',
+            'account_number' => 'Not assigned',
+            'amount' => 0,
+            'date' => Carbon::now()->toDateString(),
+            'hour' => Carbon::now()->toTimeString(),
+        ]);
+
+        $user->user_types()->attach(UserType::where('name', 'user')->first());
+        $user->notify(new \App\Notifications\UserCreate);
+
+        return $user;
     }
 }
