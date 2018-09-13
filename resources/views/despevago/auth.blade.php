@@ -11,6 +11,9 @@
     <link type="text/css" href={{ asset('css/bootstrap.min.css') }} rel="stylesheet">
     <link type="text/css" href={{ asset('css/mdb.min.css') }} rel="stylesheet">
     <link type="text/css" href={{ asset('css/style.css') }} rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{{ asset('materialize/css/materialize.min.css') }}"  media="screen,projection"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 
 <body>

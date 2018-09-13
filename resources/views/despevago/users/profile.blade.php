@@ -35,6 +35,7 @@
                         <p><li class="material-icons left">home</li>{{$user->address}}</p>
                         <br>
                         <p><li class="material-icons left">attach_money</li>{{$user->current_balance}}</p>
+
                     </div>
                 </div>
                 <div class="card-panel">
@@ -47,6 +48,8 @@
                                 <a class=" blue darken-4 waves-effect waves-light btn-small" href="{{ route('payment_methods.create') }}"><i class="icon-center material-icons left">payment</i>Add a Card</a>
                                 <a class=" blue darken-4 waves-effect waves-light btn-small" href="{{ route('paymentForm') }}"><i class="icon-center material-icons left">account_balance</i>Add credit</a>
                                 <a class=" blue darken-4 waves-effect waves-light btn-small" href="{{ route('user.history') }}"><i class="icon-center material-icons left">history</i>History</a>
+                                <a class=" blue darken-4 waves-effect waves-light btn-small" href="{{ route('changePassword') }}"><i class="icon-center material-icons left">security</i>Change Password</a>
+
                             </div>
                         </div>
                     </div>

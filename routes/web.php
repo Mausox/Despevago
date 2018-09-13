@@ -13,7 +13,6 @@
 Route::get('/flights', 'SearchController@searchFlight');
 
 
-
 Route::get('/', function()
 {
     return redirect('hotels/search');
@@ -23,6 +22,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin-home', 'HomeController@index')->middleware('AuthAdmin');
+
+Route::get('/changePassword','HomeController@showChangePasswordForm')->name('changePasswordForm');
+Route::post('/changePassword','HomeController@changePassword')->name('changePassword');
 
 
 //<-------------------      Activities     --------------------->
