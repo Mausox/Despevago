@@ -13,9 +13,7 @@
 <div class="container">
     @if(Session::has('status'))
         <div class="alert alert-success">
-            <div class="card green darken-1">
-                <p>{{ session('status')}}</p>
-            </div>
+            <p>{{ session('status')}}</p>
         </div>
     @endif
     <div class="row mt-5">

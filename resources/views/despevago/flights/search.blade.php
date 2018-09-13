@@ -16,7 +16,7 @@
                 <span class="card-title valign center"><h5 class="mb-1 mt-0">Find your flight</h5></span>
                 
                 {{-- Radio group 1--}}
-                <form method="POST" action="#">
+                <form method="POST" action="#" autocomplete="off" >
                     @csrf 
                     <div class="row pad-3 mb-5">
                         <label class="mr-5">
@@ -38,12 +38,12 @@
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">flight_takeoff</i>
-                            <input placeholder="Enter a city" type="text" id="departure_city" class="autocomplete">
+                            <input onblur="if(this.value != '') { this.value = ''; }" placeholder="Enter a city" type="text" id="departure_city" class="autocomplete">
                             <label for="departure_city">Departure</label>
                         </div>
                         <div class="input-field col s6">
                             <i class="material-icons prefix">flight_land</i>
-                            <input placeholder="Enter a city" type="text" id="arrival_city" class="autocomplete">
+                            <input onblur="if(this.value != '') { this.value = ''; }" placeholder="Enter a city" type="text" id="arrival_city" class="autocomplete">
                             <label for="arrival_city">Arrival</label>
                         </div>
                     </div>

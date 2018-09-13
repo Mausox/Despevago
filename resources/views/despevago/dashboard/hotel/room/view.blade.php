@@ -26,7 +26,7 @@
         <div class="col-md-12" style="margin-top:20px">
             <div style="margin-left:1.5em; display:inline-flex" >
 
-                    <a href="{{ url('/dashboard/hotels/rooms/'.($room->id).'/edit') }}" style="margin-right:10px"> <button type="button" class="btn btn-primary">Editar</button></a>
+                    <a href="{{ url('room'.($room->id).'/edit') }}" style="margin-right:10px"> <button type="button" class="btn btn-primary">Editar</button></a>
                     <form method="post" action="{{ url('/dashboard/hotels/rooms/'.($room->id)) }}">
                          @csrf
                         {{ csrf_field() }}
