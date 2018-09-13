@@ -1,6 +1,6 @@
 @extends('despevago.materialize')
 
-@section('title', '')
+@section('title', 'Actiity Search')
 
 @section('header')
     @include('despevago.headers.auth')
