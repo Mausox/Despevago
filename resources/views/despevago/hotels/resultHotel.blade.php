@@ -11,13 +11,13 @@
 @section('content')
     <div class="container">
         <div class="col 12">
-            <div class="card mt-5">
-
-                @if (session('status'))
-                    <div class="alert alert-warning" role="alert">
-                        <p>{{ session('status') }}</p>
-                    </div>
+                @if(Session::has('status'))
+                <div class="materialert warning">
+                    <div class="material-icons">warning</div>
+                    {{ session('status')}}
+                </div>
                 @endif
+            <div class="card mt-5">
 
                 <div class="row mb-0 pad-5">
                     <a class="mt-3 blue darken-4 waves-effect waves-light btn-small" href="{{ route('searchFormHotel')}}"><i class="material-icons left">keyboard_arrow_left</i>Back</a>
