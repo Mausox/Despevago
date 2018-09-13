@@ -36,13 +36,13 @@
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">date_range</i>
-                            <input type="text" class="datepicker" id="departure_date" name="departure_date" required>
+                            <input type="text" class="departure_datepicker1" id="departure_date" name="departure_date" required>
                             <label for="departure_date">Departure Date</label>
                         </div>
 
                         <div class="input-field col s6" id="one-way-div">
                             <i class="material-icons prefix">date_range</i>
-                            <input type="text" class="datepicker" id="arrival_date" name="arrival_date" required>
+                            <input type="text" class="arrival_datepicker1" id="arrival_date" name="arrival_date" required>
                             <label for="arrival_date">Arrival Date</label>
                         </div>
                     </div>
@@ -103,13 +103,13 @@
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">date_range</i>
-                            <input type="text" class="datepicker" id="departure_date" name="departure_date" required>
+                            <input type="text" class="departure_datepicker2" id="departure_date" name="departure_date" required>
                             <label for="departure_date">Departure Date</label>
                         </div>
 
                         <div class="input-field col s6" id="one-way-div">
                             <i class="material-icons prefix">date_range</i>
-                            <input type="text" class="datepicker" id="arrival_date" name="arrival_date" required>
+                            <input type="text" class="arrival_datepicker2" id="arrival_date" name="arrival_date" required>
                             <label for="arrival_date">Arrival Date</label>
                         </div>
                     </div>
@@ -172,29 +172,48 @@
             data: {!! $citiesName !!},
         });
         $('select').formSelect();
-        
 
-        $(document).on('focus', '.datepicker',function(){
-            $(this).datepicker({
-                todayHighlight:true,
-                format:'yyyy-mm-dd',
-                autoclose:true
-            })
+
+        $('.arrival_datepicker1').datepicker({
+            format: 'yyyy-mm-dd',
         });
+
+        $('.arrival_datepicker2').datepicker({
+            format: 'yyyy-mm-dd',
+        });
+        
+        $('.departure_datepicker1').datepicker({
+            format: 'yyyy-mm-dd',
+            minDate: new Date({{ $yyyy }},{{ $mm }}, {{$dd}}),
+        });
+
+        $('.departure_datepicker2').datepicker({
+            format: 'yyyy-mm-dd',
+            minDate: new Date({{ $yyyy }},{{ $mm }}, {{$dd}}),
+        });
+
+        $('.departure_datepicker1').change(function() 
+    {
+        const [year, month, day] = $('.departure_datepicker1').datepicker({ format: 'yyyy-mm-dd', minDate: new Date({{ $yyyy }},{{ $mm }}, {{$dd}})}).val().split("-");
+        var departure_date = new Date(year, month-1, day-(-1));
+        $( ".arrival_datepicker1" ).datepicker({
+            format: 'yyyy-mm-dd',
+            minDate: departure_date,
+        }).val(year+'-'+month+'-'+(day-(-1)));
+    });
+
+    $('.departure_datepicker2').change(function() 
+    {
+        const [year, month, day] = $('.departure_datepicker2').datepicker({ format: 'yyyy-mm-dd', minDate: new Date({{ $yyyy }},{{ $mm }}, {{$dd}})}).val().split("-");
+        var departure_date = new Date(year, month-1, day-(-1));
+        $( ".arrival_datepicker2" ).datepicker({
+            format: 'yyyy-mm-dd',
+            minDate: departure_date,
+        }).val(year+'-'+month+'-'+(day-(-1)));
+    });
 
 
     });
 
-    function add(id){
-		document.getElementById(id).style.visibility="visible";
-	}
-
-    function remove(id){
-		document.getElementById(id).style.visibility="hidden";		
-	}
-
-    function disable(id){
-		document.getElementById(id).disabled=true;
-	}
 </script>
 @endsection
