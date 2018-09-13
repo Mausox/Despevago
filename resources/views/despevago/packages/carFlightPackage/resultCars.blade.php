@@ -26,13 +26,16 @@
 
                                 <p style="padding-top:20px;"><i class="left material-icons">attach_money</i> Price: {{$car->price}}</p>
 
-                                {!!Form::open(['route' => 'carFlightPackageReservation'])!!}
-                                {!!Form::hidden('car_id', $car->id)!!}
-                                {!!Form::hidden('seat_id', $seat_id) !!}
-                                {!!Form::hidden('city_id', $city->id) !!}
+                                {!!Form::open(['route' => 'packagesCar.flights'])!!}
+                                {!!Form::hidden("departure_city", $departure_city)!!},
+                                {!!Form::hidden("arrival_city", $arrival_city) !!}
+                                {!!Form::hidden("departure_date", $departure_date) !!}
+                                {!!Form::hidden("arrival_date", $arrival_date) !!}
+                                {!!Form::hidden("passengers_number", $passengers_number) !!}
+                                {!!Form::hidden("car_id", $car->id) !!}
                                 @if(Auth::check())
                                     <div class="col right">
-                                        <button type="submit" class="blue darken-4 waves-effect waves-light btn">Add to cart!</button>
+                                        <button type="submit" class="blue darken-4 waves-effect waves-light btn">Search flights!</button>
                                         {!!Form::close()!!}
                                     </div>
 

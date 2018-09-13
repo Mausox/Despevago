@@ -12,14 +12,15 @@
     <div class="container">
 
         @if (session('status'))
-            <div class="alert alert-success text-center">
+            <div class="materialert success">
                 <p>{{ session('status') }}</p>
             </div>
         @endif
 
-        @if (session('error'))
-            <div class="alert alert-warning" role="alert">
-                <p>{{ session('error') }}</p>
+        @if(session('error'))
+            <div class="materialert danger">
+                <div class="material-icons">clear</div>
+                {{ session('error')}}
             </div>
         @endif
 

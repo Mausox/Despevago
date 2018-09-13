@@ -87,7 +87,6 @@ class PackageController extends Controller
     //Search flights according to parameters
     public function searchFlights(Request $request)
     {
-        //$radio = $request->option;
         $city = City::where('name',$request->arrival_city)->first();
         $departure_city = $request->departure_city;
         $arrival_city = $request->arrival_city;
@@ -95,13 +94,54 @@ class PackageController extends Controller
         $arrival_date = $request->arrival_date;
         $passengers_number = $request->passengers_number;
 
+        $car_id = $request->car_id;
 
-        return view('despevago.packages.carFlightPackage.resultPackage', ["city" => $city]);
+        return view('despevago.packages.carFlightPackage.resultCars',[
+            "car_id" => $car_id,
+            "departure_city" => $departure_city,
+            "arrival_city" => $arrival_city,
+            "departure_date" => $departure_date,
+            "arrival_date" => $arrival_date,
+            "passenger_number" => $passengers_number]);
+
+        /*
+        $city = City::where('name',$request->arrival_city)->first();
+        $departure_city = $request->departure_city;
+        $arrival_city = $request->arrival_city;
+        $departure_date = $request->departure_date;
+        $arrival_date = $request->arrival_date;
+        $passengers_number = $request->passengers_number;
+        //------
+        $seat_id = $request->seat_id;
+        return view('despevago.packages.carFlightPackage.resultPackage', ["city" => $city, "saet_id" => $seat_id]); //seat_id
+        */
     }
 
     public function searchCarsByCity(Request $request)
     {
         //$city = City::where('name', $request->arrival_city)->first();
+
+        $city = City::where('name',$request->arrival_city)->first();
+        $arrival_city = $request->arrival_city;
+        $departure_city = $request->departure_city;
+        $departure_date = $request->departure_date;
+        $arrival_date = $request->arrival_date;
+        $passengers_number = $request->passengers_number;
+
+
+        $cars = Car::whereHas('branch_office', function ($query) use ($city){
+            $query->where('city_id', $city->id);
+        })->get();
+
+        return view('despevago.packages.carFlightPackage.resultCars',[
+                "cars" => $cars,
+                "departure_city" => $departure_city,
+                "arrival_city" => $arrival_city,
+                "departure_date" => $departure_date,
+                "arrival_date" => $arrival_date,
+                "passengers_number" => $passengers_number]);
+        //-------
+        /*
         $city = $request->city;
 
         $seat_id = $request->seat_id;
@@ -111,6 +151,7 @@ class PackageController extends Controller
         })->get();
 
         return view('despevago.packages.carFlightPackage.resultCars', ["city" => $city, "seat_id" => $seat_id, "cars" => $cars]);
+        */
     }
 
     public function searchPackagesRoomByCity(Request $request)
