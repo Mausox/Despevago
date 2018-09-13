@@ -1,6 +1,6 @@
 @extends('despevago.materialize')
 
-@section('title', 'room search')
+@section('title', 'Car search')
 
 @section('header')
     @include('despevago.headers.auth')
@@ -11,7 +11,7 @@
 @section('content')
     <div class="container">
 
-        <h1>Company {{$branch_office->company->name}}</h1>
+        <h4>Company {{$branch_office->company->name}}</h4>
         {!!Form::open(['method' => 'GET', 'route' => ['searchCarCompanies']])!!}
         {!!Form::hidden('branch_office_id', $branch_office->id)!!}
         {!!Form::hidden('city', $city->name)!!}
