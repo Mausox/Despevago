@@ -5,6 +5,8 @@
 @section('content_header')
     <!-- Content Wrapper. Contains page content -->
     <!-- Content Header (Page header) -->
+
+
     <section class="content-header">
         <h1>
             Hotel Index
