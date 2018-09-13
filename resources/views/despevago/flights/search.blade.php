@@ -38,26 +38,26 @@
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">flight_takeoff</i>
-                            <input placeholder="Enter a city" type="text" id="departure_city" class="autocomplete">
+                            <input placeholder="Enter a city" type="text" id="departure_city" class="autocomplete" name="departure_city">
                             <label for="departure_city">Departure</label>
                         </div>
                         <div class="input-field col s6">
                             <i class="material-icons prefix">flight_land</i>
-                            <input placeholder="Enter a city" type="text" id="arrival_city" class="autocomplete">
+                            <input placeholder="Enter a city" type="text" id="arrival_city" class="autocomplete" name="arrival_city">
                             <label for="arrival_city">Arrival</label>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="input-field col s6">
-                            <i class="material-icons prefix">date_range</i>
-                            <input type="text" class="datepicker" id="departure_date">
-                            <label for="departure_date">Departure Date</label>
-                        </div>
+                                <i class="material-icons prefix">date_range</i>
+                                <input type="text" class="departure_datepicker" id="departure_date" name="departure_date">
+                                <label for="departure_date">Departure Date</label>
+                            </div>
 
                         <div class="input-field col s6" id="one-way-div">
                             <i class="material-icons prefix">date_range</i>
-                            <input type="text" class="datepicker" id="arrival_date">
+                            <input type="text" class="arrival_datepicker" id="arrival_date" name="arrival_date">
                             <label for="arrival_date">Arrival Date</label>
                         </div>
                     </div>  
@@ -106,18 +106,31 @@
     $(document).ready(function(){
         $("#one-trip").hide();
 
-        $('.datepicker').datepicker(
-        {
+        $('.arrival_datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+        });
+            
+        $('.departure_datepicker').datepicker({
             format: 'yyyy-mm-dd',
             minDate: new Date({{ $yyyy }},{{ $mm }}, {{$dd}}),
         });
+
         $('input.autocomplete').autocomplete(
         {
             data: {!! $citiesName !!},
         });
         $('select').formSelect();
     });
-        
+    
+    $('.departure_datepicker').change(function() 
+    {
+        const [year, month, day] = $('.departure_datepicker').datepicker({ format: 'yyyy-mm-dd', minDate: new Date({{ $yyyy }},{{ $mm }}, {{$dd}})}).val().split("-");
+        var departure_date = new Date(year, month-1, day-(-1));
+        $( ".arrival_datepicker" ).datepicker({
+            format: 'yyyy-mm-dd',
+            minDate: departure_date,
+        }).val(year+'-'+month+'-'+(day-(-1)));
+    });
 
     var arrival_date = document.getElementById("arrival_date");
     var hidden_arrival = document.getElementById("one-way-div");
