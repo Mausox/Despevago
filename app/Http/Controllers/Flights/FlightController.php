@@ -183,36 +183,37 @@ class FlightController extends Controller
         $passengers = $request->passengers;
         $class_type = $request->class_type;
 
-        $city = City::where("name", $request->departure_city)->first();
-        $arrivalAirports = City::find($city->id)->airports->first();
-        $departureAirports = City::find($city->id)->airports->first();
+        $departure_city = City::where("name", $departure_city)->first();
+        $arrival_city = City::where("name", $arrival_city)->first();
 
-        $arrivalJourneys = Journey::where([['arrival_airport_id', $arrivalAirports->id],['arrival_date',$arrival_date]])->get();
+        $arrivalAirports = City::find($arrival_city->id)->airports->first();
+        $departureAirports = City::find($departure_city->id)->airports->first();
+
+        $arrivalJourneys = Journey::where([['departure_airport_id', $arrivalAirports->id],['departure_date',$arrival_date]])->get();
         $departureJourneys = Journey::where([['departure_airport_id', $departureAirports->id],['departure_date',$departure_date]])->get();
 
-        $departure_flights = array();
-        foreach ($departureJourneys as $journey) 
+        $departure_flights = Flight::whereHas('Journeys', function($query) use ($departure_date, $departureAirports){
+            $query->where([['departure_date', $departure_date],['departure_airport_id', $departureAirports->id]]);
+        })->get();
+
+        $arrival_flights = Flight::whereHas('Journeys', function($query) use ($arrival_date, $arrivalAirports){
+            $query->where([['departure_date', $arrival_date],['departure_airport_id', $arrivalAirports->id]]);
+        })->get();
+
+        if($departure_flights->isEmpty())
         {
-            $flight = Flight::find($journey->flight_id);
-            $departure_flights[]= 
-            [
-                'id'=> $flight->id,
-                'flight_number'=>$flight->flight_number,
-                'cabin_baggage'=>$flight->cabin_baggage,
-                'capacity'=>$flight->capacity,
-                'airplane_model'=>$flight->airplane_model
-            ];
+            return redirect()->route('searchFlight')->with('error','Flights not found in this date (Departure date): '.$departure_date);
         }
-        if($departureJourneys->isEmpty() )
+        if($arrival_flights->isEmpty())
         {
-            return redirect()->route('searchFlight')->with('status','Flights not found in this date: '.$departure_date);
+            return redirect()->route('searchFlight')->with('error','Flights not found in date (Arrival date): '.$arrival_date);
         }
         return view('despevago.flights.search_form',
             [
                 'departure_flights' => $departure_flights,
-                'arrival_journeys' => $arrivalJourneys,
-                'departure_city' => $departure_city,
-                'arrival_city' => $arrival_city,
+                'arrival_flights' => $arrival_flights,
+                'departure_city' => $departure_city->name,
+                'arrival_city' => $arrival_city->name,
                 'departure_date' => $departure_date,
                 'arrival_date' => $arrival_date,
                 'passengers' => $passengers,

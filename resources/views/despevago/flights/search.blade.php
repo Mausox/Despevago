@@ -11,6 +11,12 @@
 @section('content')
 <div class="container">
     <div class="col 12">
+        @if(Session::has('error'))
+        <div class="materialert danger">
+            <div class="material-icons">clear</div>
+            {{ session('error')}}
+        </div>
+        @endif
         <div class="card mt-5">
             {!!Form::open(['method' => 'GET', 'route' => ['departureFlights']])!!}
             <div class="card-content">
@@ -38,12 +44,12 @@
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">flight_takeoff</i>
-                            <input onblur="if(this.value != '') { this.value = ''; }" placeholder="Enter a city" type="text" id="departure_city" class="autocomplete" name="departure_city">
+                            <input onblur="if(this.value != '') { this.value = ''; }" placeholder="Enter a city" type="text" id="departure_city" class="autocomplete" name="departure_city" required>
                             <label for="departure_city">Departure</label>
                         </div>
                         <div class="input-field col s6">
                             <i class="material-icons prefix">flight_land</i>
-                            <input onblur="if(this.value != '') { this.value = ''; }" placeholder="Enter a city" type="text" id="arrival_city" class="autocomplete" name="arrival_city">
+                            <input onblur="if(this.value != '') { this.value = ''; }" placeholder="Enter a city" type="text" id="arrival_city" class="autocomplete" name="arrival_city" required>
                             <label for="arrival_city">Arrival</label>
                         </div>
                     </div>
@@ -51,13 +57,13 @@
                     <div class="row">
                         <div class="input-field col s6">
                                 <i class="material-icons prefix">date_range</i>
-                                <input type="text" class="departure_datepicker" id="departure_date" name="departure_date">
+                                <input type="text" class="departure_datepicker" id="departure_date" name="departure_date"  required>
                                 <label for="departure_date">Departure Date</label>
                             </div>
 
                         <div class="input-field col s6" id="one-way-div">
                             <i class="material-icons prefix">date_range</i>
-                            <input type="text" class="arrival_datepicker" id="arrival_date" name="arrival_date">
+                            <input type="text" class="arrival_datepicker" id="arrival_date" name="arrival_date"  required>
                             <label for="arrival_date">Arrival Date</label>
                         </div>
                     </div>  
@@ -65,7 +71,7 @@
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">group</i>
-                            <select id="passengers" name="passengers">
+                            <select id="passengers" name="passengers"  required>
                                 <option value="" disabled selected>Numbers of passenger</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -80,7 +86,7 @@
                         </div>
                         <div class="input-field col s6">
                             <i class="material-icons prefix">airline_seat_recline_normal</i>
-                            <select id="class_type" name="class_type">
+                            <select id="class_type" name="class_type"  required>
                                 <option value="" disabled selected>Choose your class</option>
                                 <option value="Tourist">Tourist</option>
                                 <option value="Bussines">Bussines</option>
