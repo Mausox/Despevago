@@ -22,7 +22,7 @@
         <div class="col s12 m5 l6">
             <div class="card-panel">
                 <div class="card-image waves-effect waves-block waves-light">
-                    <img class="materialboxed" width="480" src="{{ asset('img/default/activities_default.png') }}">
+                    <img class="materialboxed" width="100%" height="100%" src="{{ asset('img/default/activities_default.png') }}">
                 </div>
             </div>
         </div>
