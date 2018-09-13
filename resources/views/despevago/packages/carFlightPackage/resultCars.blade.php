@@ -25,28 +25,7 @@
                                 <p style="padding-top:20px;"><i class="left material-icons">person</i> Capacity: {{$car->capacity}}</p>
 
                                 <p style="padding-top:20px;"><i class="left material-icons">attach_money</i> Price: {{$car->price}}</p>
-
-                                {!!Form::open(['route' => 'packagesCar.flights'])!!}
-                                {!!Form::hidden("departure_city", $departure_city)!!},
-                                {!!Form::hidden("arrival_city", $arrival_city) !!}
-                                {!!Form::hidden("departure_date", $departure_date) !!}
-                                {!!Form::hidden("arrival_date", $arrival_date) !!}
-                                {!!Form::hidden("passengers_number", $passengers_number) !!}
-                                {!!Form::hidden("car_id", $car->id) !!}
-                                @if(Auth::check())
-                                    <div class="col right">
-                                        <button type="submit" class="blue darken-4 waves-effect waves-light btn">Search flights!</button>
-                                        {!!Form::close()!!}
-                                    </div>
-
-
-                                @else
-                                    {!!Form::close()!!}
-                                    <div class="col right">
-
-                                        <a href="{!! url('/login') !!}"><button class="blue darken-4 waves-effect waves-light btn"> Sign in first</button></a>
-                                    </div>
-                                @endif
+                                
                             </div>
                         </div>
                     </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Car;
 use Illuminate\Http\Request;
 use App\City;
+use App\Flight;
 
 class PackageController extends Controller
 {
@@ -87,6 +88,7 @@ class PackageController extends Controller
     //Search flights according to parameters
     public function searchFlights(Request $request)
     {
+
         $city = City::where('name',$request->arrival_city)->first();
         $departure_city = $request->departure_city;
         $arrival_city = $request->arrival_city;
@@ -94,27 +96,41 @@ class PackageController extends Controller
         $arrival_date = $request->arrival_date;
         $passengers_number = $request->passengers_number;
 
-        $car_id = $request->car_id;
+        $departure_city = City::where("name", $departure_city)->first();
+        $arrival_city = City::where("name", $arrival_city)->first();
 
-        return view('despevago.packages.carFlightPackage.resultCars',[
-            "car_id" => $car_id,
-            "departure_city" => $departure_city,
-            "arrival_city" => $arrival_city,
-            "departure_date" => $departure_date,
-            "arrival_date" => $arrival_date,
-            "passenger_number" => $passengers_number]);
+        $arrivalAirports = City::find($arrival_city->id)->airports->first();
+        $departureAirports = City::find($departure_city->id)->airports->first();
 
-        /*
-        $city = City::where('name',$request->arrival_city)->first();
-        $departure_city = $request->departure_city;
-        $arrival_city = $request->arrival_city;
-        $departure_date = $request->departure_date;
-        $arrival_date = $request->arrival_date;
-        $passengers_number = $request->passengers_number;
-        //------
-        $seat_id = $request->seat_id;
-        return view('despevago.packages.carFlightPackage.resultPackage', ["city" => $city, "saet_id" => $seat_id]); //seat_id
-        */
+        $departure_flights = Flight::whereHas('Journeys', function($query) use ($departure_date, $departureAirports){
+            $query->where([['departure_date', $departure_date],['departure_airport_id', $departureAirports->id]]);
+        })->get();
+
+        $arrival_flights = Flight::whereHas('Journeys', function($query) use ($arrival_date, $arrivalAirports){
+            $query->where([['departure_date', $arrival_date],['departure_airport_id', $arrivalAirports->id]]);
+        })->get();
+
+        if($departure_flights->isEmpty())
+        {
+            return redirect()->route('searchFlight')->with('error','Flights not found in this date (Departure date): '.$departure_date);
+        }
+        if($arrival_flights->isEmpty())
+        {
+            return redirect()->route('searchFlight')->with('error','Flights not found in date (Arrival date): '.$arrival_date);
+        }
+
+
+        return view('despevago.packages.carFlightPackage.resultFlight',
+            [
+                'departure_flights' => $departure_flights,
+                'arrival_flights' => $arrival_flights,
+                'departure_city' => $departure_city->name,
+                'arrival_city' => $arrival_city->name,
+                'departure_date' => $departure_date,
+                'arrival_date' => $arrival_date,
+                'passengers' => $passengers_number,
+            ]);
+
     }
 
     public function searchFlightsForRoom(Request $request)
@@ -129,44 +145,26 @@ class PackageController extends Controller
         $number_children = $request->number_children;
         $number_room = $request->number_room;
 
+
         return view('despevago.packages.roomFlightPackage.resultPackage', ["city" => $city]);
     }
 
     public function searchCarsByCity(Request $request)
     {
-        //$city = City::where('name', $request->arrival_city)->first();
-
-        $city = City::where('name',$request->arrival_city)->first();
-        $arrival_city = $request->arrival_city;
-        $departure_city = $request->departure_city;
-        $departure_date = $request->departure_date;
-        $arrival_date = $request->arrival_date;
-        $passengers_number = $request->passengers_number;
 
 
-        $cars = Car::whereHas('branch_office', function ($query) use ($city){
-            $query->where('city_id', $city->id);
-        })->get();
-
-        return view('despevago.packages.carFlightPackage.resultCars',[
-                "cars" => $cars,
-                "departure_city" => $departure_city,
-                "arrival_city" => $arrival_city,
-                "departure_date" => $departure_date,
-                "arrival_date" => $arrival_date,
-                "passengers_number" => $passengers_number]);
-        //-------
-        /*
-        $city = $request->city;
+        $city_name = $request->city;
 
         $seat_id = $request->seat_id;
+
+        $city = City::where("name", $city_name)->first();
 
         $cars = Car::whereHas('branch_office', function ($query) use ($city){
             $query->where('city_id', $city->id);
         })->get();
 
         return view('despevago.packages.carFlightPackage.resultCars', ["city" => $city, "seat_id" => $seat_id, "cars" => $cars]);
-        */
+
     }
 
     public function searchPackagesRoomByCity(Request $request)
