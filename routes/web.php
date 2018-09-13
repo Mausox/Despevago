@@ -16,7 +16,7 @@ Route::get('/flights', 'SearchController@searchFlight');
 
 Route::get('/', function()
 {
-    return view('welcome');
+    return redirect('hotels/search');
 })->name('/');
 
 Auth::routes();

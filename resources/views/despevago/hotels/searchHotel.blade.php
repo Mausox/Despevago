@@ -35,13 +35,13 @@
                             <div class="row">
                                 <div class="input-field col s6">
                                     <i class="material-icons prefix">date_range</i>
-                                    <input type="text" class="datepicker" name="start_date" id="departure_date" required>
+                                    <input type="text" class="start_date_datepicker" name="start_date" id="departure_date" required>
                                     <label for="departure_date">Start Date</label>
                                 </div>
 
                                 <div class="input-field col s6" id="one-way-div">
                                     <i class="material-icons prefix">date_range</i>
-                                    <input type="text" class="datepicker" name="end_date" id="arrival_date" required>
+                                    <input type="text" class="end_date_datepicker" name="end_date" id="arrival_date" required>
                                     <label for="arrival_date">End Date</label>
                                 </div>
                             </div>
@@ -100,12 +100,28 @@
                 data: {!! $citiesName !!},
             });
         $('select').formSelect();
-        $('.datepicker').datepicker(
-            {
-                format: 'yyyy-mm-dd',
-                minDate: new Date({{ $yyyy }},{{ $mm }}, {{$dd}}),
-            });
+
+        $('.start_date_datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            minDate: new Date({{ $yyyy }},{{ $mm }}, {{$dd}}),
+
+        });
+
+        $('.end_date_datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+        });
     });
+
+    $('.start_date_datepicker').change(function()
+    {
+        const [year, month, day] = $('.start_date_datepicker').datepicker({ format: 'yyyy-mm-dd', minDate: new Date({{ $yyyy }},{{ $mm }}, {{$dd}})}).val().split("-");
+        var departure_date = new Date(year, month-1, day-(-1));
+        $( ".end_date_datepicker" ).datepicker({
+            format: 'yyyy-mm-dd',
+            minDate: departure_date,
+        }).val(year+'-'+month+'-'+(day-(-1)));
+    });
+
 
 
 

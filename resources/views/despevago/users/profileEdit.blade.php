@@ -29,42 +29,40 @@
             <div class="col-xs-12">
                 <div class="form-group">
                     <strong>Email: </strong>
-                    {!! Form::text('email', null, ['placeholder' => 'email@gmail.com', 'class' => 'form-control']) !!}
+                    {!! Form::email('email', null, ['placeholder' => 'email@gmail.com', 'class' => 'form-control', 'required']) !!}
                 </div>
             </div>
             <div class="col-xs-12">
                 <div class="form-group">
-                    <strong>Password: </strong>
-                    {!! Form::text('password', null, ['placeholder' => '', 'class' => 'form-control']) !!}
+                    {!! Form::hidden('password', null, ['placeholder' => '', 'class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="col-xs-12">
                 <div class="form-group">
                     <strong>First name: </strong>
-                    {!! Form::text('first_name', null, ['placeholder' => '', 'class' => 'form-control']) !!}
+                    {!! Form::text('first_name', null, ['placeholder' => '', 'class' => 'form-control','required']) !!}
                 </div>
             </div>
             <div class="col-xs-12">
                 <div class="form-group">
                     <strong>Last name: </strong>
-                    {!! Form::text('last_name', null, ['placeholder' => '', 'class' => 'form-control']) !!}
+                    {!! Form::text('last_name', null, ['placeholder' => '', 'class' => 'form-control','required']) !!}
                 </div>
             </div>
             <div class="col-xs-12">
                 <div class="form-group">
                     <strong>Telephone: </strong>
-                    {!! Form::text('telephone', null, ['placeholder' => '', 'class' => 'form-control']) !!}
+                    {!! Form::text('telephone', null, ['placeholder' => '', 'class' => 'form-control','required']) !!}
                 </div>
             </div>
             <div class="col-xs-12">
                 <div class="form-group">
                     <strong>Address: </strong>
-                    {!! Form::text('address', null, ['placeholder' => '', 'class' => 'form-control']) !!}
+                    {!! Form::text('address', null, ['placeholder' => '', 'class' => 'form-control','required']) !!}
                 </div>
             </div>
             <hr>
             {!! Form::button('Submit', ['type' => 'submit', 'class' => 'blue darken-4 waves-effect waves-light btn']) !!}
-            {!! Form::close() !!}
         </div>
         {!! Form::close() !!}
     </div>
