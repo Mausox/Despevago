@@ -114,27 +114,29 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col m6 l6">
                             <div class="form-group">
                                 <strong>Number of adults: </strong>
                                 <div>
-                                    {!! Form::number('number_adults', null, ['class' => 'form-control']) !!}
+                                    {!! Form::number('number_adults', null, ['class' => 'form-control','max' => '8', 'min' => '0', 'required' => 'required']) !!}
                                 </div>
                             </div>
+
                         </div>
-                        <div class="col-xs-12">
-                            <div class="form-group">
+                        <div class="col m6 l6">
                                 <strong>Number of children: </strong>
                                 <div>
-                                    {!! Form::number('number_children', null, ['class' => 'form-control']) !!}
+                                    {!! Form::number('number_children', null, ['class' => 'form-control','max' => '8', 'min' => '0', 'required' => 'required']) !!}
                                 </div>
                             </div>
                         </div>
+                    </div>
                         <div class="col-xs-12">
                             <div class="form-group">
                                 <strong>Number of rooms: </strong>
                                 <div>
-                                    {!! Form::number('number_room', null, ['class' => 'form-control']) !!}
+                                    {!! Form::number('number_room', null, ['class' => 'form-control','max' => '8', 'min' => '0', 'required' => 'required']) !!}
                                 </div>
                             </div>
                         </div>
