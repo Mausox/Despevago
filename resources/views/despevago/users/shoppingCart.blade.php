@@ -11,9 +11,10 @@
 @section('content')
     <div class="container">
 
-        @if (session('status'))
+        @if(Session::has('status'))
             <div class="materialert success">
-                <p>{{ session('status') }}</p>
+                <div class="material-icons">check</div>
+                {{ session('status')}}
             </div>
         @endif
 
