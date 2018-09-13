@@ -13,7 +13,6 @@ npm-debug.log
 yarn-error.log
 .env
 
-/storage/app/public
 config/app\.php
 
 composer\.lock
