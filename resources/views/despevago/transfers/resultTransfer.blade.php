@@ -26,7 +26,7 @@
                                         <img class="activator" src="{{ asset('img/default/transfer_default.png') }}">
                                     </div>
                                     <div class="card-content">
-                                        <span class="card-title activator grey-text text-darken-4">Transfer tipo {{$transfer->transfer_car()->first()->classification}}<i class="material-icons right">more_vert</i></span>
+                                        <span class="card-title activator grey-text text-darken-4">Transfer type: {{$transfer->transfer_car()->first()->classification}}<i class="material-icons right">more_vert</i></span>
                                     </div>
                                     <div class="card-reveal valign-wrapper">
                                         <span class="card-title grey-text text-darken-4">{{ $transfer->name }}<i class="material-icons right">close</i></span>
