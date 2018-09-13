@@ -1,6 +1,6 @@
 @extends('despevago.materialize')
 
-@section('title', 'room search')
+@section('title', 'Car search')
 
 @section('header')
     @include('despevago.headers.auth')
@@ -44,7 +44,7 @@
                                     {!!Form::close()!!}
                                     <div class="col right">
 
-                                        <a href="{!! url('/login') !!}"><button class="blue darken-4 waves-effect waves-light btn"> Sing in first</button></a>
+                                        <a href="{!! url('/login') !!}"><button class="blue darken-4 waves-effect waves-light btn"> Sign in first</button></a>
                                     </div>
                                 @endif
                             </div>

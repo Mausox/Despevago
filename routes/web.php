@@ -37,7 +37,8 @@ Route::get('/activities/byDate/{date}', 'ActivityController@searchActivitiesByDa
 Route::get('/packages', 'SearchController@searchPackages')->name('packages');
 Route::get('/packages/car/flights', 'PackageController@searchFlights')->name('packagesCar.flights');
 Route::get('/packages/car/cars', 'PackageController@searchCarsByCity')->name('packagesCar.cars');
-Route::get('/packages/room/byCity', 'PackageController@searchPackagesRoomByCity')->name('packagesRoomByCity');
+Route::get('/packages/room/flights', 'PackageController@searchFlightsForRoom')->name('packagesRoom.flights');
+Route::get('/packages/room/rooms', 'PackageController@searchRoomsByCity')->name('packagesRoom.rooms');
 Route::resource('/car_flight_packages', 'CarFlightPackageController');
 
 //<-------------------      Packages     --------------------->

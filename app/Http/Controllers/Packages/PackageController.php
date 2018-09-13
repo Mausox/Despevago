@@ -117,6 +117,21 @@ class PackageController extends Controller
         */
     }
 
+    public function searchFlightsForRoom(Request $request)
+    {
+        //$radio = $request->option;
+        $city = City::where('name',$request->arrival_city)->first();
+        $departure_city = $request->departure_city;
+        $arrival_city = $request->arrival_city;
+        $departure_date = $request->departure_date;
+        $arrival_date = $request->arrival_date;
+        $number_adults = $request->number_adults;
+        $number_children = $request->number_children;
+        $number_room = $request->number_room;
+
+        return view('despevago.packages.roomFlightPackage.resultPackage', ["city" => $city]);
+    }
+
     public function searchCarsByCity(Request $request)
     {
         //$city = City::where('name', $request->arrival_city)->first();

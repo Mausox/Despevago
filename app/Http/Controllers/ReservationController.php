@@ -518,8 +518,13 @@ class ReservationController extends Controller
     {
         $seat_id = $request->seat_id;
         $room_id = $request->room_id;
+        $city_id = $request->city_id;
         $user_id = $request->User()->id;
-        $package_id = $request->room_flight_package_id;
+        
+        $package_id = RoomFlightPackage::where([
+            ['seat_id', null],
+            ['city_id', $city_id],
+        ])->first();
 
         //To obtain the open reservation of the user
         $reservation = Reservation::where([
@@ -553,7 +558,7 @@ class ReservationController extends Controller
             $reservation->current_balance = money_format('%i', $current_balance);
             $reservation->save();
 
-            return "The room flight package has been reserved";
+            return redirect()->route('user.shopping_cart');
         }
     }
 
