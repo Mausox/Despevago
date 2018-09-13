@@ -23,6 +23,9 @@ class SearchController extends Controller
         $yyyy = Carbon::now()->year;
         $mm = Carbon::now()->addMonths(-1)->month;
         $dd = Carbon::now()->day;
+
+
+
         return view('despevago.flights.search', compact('citiesName', 'yyyy', 'mm', 'dd'));
     }
 

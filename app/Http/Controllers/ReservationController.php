@@ -407,7 +407,9 @@ class ReservationController extends Controller
 
             //Updating balance on the reservation
             $current_balance = floatval(preg_replace('/[^\d\.]/', '', $reservation->current_balance));
-            $current_balance += $transfer->price;
+            $transfer_price = floatval(preg_replace('/[^\d\.]/', '', $transfer->price));
+
+            $current_balance += $transfer_price;
             $reservation->current_balance = money_format('%i',$current_balance);
             $reservation->save();
 

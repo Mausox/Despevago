@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use App\Transfer;
 use App\TransferCar;
@@ -168,6 +170,13 @@ class TransferController extends Controller
         $airports = Airport::all();
         $airportsName = array();
 
+        $yyyy = Carbon::now()->year;
+        $mm = Carbon::now()->addMonths(-1)->month;
+        $dd = Carbon::now()->day;
+
+        $timeInterval = $this->hoursRange();
+
+
         foreach ($airports as  $airport)
         {
             $airportsName[$airport->id] = $airport->name;
@@ -179,7 +188,27 @@ class TransferController extends Controller
         {
             $hotelsName[$hotel->id] = $hotel->name;
         }
-        return view('despevago.transfers.searchTransfer', ['airports' => $airportsName, 'hotels' => $hotelsName]);
+        return view('despevago.transfers.searchTransfer',compact('yyyy', 'mm', 'dd', 'airportsName','hotelsName','timeInterval'));
+    }
+
+    function hoursRange( $lower = 0, $upper = 86400, $step = 60*30, $format = '' ) {
+        $times = array();
+
+        if ( empty( $format ) ) {
+            $format = 'g:i a';
+        }
+
+        foreach ( range( $lower, $upper, $step ) as $increment ) {
+            $increment = gmdate( 'H:i', $increment );
+
+            list( $hour, $minutes ) = explode( ':', $increment );
+
+            $date = new DateTime( $hour . ':' . $minutes );
+
+            $times[(string) $increment] = (string) $increment;
+        }
+
+        return $times;
     }
 
     public function resultTransfer(Request $request)

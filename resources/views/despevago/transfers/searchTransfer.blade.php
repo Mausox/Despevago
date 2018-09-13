@@ -10,26 +10,17 @@
 
 @section('content')
     <div class="container">
-        @if(count($errors) > 0)
-            <div class="card red darken-1">
-            <div class="alert alert-danger">
-                <strong>Whooops!</strong> There were some problems with your input.<br>
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            </div>
-        @endif
-        @if (session('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
-        @endif
+
         <div class="card mt-5">
+
+            @if (session('status'))
+                <div class="alert alert-warning">
+                    {{ session('status') }}
+                </div>
+            @endif
+
             <div class="card-content">
-                <div class="form-control">
+                    <div class="form-control">
                     {!!Form::open(['method' => 'GET', 'route' => ['transfer.result']])!!}
                     <div class="row pad-3 mb-5">
                         <label class="mr-5">
@@ -46,7 +37,7 @@
                         <div class="form-group">
                             {!! Form::label('Hotel', 'Select a hotel', ['class' => 'pad-3']); !!}
                             <div class="input-field col s12 pad-5 mt-0">
-                                {!! Form::select('hotel_id', ["Select a hotel" => $hotels], null, array('class' => 'mt-0')) !!}
+                                {!! Form::select('hotel_id', ["Select a hotel" => $hotelsName], null, array('class' => 'mt-0')) !!}
                             </div>
                         </div>
                     </div>
@@ -54,34 +45,29 @@
                         <div class="form-group">
                             {!! Form::label('Airport', 'Select a airport', ['class' => 'pad-3']); !!}
                             <div class="input-field col s12 pad-5 mt-0">
-                                {!! Form::select('airport_id', ["Select a airport" => $airports], null, array('class' => 'mt-0')) !!}
+                                {!! Form::select('airport_id', ["Select a airport" => $airportsName], null, array('class' => 'mt-0')) !!}
                             </div>
                         </div>
                     </div>
                     <div class="col-xs-12">
                         <div class="form-group">
-                            <strong>Number of people: </strong>
-                            <div>
-                                {!! Form::number('numberPeople', null, ['class' => 'form-control']) !!}
+                            {!! Form::label('Hotel', 'Number of people', ['class' => 'pad-3']); !!}
+                            <div class="input-field col s12 pad-5 mt-0">
+                                {!! Form::number('numberPeople', null, ['class' => 'form-control', 'required', 'min' => '1', 'max' => '8']) !!}
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-12">
-                        <div class="form-group row">
-                            <strong>Date: </strong>
-                            <div>
-                                {!! Form::date('date', null, ['placeholder' => 'YYYY-MM-DD', 'class' => 'form-control']) !!}
+                        <div class="row">
+                            <div class="input-field col s6" id="one-way-div">
+                                <i class="material-icons prefix">date_range</i>
+                                <input type="text" class="datepicker" name="date" id="arrival_date" required>
+                                <label for="arrival_date">Pick up date</label>
+                            </div>
+
+                            <div class="input-field col s6">
+                                {!! Form::select('hour',['Pick up hour' => $timeInterval], null, ['class' => 'form-control' , 'required' => 'required']) !!}
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xs-12">
-                        <div class="form-group">
-                            <strong>Time: </strong>
-                            <div>
-                                {!! Form::time('hour', null, ['placeholder' => '00:00', 'class' => 'form-control']) !!}
-                            </div>
-                        </div>
-                    </div>
                     <div class="card-action">
                         <div class="row mb-0">
                             <button class="right blue darken-4 waves-effect waves-light btn" type="submit" name="action">Search Transfer<i class="material-icons left">search</i></button>
@@ -92,7 +78,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 
@@ -101,5 +86,15 @@
         $(document).ready(function(){
             $('select').formSelect();
         });
+
+        $('.datepicker').datepicker(
+            {
+                format: 'yyyy-mm-dd',
+                minDate: new Date({{ $yyyy }},{{ $mm }}, {{$dd}}),
+            });
+
+
     </script>
+
+
 @endsection

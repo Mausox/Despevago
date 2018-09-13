@@ -56,7 +56,7 @@
                     <div class="form-group">
                         <strong> Number of people</strong>
                         <div class='input-group date' id='number_people'>
-                            <input type='number' name="number_people" class="form-control" />
+                            <input type='number' name="number_people" class="form-control" min="1" max="{{$transfer->transfer_car->capacity}}"/>
                         </div>
                     </div>
             </div>
