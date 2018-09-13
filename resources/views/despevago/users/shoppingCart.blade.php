@@ -17,6 +17,12 @@
             </div>
         @endif
 
+        @if (session('error'))
+            <div class="alert alert-warning" role="alert">
+                <p>{{ session('error') }}</p>
+            </div>
+        @endif
+
         <table class="table table-bordered">
             <col width="80">
             <col width="130">

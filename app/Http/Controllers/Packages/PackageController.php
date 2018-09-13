@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Car;
 use Illuminate\Http\Request;
 use App\City;
 
@@ -83,28 +84,33 @@ class PackageController extends Controller
         //
     }
 
-    public function searchPackagesCarByCity(Request $request)
+    //Search flights according to parameters
+    public function searchFlights(Request $request)
     {
         //$radio = $request->option;
         $city = City::where('name',$request->arrival_city)->first();
-        $city_id = $city->id;
-        $packages = City::find($city_id)->car_flight_packages;
-        return view('despevago.packages.carFlightPackage.resultPackage', compact('packages', 'city'));
-        
-        /*
-        if($request->option == 0)
-        {
-            //Vuelo+Auto
-            $packages = City::find($city_id)->car_flight_packages;
-            //return $packages;
-            return view('despevago.packages.carFlightPackage.index', compact('packages', 'city'));
-        }
-        else{
-            //Vuelo+Hotel
-            $packages = City::find($city_id)->room_flight_packages;
-            return "vuelo+hotel";
-            //return view('despevago.packages.roomFlightPackage.index', compact('packages', 'city'));   
-        }*/
+        $departure_city = $request->departure_city;
+        $arrival_city = $request->arrival_city;
+        $departure_date = $request->departure_date;
+        $arrival_date = $request->arrival_date;
+        $passengers_number = $request->passengers_number;
+
+
+        return view('despevago.packages.carFlightPackage.resultPackage', ["city" => $city]);
+    }
+
+    public function searchCarsByCity(Request $request)
+    {
+        //$city = City::where('name', $request->arrival_city)->first();
+        $city = $request->city;
+
+        $seat_id = $request->seat_id;
+
+        $cars = Car::whereHas('branch_office', function ($query) use ($city){
+            $query->where('city_id', $city->id);
+        })->get();
+
+        return view('despevago.packages.carFlightPackage.resultCars', ["city" => $city, "seat_id" => $seat_id, "cars" => $cars]);
     }
 
     public function searchPackagesRoomByCity(Request $request)
