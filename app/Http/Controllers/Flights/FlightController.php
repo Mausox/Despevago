@@ -10,6 +10,7 @@ use App\Flight;
 use App\Seat;
 use App\Airport;
 use App\Journey;
+use App\City;
 use Illuminate\Support\Facades\Auth;
 
 class FlightController extends Controller  
@@ -171,5 +172,52 @@ class FlightController extends Controller
     {
         $flight = Journey::find($journey_id)->flight;
         return $flight;
+    }
+
+    public function searchDepartureFlights(Request $request)
+    {        
+        $departure_city	= $request->departure_city;
+        $arrival_city = $request->arrival_city;
+        $departure_date = $request->departure_date;
+        $arrival_date = $request->arrival_date;
+        $passengers = $request->passengers;
+        $class_type = $request->class_type;
+
+        $departure_city = City::where("name", $departure_city)->first();
+        $arrival_city = City::where("name", $arrival_city)->first();
+
+        $arrivalAirports = City::find($arrival_city->id)->airports->first();
+        $departureAirports = City::find($departure_city->id)->airports->first();
+
+        $arrivalJourneys = Journey::where([['departure_airport_id', $arrivalAirports->id],['departure_date',$arrival_date]])->get();
+        $departureJourneys = Journey::where([['departure_airport_id', $departureAirports->id],['departure_date',$departure_date]])->get();
+
+        $departure_flights = Flight::whereHas('Journeys', function($query) use ($departure_date, $departureAirports){
+            $query->where([['departure_date', $departure_date],['departure_airport_id', $departureAirports->id]]);
+        })->get();
+
+        $arrival_flights = Flight::whereHas('Journeys', function($query) use ($arrival_date, $arrivalAirports){
+            $query->where([['departure_date', $arrival_date],['departure_airport_id', $arrivalAirports->id]]);
+        })->get();
+
+        if($departure_flights->isEmpty())
+        {
+            return redirect()->route('searchFlight')->with('error','Flights not found in this date (Departure date): '.$departure_date);
+        }
+        if($arrival_flights->isEmpty())
+        {
+            return redirect()->route('searchFlight')->with('error','Flights not found in date (Arrival date): '.$arrival_date);
+        }
+        return view('despevago.flights.search_form',
+            [
+                'departure_flights' => $departure_flights,
+                'arrival_flights' => $arrival_flights,
+                'departure_city' => $departure_city->name,
+                'arrival_city' => $arrival_city->name,
+                'departure_date' => $departure_date,
+                'arrival_date' => $arrival_date,
+                'passengers' => $passengers,
+                'class_type' => $class_type
+            ]);
     }
 }

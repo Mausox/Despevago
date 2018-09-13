@@ -10,7 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/flights', 'SearchController@searchFlight');
 
 
 Route::get('/', function()
@@ -40,7 +39,8 @@ Route::get('/activities/byDate/{date}', 'ActivityController@searchActivitiesByDa
 Route::get('/packages', 'SearchController@searchPackages')->name('packages');
 Route::get('/packages/car/flights', 'PackageController@searchFlights')->name('packagesCar.flights');
 Route::get('/packages/car/cars', 'PackageController@searchCarsByCity')->name('packagesCar.cars');
-Route::get('/packages/room/byCity', 'PackageController@searchPackagesRoomByCity')->name('packagesRoomByCity');
+Route::get('/packages/room/flights', 'PackageController@searchFlightsForRoom')->name('packagesRoom.flights');
+Route::get('/packages/room/rooms', 'PackageController@searchRoomsByCity')->name('packagesRoom.rooms');
 Route::resource('/car_flight_packages', 'CarFlightPackageController');
 
 //<-------------------      Packages     --------------------->
@@ -170,6 +170,9 @@ Route::get('/flight/by-seat/{seat_id}', 'FlightController@searchFlightBySeat');
 Route::get('/flights/by-airline/{airline_id}', 'FlightController@searchFlightsByAirline');
 Route::get('/flights/by-airport/{airport_id}', 'FlightController@searchFlightsByAirport');
 Route::get('/flight/by-journey/{journey_id}', 'FlightController@searchFlightByJourney');
+Route::get('/flight/search', 'FlightController@searchDepartureFlights')->name('departureFlights');
+Route::get('/flights', 'SearchController@searchFlight')->name('searchFlight');
+
 
 // -- Journey
 Route::resource('/journey', 'JourneyController');
