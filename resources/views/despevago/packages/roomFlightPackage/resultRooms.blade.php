@@ -1,6 +1,6 @@
 @extends('despevago.materialize')
 
-@section('title', 'Car search')
+@section('title', 'Room search')
 
 @section('header')
     @include('despevago.headers.auth')
@@ -12,22 +12,24 @@
     <div class="container">
         <a class="mt-3 blue darken-4 waves-effect waves-light btn-small" href="{{ route('packages')}}"><i class="material-icons left">keyboard_arrow_left</i>Back</a>
         <div class="row">
-            @foreach($cars as $car)
+            @foreach($rooms as $room)
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
                             <div class="row ">
-                                <img class="activator" src="{{ asset('img/default/car_default.png')}}" width="300px" height="300px" align="left">
-                                <p style="padding-top:20px;" ><i class="left material-icons">directions_car</i> Brand: {{ $car->brand }} - {{$car->model}} </p>
+                                <img class="activator" src="{{ asset('img/default/room_default.png')}}" width="300px" height="300px" align="left">
+                                <p><i class="left material-icons">person</i> Capacity: {{ $room->capacity }}</p>
+                                <p><i class="left material-icons">attach_money</i> Adult price: {{$room->adult_price}}</p>
+                                <p><i class="left material-icons">attach_money</i> Children price: {{$room->child_price}}</p>
+                                <p><i class="left material-icons">subject</i> Description: {{$room->description}}</p>
+                                <p><i class="left material-icons">subject</i> Extras
+                                @foreach($room->room_options() as $room_option)
+                                    <p>{{$room_option}}
+                                @endforeach
+                                </p>
 
-                                <p style="padding-top:20px;"><i class="left material-icons">star</i> Type: {{ $car->type }} </p>
-
-                                <p style="padding-top:20px;"><i class="left material-icons">person</i> Capacity: {{$car->capacity}}</p>
-
-                                <p style="padding-top:20px;"><i class="left material-icons">attach_money</i> Price: {{$car->price}}</p>
-
-                                {!!Form::open(['route' => 'carFlightPackageReservation'])!!}
-                                {!!Form::hidden('car_id', $car->id)!!}
+                                {!!Form::open(['route' => 'roomFlightPackageReservation'])!!}
+                                {!!Form::hidden('room_id', $room->id)!!}
                                 {!!Form::hidden('seat_id', $seat_id) !!}
                                 {!!Form::hidden('city_id', $city->id) !!}
                                 @if(Auth::check())
