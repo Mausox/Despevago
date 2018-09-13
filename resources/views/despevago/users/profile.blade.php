@@ -20,7 +20,7 @@
             <div class="col s12 m12 l12">
                 <div class="card horizontal valign-wrapper">
                     <div class="card-image pad-5 center-align">
-                        <img class="profile-img" src="{{ asset('img/profile.png') }}">
+                        <img width="200px" height="200px" class="profile-img" src="{{ Storage::url($user->user_image) }}">
                     </div>
                     <div class="card-content mb-5">
                         <h5 class="mt-0">{{$user->first_name}} {{$user->last_name}}
