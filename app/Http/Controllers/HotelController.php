@@ -199,6 +199,7 @@ class HotelController extends Controller
             ['hotel_id', $hotel->id]
         ])->get();
 
+
         if($result_rooms->count() >= $number_room){
             return view('despevago.hotels.resultHotelRooms',
                     ['hotel' => $hotel,
@@ -212,7 +213,7 @@ class HotelController extends Controller
 
         else
         {
-            $hotels = Hotel::where('city_id', $hotel->city->id);
+            $hotels = Hotel::where('city_id', $hotel->city->id)->get();
             $request->session()->flash('status', 'All the rooms of this hotel has been used, please, try other');
             return view('despevago.hotels.resultHotel',
                 ['hotels' => $hotels,

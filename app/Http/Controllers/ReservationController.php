@@ -134,7 +134,7 @@ class ReservationController extends Controller
         ])->first();
 
         if($reservation->current_balance > $request->User()->current_balance){
-            return redirect("/user/shopping_cart")->with('status',"Your room was added to you reservation");
+            return redirect("/user/shopping_cart")->with('error',"Out of money, please, add more money to your account");
         }
         $reservation->date = Carbon::now();
         $reservation->hour = Carbon::now();

@@ -12,6 +12,13 @@
     <div class="container">
         <div class="col 12">
             <div class="card mt-5">
+
+                @if (session('status'))
+                    <div class="alert alert-warning" role="alert">
+                        <p>{{ session('status') }}</p>
+                    </div>
+                @endif
+
                 <div class="row mb-0 pad-5">
                     <a class="mt-3 blue darken-4 waves-effect waves-light btn-small" href="{{ route('searchFormHotel')}}"><i class="material-icons left">keyboard_arrow_left</i>Back</a>
                 </div>
@@ -19,7 +26,6 @@
                     <span class="card-title align center"><h5 class="mb-1 mt-0">Hotels in {{ $hotels->first()->city()->first()->name }}</h5></span>
                     <div class="row 12">
                         @foreach ($hotels as $hotel)
-
                             <div class="col s12 m6 l4 xl4">
                                 <div class="card sticky-action">
                                     <div class="card-image waves-effect waves-block waves-light">
