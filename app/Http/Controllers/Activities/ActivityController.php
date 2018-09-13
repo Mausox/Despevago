@@ -100,9 +100,10 @@ class ActivityController extends Controller
     //Tipo: GET
     public function searchActivitiesByCity(Request $request)
     {
-        $city_id = $request->city_id;
-        $activities = City::find($city_id)->activities;
-        $city = City::find($city_id)->name;
+        $city = $request->city;
+        $city = City::where('name', $city)->first()->name;
+        $activities = City::where('name', $city)->first()->activities;
+
         return view('despevago.activities.index', compact('activities', 'city'));
         //return $activity->all();
     }

@@ -13,7 +13,7 @@ class CreateRoomsTable extends Migration
      */
     public function up()
     {
-        Schema::create('rooms', function (Blueprint $table) {
+        Schema::create('room', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('capacity');
             $table->money('adult_price');
@@ -32,6 +32,6 @@ class CreateRoomsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rooms');
+        Schema::dropIfExists('room');
     }
 }

@@ -112,9 +112,10 @@ class ReservationController extends Controller
         $SPactivities = $reservation->activities;
         $SPseats = $reservation->seats;
         $SPtransfers = $reservation->transfers;
-
+        $SPcars = $reservation->unavailable_cars;
         return view('despevago.users.shoppingCart',
             ['unaRooms' => $SProoms,
+            'unaCars' => $SPcars,
             'activities' => $SPactivities,
             'seats' => $SPseats,
             'transfers' => $SPtransfers,
@@ -276,6 +277,9 @@ class ReservationController extends Controller
         }elseif($service == 'transfer'){
             $reservation->transfers()->detach($request->transfer_id);
             return redirect('user/shopping_cart')->with('status', 'Transfer has been removed');
+        }elseif($service == 'car'){
+            UnavailableCar::destroy($request->unavailable_car_id);
+            return redirect('user/shopping_cart')->with('status', 'Car has been removed');
         }
     }
     //Función que permite reservar una habitación
@@ -549,7 +553,7 @@ class ReservationController extends Controller
     public function carReservation(Request $request)
     {
         $car_id = $request->car_id;
-        $user_id = $request->user_id;
+        $user_id = Auth::user()->id;
         $pick_up_date = $request->pick_up_date;
         $return_date = $request->return_date;
 
@@ -563,24 +567,20 @@ class ReservationController extends Controller
         if ((strtotime($pick_up_date) - strtotime($return_date)) < 0)
         {
             $reservation = Reservation::where('user_id', $user_id)->where('closed',false)->first();
-
             $current_balance = floatval(preg_replace('/[^\d\.]/', '', $reservation->current_balance));
             $current_balance += $car_price;
             $reservation->current_balance = money_format('%i', $current_balance);
 
-            foreach ($dates as $date)
-            {
-                UnavailableCar::create(['date'=>$date,'closed' => false, 'reservation_id' => $reservation->id, 'car_id' => $car_id]);
-            }
+            UnavailableCar::create(['pick_up_date'=>$pick_up_date,'return_date' => $return_date,'closed' => false, 'reservation_id' => $reservation->id, 'car_id' => $car_id]);
 
             $reservation->save();
 
-            return "The car was added to your reservation";
+            return redirect("/user/shopping_cart")->with('status',"Your Car was added to you reservation");
         }
 
         else
         {
-            return "The dates you have entered are incongruent";
+            return redirect("/search/cars/form")->with('status',"We can't resolve your reservation, please, try in another date");
         }
     }
 

@@ -1,6 +1,6 @@
 @extends('despevago.materialize')
 
-@section('title', 'Hotel Search')
+@section('title', 'Hotel result')
 
 @section('header')
     @include('despevago.headers.auth')
@@ -23,7 +23,7 @@
                             <div class="col s12 m6 l4 xl4">
                                 <div class="card sticky-action">
                                     <div class="card-image waves-effect waves-block waves-light">
-                                        <img class="activator" src="{{ asset('img/hotel.jpg') }}">
+                                        <img class="activator" src="{{ Storage::url($hotel->hotel_image) }}">
                                     </div>
                                     <div class="card-content">
                                         <span class="card-title activator grey-text text-darken-4">{{ $hotel->name }}<i class="material-icons right">more_vert</i></span>

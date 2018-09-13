@@ -70,7 +70,7 @@ class HotelController extends Controller
         $hotel = Hotel::find($id);
         $city = City::find($hotel->city_id);
         $rooms = $hotel->rooms;
-        return view('despevago.dashboard.hotel.view', ['hotel' => $hotel, 'city' => $city->name, 'rooms' => $rooms]);
+        return view('despevago.dashboard.hotel.view', ['hotel' => $hotel, 'city' => $city->name, 'room' => $rooms]);
     }
 
     /**
@@ -206,10 +206,22 @@ class HotelController extends Controller
                     'end_date' => $end_date,
                     'number_children' => $number_children,
                     'number_adults' => $number_adults,
-                    'rooms' => $result_rooms]);
-        }else{
-            return view('despevago.hotels.resultHotelRooms', ['hotel' => $hotel, 'rooms' => $result_rooms])->with('status', 'There were no results');
+                    'rooms' => $result_rooms,
+                        'number_room' => $number_room]);
         }
+
+        else
+        {
+            $hotels = Hotel::where('city_id', $hotel->city->id);
+            $request->session()->flash('status', 'All the rooms of this hotel has been used, please, try other');
+            return view('despevago.hotels.resultHotel',
+                ['hotels' => $hotels,
+                    'start_date' => $start_date,
+                    'end_date' => $end_date,
+                    'number_children' => $number_children,
+                    'number_adults' => $number_adults,
+                    'number_room' => $number_room]);
+            }
 
     }
 }

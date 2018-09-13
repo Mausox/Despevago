@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\BranchOffice;
 use App\Company;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use App\Car;
 use App\City;
@@ -157,5 +159,27 @@ class CompanyController extends Controller
         $companies = Company::where('city_id', $city_id)->get();
         return $companies;
     }
+
+    public function searchCompanies(Request $request)
+    {
+        $city = City::where('name',$request->city)->first();
+
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+        $start_hour = $request->start_hour;
+        $end_hour = $request->end_hour;
+
+
+        $branch_offices = BranchOffice::where('city_id', $city->id)->get();
+
+        if ($branch_offices->isEmpty())
+        {
+            return redirect()->route('searchCarsForm')->with('status', "There is no car companies in ".$request->city);
+        }
+
+        return view('despevago.cars.companiesResult',
+            compact('branch_offices','city','start_date','end_date','start_hour','end_hour'));
+    }
+
 
 }

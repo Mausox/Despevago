@@ -23,7 +23,7 @@
                         <div class="col s12 m6 l4 xl4">
                             <div class="card sticky-action">
                                 <div class="card-image waves-effect waves-block waves-light">
-                                    <img class="activator" src="{{ asset('img/activity.jpg') }}">
+                                    <img class="activator" src="{{ asset('img/default/activities_default.png') }}">
                                 </div>
                                 <div class="card-content">
                                     <span class="card-title activator grey-text text-darken-4">{{ $activity->name }}<i class="material-icons right">more_vert</i></span>
