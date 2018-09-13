@@ -10,6 +10,7 @@ use App\Flight;
 use App\Seat;
 use App\Airport;
 use App\Journey;
+use App\City;
 use Illuminate\Support\Facades\Auth;
 
 class FlightController extends Controller  
@@ -174,7 +175,48 @@ class FlightController extends Controller
     }
 
     public function searchDepartureFlights(Request $request)
-    {
-        return $request;
+    {        
+        $departure_city	= $request->departure_city;
+        $arrival_city = $request->arrival_city;
+        $departure_date = $request->departure_date;
+        $arrival_date = $request->arrival_date;
+        $passengers = $request->passengers;
+        $class_type = $request->class_type;
+
+        $city = City::where("name", $request->departure_city)->first();
+        $arrivalAirports = City::find($city->id)->airports->first();
+        $departureAirports = City::find($city->id)->airports->first();
+
+        $arrivalJourneys = Journey::where([['arrival_airport_id', $arrivalAirports->id],['arrival_date',$arrival_date]])->get();
+        $departureJourneys = Journey::where([['departure_airport_id', $departureAirports->id],['departure_date',$departure_date]])->get();
+
+        $departure_flights = array();
+        foreach ($departureJourneys as $journey) 
+        {
+            $flight = Flight::find($journey->flight_id);
+            $departure_flights[]= 
+            [
+                'id'=> $flight->id,
+                'flight_number'=>$flight->flight_number,
+                'cabin_baggage'=>$flight->cabin_baggage,
+                'capacity'=>$flight->capacity,
+                'airplane_model'=>$flight->airplane_model
+            ];
+        }
+        if($departureJourneys->isEmpty() )
+        {
+            return redirect()->route('searchFlight')->with('status','Flights not found in this date: '.$departure_date);
+        }
+        return view('despevago.flights.search_form',
+            [
+                'departure_flights' => $departure_flights,
+                'arrival_journeys' => $arrivalJourneys,
+                'departure_city' => $departure_city,
+                'arrival_city' => $arrival_city,
+                'departure_date' => $departure_date,
+                'arrival_date' => $arrival_date,
+                'passengers' => $passengers,
+                'class_type' => $class_type
+            ]);
     }
 }

@@ -10,7 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/flights', 'SearchController@searchFlight');
 
 
 
@@ -169,6 +168,8 @@ Route::get('/flights/by-airline/{airline_id}', 'FlightController@searchFlightsBy
 Route::get('/flights/by-airport/{airport_id}', 'FlightController@searchFlightsByAirport');
 Route::get('/flight/by-journey/{journey_id}', 'FlightController@searchFlightByJourney');
 Route::get('/flight/search', 'FlightController@searchDepartureFlights')->name('departureFlights');
+Route::get('/flights', 'SearchController@searchFlight')->name('searchFlight');
+
 
 // -- Journey
 Route::resource('/journey', 'JourneyController');
