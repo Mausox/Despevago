@@ -17,7 +17,7 @@
             <div class="card-content">
                 <span class="card-title valign center"><h5 class="mb-1 mt-0">Flight + Auto</h5></span>
                 <div class="form-group">
-                    {!!Form::open(['method' => 'GET', 'route' => ['packagesCarByCity'], "autocomplete" => "off"])!!}
+                    {!!Form::open(['method' => 'GET', 'route' => ['packagesCar.cars'], "autocomplete" => "off"])!!}
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">flight_takeoff</i>

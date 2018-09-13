@@ -133,7 +133,9 @@ class ReservationController extends Controller
             ['closed', false],
         ])->first();
 
-
+        if($reservation->current_balance > $request->User()->current_balance){
+            return redirect("/user/shopping_cart")->with('status',"Your room was added to you reservation");
+        }
         $reservation->date = Carbon::now();
         $reservation->hour = Carbon::now();
         $reservation->closed = true;
@@ -288,8 +290,8 @@ class ReservationController extends Controller
     public function roomReservation(Request $request)
     {
         $room_id = $request->room_id;
-        $adults_number = $request->adults_number;
-        $children_number = $request->children_number;
+        $adults_number = $request->number_adults;
+        $children_number = $request->number_children;
         $start_date = $request->start_date;
         $end_date = $request->end_date;
         $user_id = Auth::user()->id;
@@ -308,6 +310,7 @@ class ReservationController extends Controller
         $current_balance = floatval(preg_replace('/[^\d\.]/', '', $reservation->current_balance));
         $current_balance += ($adult_price*$adults_number + $child_price*$children_number);
         $reservation->current_balance = money_format('%i',$current_balance);
+        $reservation->save();
 
         $i = Carbon::parse($start_date);;
         $end_date_time = Carbon::parse($end_date)->addDay();;
@@ -320,7 +323,7 @@ class ReservationController extends Controller
             $unavailable_room->save();
             $i->addDay();
         }
-        $reservation->save();
+
 
 
         return redirect("/user/shopping_cart")->with('status',"Your room was added to you reservation");
@@ -462,8 +465,14 @@ class ReservationController extends Controller
     {
         $seat_id = $request->seat_id;
         $car_id = $request->car_id;
+        $city_id = $request->city_id;
         $user_id = $request->User()->id;
-        $package_id = $request->car_flight_package_id;
+
+
+        $package_id = CarFlightPackage::where([
+            ['seat_id', null],
+            ['city_id', $city_id],
+        ])->first();
 
         //To obtain the open reservation of the user
         $reservation = Reservation::where([
@@ -498,11 +507,8 @@ class ReservationController extends Controller
             $reservation->current_balance = money_format('%i',$current_balance);
             $reservation->save();
 
-            return "The package has been reserved";
+            return redirect()->route('user.shopping_cart');
         }
-
-
-
     }
 
     ////Function: Allows user to make a room flight package reservation
